@@ -10,7 +10,7 @@
 
 void CalcCRC16(unsigned char *aStr)
 {
-	unsigned char alen = *aStr-2;   //CRC16只计算前两部分
+	unsigned char alen = *(aStr+2)-2+3;   //CRC16只计算前两部分
 	unsigned short xda , xdapoly ;
 	unsigned char i,j, xdabit;
 
@@ -31,7 +31,7 @@ void CalcCRC16(unsigned char *aStr)
 
 unsigned char CheckCRC16(unsigned char *aStr)
 {
-	unsigned char alen = *aStr-2;   //CRC16只计算前两部分
+	unsigned char alen = *(aStr+2)-2+3;   //CRC16只计算前两部分
 	unsigned short xda , xdapoly ;
 	unsigned char i,j, xdabit ;
 	unsigned char a, b;
