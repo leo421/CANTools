@@ -23,24 +23,49 @@ Partial Class MainForm
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.MenuStripMain = New System.Windows.Forms.MenuStrip()
-        Me.文件ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.打开ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.打开ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem4 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.miFile = New System.Windows.Forms.ToolStripMenuItem()
+        Me.miNew = New System.Windows.Forms.ToolStripMenuItem()
+        Me.miOpen = New System.Windows.Forms.ToolStripMenuItem()
+        Me.miOpenRecent = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.miSave = New System.Windows.Forms.ToolStripMenuItem()
+        Me.miSaveAs = New System.Windows.Forms.ToolStripMenuItem()
+        Me.miSaveSelected = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.关闭ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.miClose = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.退出ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.编辑ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.查找ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.捕获ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.开始ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.停止ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.重新开始ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.过滤器ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.帮助ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.关于ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.miExit = New System.Windows.Forms.ToolStripMenuItem()
+        Me.miEdit = New System.Windows.Forms.ToolStripMenuItem()
+        Me.miCopy = New System.Windows.Forms.ToolStripMenuItem()
+        Me.miFind = New System.Windows.Forms.ToolStripMenuItem()
+        Me.miFindNext = New System.Windows.Forms.ToolStripMenuItem()
+        Me.miFinePrevious = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem19 = New System.Windows.Forms.ToolStripSeparator()
+        Me.miDeleteAll = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem8 = New System.Windows.Forms.ToolStripSeparator()
+        Me.miSetup = New System.Windows.Forms.ToolStripMenuItem()
+        Me.miNav = New System.Windows.Forms.ToolStripMenuItem()
+        Me.miPrevious = New System.Windows.Forms.ToolStripMenuItem()
+        Me.miNext = New System.Windows.Forms.ToolStripMenuItem()
+        Me.miFirst = New System.Windows.Forms.ToolStripMenuItem()
+        Me.miLast = New System.Windows.Forms.ToolStripMenuItem()
+        Me.miGotoPacket = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem17 = New System.Windows.Forms.ToolStripSeparator()
+        Me.miAutoScrollToLast = New System.Windows.Forms.ToolStripMenuItem()
+        Me.miAutoSelectLast = New System.Windows.Forms.ToolStripMenuItem()
+        Me.miCapture = New System.Windows.Forms.ToolStripMenuItem()
+        Me.miSelectInterface = New System.Windows.Forms.ToolStripMenuItem()
+        Me.miOptions = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem11 = New System.Windows.Forms.ToolStripSeparator()
+        Me.miStart = New System.Windows.Forms.ToolStripMenuItem()
+        Me.miStop = New System.Windows.Forms.ToolStripMenuItem()
+        Me.miRestart = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem12 = New System.Windows.Forms.ToolStripSeparator()
+        Me.miFilter = New System.Windows.Forms.ToolStripMenuItem()
+        Me.miSend = New System.Windows.Forms.ToolStripMenuItem()
+        Me.miSendPacket = New System.Windows.Forms.ToolStripMenuItem()
+        Me.miHelp = New System.Windows.Forms.ToolStripMenuItem()
+        Me.miAbout = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMain = New System.Windows.Forms.ToolStrip()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.TCMain = New System.Windows.Forms.TabControl()
@@ -48,26 +73,6 @@ Partial Class MainForm
         Me.DGV = New System.Windows.Forms.DataGridView()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.TVDetail = New System.Windows.Forms.TreeView()
-        Me.ToolStripMenuItem3 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripMenuItem5 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem6 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem7 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.查找下一个ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.查找上一个ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem8 = New System.Windows.Forms.ToolStripSeparator()
-        Me.设置ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem9 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem10 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem11 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripMenuItem12 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripMenuItem13 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.上一个包ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.下一个ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.转到指定序号ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem14 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem15 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem16 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.发送数据包ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStripMain.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -80,122 +85,268 @@ Partial Class MainForm
         '
         'MenuStripMain
         '
-        Me.MenuStripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.文件ToolStripMenuItem, Me.编辑ToolStripMenuItem, Me.ToolStripMenuItem13, Me.捕获ToolStripMenuItem, Me.ToolStripMenuItem16, Me.帮助ToolStripMenuItem})
+        Me.MenuStripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.miFile, Me.miEdit, Me.miNav, Me.miCapture, Me.miSend, Me.miHelp})
         Me.MenuStripMain.Location = New System.Drawing.Point(0, 0)
         Me.MenuStripMain.Name = "MenuStripMain"
         Me.MenuStripMain.Size = New System.Drawing.Size(1080, 25)
         Me.MenuStripMain.TabIndex = 0
         Me.MenuStripMain.Text = "MenuStrip1"
         '
-        '文件ToolStripMenuItem
+        'miFile
         '
-        Me.文件ToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.打开ToolStripMenuItem, Me.打开ToolStripMenuItem1, Me.ToolStripMenuItem2, Me.ToolStripMenuItem3, Me.ToolStripMenuItem4, Me.ToolStripMenuItem5, Me.ToolStripMenuItem6, Me.ToolStripSeparator1, Me.关闭ToolStripMenuItem, Me.ToolStripMenuItem1, Me.退出ToolStripMenuItem})
-        Me.文件ToolStripMenuItem.Name = "文件ToolStripMenuItem"
-        Me.文件ToolStripMenuItem.Size = New System.Drawing.Size(44, 21)
-        Me.文件ToolStripMenuItem.Text = "文件"
+        Me.miFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.miNew, Me.miOpen, Me.miOpenRecent, Me.ToolStripMenuItem3, Me.miSave, Me.miSaveAs, Me.miSaveSelected, Me.ToolStripSeparator1, Me.miClose, Me.ToolStripMenuItem1, Me.miExit})
+        Me.miFile.Name = "miFile"
+        Me.miFile.Size = New System.Drawing.Size(44, 21)
+        Me.miFile.Text = "文件"
         '
-        '打开ToolStripMenuItem
+        'miNew
         '
-        Me.打开ToolStripMenuItem.Name = "打开ToolStripMenuItem"
-        Me.打开ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.打开ToolStripMenuItem.Text = "新建"
+        Me.miNew.Name = "miNew"
+        Me.miNew.Size = New System.Drawing.Size(180, 22)
+        Me.miNew.Text = "新建"
         '
-        '打开ToolStripMenuItem1
+        'miOpen
         '
-        Me.打开ToolStripMenuItem1.Name = "打开ToolStripMenuItem1"
-        Me.打开ToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
-        Me.打开ToolStripMenuItem1.Text = "打开"
+        Me.miOpen.Name = "miOpen"
+        Me.miOpen.Size = New System.Drawing.Size(180, 22)
+        Me.miOpen.Text = "打开"
         '
-        'ToolStripMenuItem2
+        'miOpenRecent
         '
-        Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(180, 22)
-        Me.ToolStripMenuItem2.Text = "打开最近"
+        Me.miOpenRecent.Name = "miOpenRecent"
+        Me.miOpenRecent.Size = New System.Drawing.Size(180, 22)
+        Me.miOpenRecent.Text = "打开最近"
         '
-        'ToolStripMenuItem4
+        'ToolStripMenuItem3
         '
-        Me.ToolStripMenuItem4.Name = "ToolStripMenuItem4"
-        Me.ToolStripMenuItem4.Size = New System.Drawing.Size(180, 22)
-        Me.ToolStripMenuItem4.Text = "保存"
+        Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(177, 6)
+        '
+        'miSave
+        '
+        Me.miSave.Name = "miSave"
+        Me.miSave.Size = New System.Drawing.Size(180, 22)
+        Me.miSave.Text = "保存"
+        '
+        'miSaveAs
+        '
+        Me.miSaveAs.Name = "miSaveAs"
+        Me.miSaveAs.Size = New System.Drawing.Size(180, 22)
+        Me.miSaveAs.Text = "另存为"
+        '
+        'miSaveSelected
+        '
+        Me.miSaveSelected.Name = "miSaveSelected"
+        Me.miSaveSelected.Size = New System.Drawing.Size(180, 22)
+        Me.miSaveSelected.Text = "保存选择数据"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
         Me.ToolStripSeparator1.Size = New System.Drawing.Size(177, 6)
         '
-        '关闭ToolStripMenuItem
+        'miClose
         '
-        Me.关闭ToolStripMenuItem.Name = "关闭ToolStripMenuItem"
-        Me.关闭ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.关闭ToolStripMenuItem.Text = "关闭"
+        Me.miClose.Name = "miClose"
+        Me.miClose.Size = New System.Drawing.Size(180, 22)
+        Me.miClose.Text = "关闭"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
         Me.ToolStripMenuItem1.Size = New System.Drawing.Size(177, 6)
         '
-        '退出ToolStripMenuItem
+        'miExit
         '
-        Me.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem"
-        Me.退出ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.退出ToolStripMenuItem.Text = "退出"
+        Me.miExit.Name = "miExit"
+        Me.miExit.Size = New System.Drawing.Size(180, 22)
+        Me.miExit.Text = "退出"
         '
-        '编辑ToolStripMenuItem
+        'miEdit
         '
-        Me.编辑ToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem7, Me.查找ToolStripMenuItem, Me.查找下一个ToolStripMenuItem, Me.查找上一个ToolStripMenuItem, Me.ToolStripMenuItem8, Me.设置ToolStripMenuItem})
-        Me.编辑ToolStripMenuItem.Name = "编辑ToolStripMenuItem"
-        Me.编辑ToolStripMenuItem.Size = New System.Drawing.Size(44, 21)
-        Me.编辑ToolStripMenuItem.Text = "编辑"
+        Me.miEdit.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.miCopy, Me.miFind, Me.miFindNext, Me.miFinePrevious, Me.ToolStripMenuItem19, Me.miDeleteAll, Me.ToolStripMenuItem8, Me.miSetup})
+        Me.miEdit.Name = "miEdit"
+        Me.miEdit.Size = New System.Drawing.Size(44, 21)
+        Me.miEdit.Text = "编辑"
         '
-        '查找ToolStripMenuItem
+        'miCopy
         '
-        Me.查找ToolStripMenuItem.Name = "查找ToolStripMenuItem"
-        Me.查找ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.查找ToolStripMenuItem.Text = "查找"
+        Me.miCopy.Name = "miCopy"
+        Me.miCopy.Size = New System.Drawing.Size(180, 22)
+        Me.miCopy.Text = "复制"
         '
-        '捕获ToolStripMenuItem
+        'miFind
         '
-        Me.捕获ToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem9, Me.ToolStripMenuItem10, Me.ToolStripMenuItem11, Me.开始ToolStripMenuItem, Me.停止ToolStripMenuItem, Me.重新开始ToolStripMenuItem, Me.ToolStripMenuItem12, Me.过滤器ToolStripMenuItem})
-        Me.捕获ToolStripMenuItem.Name = "捕获ToolStripMenuItem"
-        Me.捕获ToolStripMenuItem.Size = New System.Drawing.Size(44, 21)
-        Me.捕获ToolStripMenuItem.Text = "捕获"
+        Me.miFind.Name = "miFind"
+        Me.miFind.Size = New System.Drawing.Size(180, 22)
+        Me.miFind.Text = "查找"
         '
-        '开始ToolStripMenuItem
+        'miFindNext
         '
-        Me.开始ToolStripMenuItem.Name = "开始ToolStripMenuItem"
-        Me.开始ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.开始ToolStripMenuItem.Text = "开始"
+        Me.miFindNext.Name = "miFindNext"
+        Me.miFindNext.Size = New System.Drawing.Size(180, 22)
+        Me.miFindNext.Text = "查找下一个"
         '
-        '停止ToolStripMenuItem
+        'miFinePrevious
         '
-        Me.停止ToolStripMenuItem.Name = "停止ToolStripMenuItem"
-        Me.停止ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.停止ToolStripMenuItem.Text = "停止"
+        Me.miFinePrevious.Name = "miFinePrevious"
+        Me.miFinePrevious.Size = New System.Drawing.Size(180, 22)
+        Me.miFinePrevious.Text = "查找上一个"
         '
-        '重新开始ToolStripMenuItem
+        'ToolStripMenuItem19
         '
-        Me.重新开始ToolStripMenuItem.Name = "重新开始ToolStripMenuItem"
-        Me.重新开始ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.重新开始ToolStripMenuItem.Text = "重新开始"
+        Me.ToolStripMenuItem19.Name = "ToolStripMenuItem19"
+        Me.ToolStripMenuItem19.Size = New System.Drawing.Size(177, 6)
         '
-        '过滤器ToolStripMenuItem
+        'miDeleteAll
         '
-        Me.过滤器ToolStripMenuItem.Name = "过滤器ToolStripMenuItem"
-        Me.过滤器ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.过滤器ToolStripMenuItem.Text = "过滤器"
+        Me.miDeleteAll.Name = "miDeleteAll"
+        Me.miDeleteAll.Size = New System.Drawing.Size(180, 22)
+        Me.miDeleteAll.Text = "删除所有数据包"
         '
-        '帮助ToolStripMenuItem
+        'ToolStripMenuItem8
         '
-        Me.帮助ToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.关于ToolStripMenuItem})
-        Me.帮助ToolStripMenuItem.Name = "帮助ToolStripMenuItem"
-        Me.帮助ToolStripMenuItem.Size = New System.Drawing.Size(44, 21)
-        Me.帮助ToolStripMenuItem.Text = "帮助"
+        Me.ToolStripMenuItem8.Name = "ToolStripMenuItem8"
+        Me.ToolStripMenuItem8.Size = New System.Drawing.Size(177, 6)
         '
-        '关于ToolStripMenuItem
+        'miSetup
         '
-        Me.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem"
-        Me.关于ToolStripMenuItem.Size = New System.Drawing.Size(100, 22)
-        Me.关于ToolStripMenuItem.Text = "关于"
+        Me.miSetup.Name = "miSetup"
+        Me.miSetup.Size = New System.Drawing.Size(180, 22)
+        Me.miSetup.Text = "设置"
+        '
+        'miNav
+        '
+        Me.miNav.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.miPrevious, Me.miNext, Me.miFirst, Me.miLast, Me.miGotoPacket, Me.ToolStripMenuItem17, Me.miAutoScrollToLast, Me.miAutoSelectLast})
+        Me.miNav.Name = "miNav"
+        Me.miNav.Size = New System.Drawing.Size(44, 21)
+        Me.miNav.Text = "导航"
+        '
+        'miPrevious
+        '
+        Me.miPrevious.Name = "miPrevious"
+        Me.miPrevious.Size = New System.Drawing.Size(196, 22)
+        Me.miPrevious.Text = "上一个"
+        '
+        'miNext
+        '
+        Me.miNext.Name = "miNext"
+        Me.miNext.Size = New System.Drawing.Size(196, 22)
+        Me.miNext.Text = "下一个"
+        '
+        'miFirst
+        '
+        Me.miFirst.Name = "miFirst"
+        Me.miFirst.Size = New System.Drawing.Size(196, 22)
+        Me.miFirst.Text = "第一个"
+        '
+        'miLast
+        '
+        Me.miLast.Name = "miLast"
+        Me.miLast.Size = New System.Drawing.Size(196, 22)
+        Me.miLast.Text = "最后一个"
+        '
+        'miGotoPacket
+        '
+        Me.miGotoPacket.Name = "miGotoPacket"
+        Me.miGotoPacket.Size = New System.Drawing.Size(196, 22)
+        Me.miGotoPacket.Text = "转到指定序号"
+        '
+        'ToolStripMenuItem17
+        '
+        Me.ToolStripMenuItem17.Name = "ToolStripMenuItem17"
+        Me.ToolStripMenuItem17.Size = New System.Drawing.Size(193, 6)
+        '
+        'miAutoScrollToLast
+        '
+        Me.miAutoScrollToLast.Name = "miAutoScrollToLast"
+        Me.miAutoScrollToLast.Size = New System.Drawing.Size(196, 22)
+        Me.miAutoScrollToLast.Text = "自动滚动到最后一个包"
+        '
+        'miAutoSelectLast
+        '
+        Me.miAutoSelectLast.Name = "miAutoSelectLast"
+        Me.miAutoSelectLast.Size = New System.Drawing.Size(196, 22)
+        Me.miAutoSelectLast.Text = "自动选择最后一个包"
+        '
+        'miCapture
+        '
+        Me.miCapture.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.miSelectInterface, Me.miOptions, Me.ToolStripMenuItem11, Me.miStart, Me.miStop, Me.miRestart, Me.ToolStripMenuItem12, Me.miFilter})
+        Me.miCapture.Name = "miCapture"
+        Me.miCapture.Size = New System.Drawing.Size(44, 21)
+        Me.miCapture.Text = "捕获"
+        '
+        'miSelectInterface
+        '
+        Me.miSelectInterface.Name = "miSelectInterface"
+        Me.miSelectInterface.Size = New System.Drawing.Size(180, 22)
+        Me.miSelectInterface.Text = "选择设备"
+        '
+        'miOptions
+        '
+        Me.miOptions.Name = "miOptions"
+        Me.miOptions.Size = New System.Drawing.Size(180, 22)
+        Me.miOptions.Text = "选项"
+        '
+        'ToolStripMenuItem11
+        '
+        Me.ToolStripMenuItem11.Name = "ToolStripMenuItem11"
+        Me.ToolStripMenuItem11.Size = New System.Drawing.Size(177, 6)
+        '
+        'miStart
+        '
+        Me.miStart.Name = "miStart"
+        Me.miStart.Size = New System.Drawing.Size(180, 22)
+        Me.miStart.Text = "开始"
+        '
+        'miStop
+        '
+        Me.miStop.Name = "miStop"
+        Me.miStop.Size = New System.Drawing.Size(180, 22)
+        Me.miStop.Text = "停止"
+        '
+        'miRestart
+        '
+        Me.miRestart.Name = "miRestart"
+        Me.miRestart.Size = New System.Drawing.Size(180, 22)
+        Me.miRestart.Text = "重新开始"
+        '
+        'ToolStripMenuItem12
+        '
+        Me.ToolStripMenuItem12.Name = "ToolStripMenuItem12"
+        Me.ToolStripMenuItem12.Size = New System.Drawing.Size(177, 6)
+        '
+        'miFilter
+        '
+        Me.miFilter.Name = "miFilter"
+        Me.miFilter.Size = New System.Drawing.Size(180, 22)
+        Me.miFilter.Text = "过滤器"
+        '
+        'miSend
+        '
+        Me.miSend.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.miSendPacket})
+        Me.miSend.Name = "miSend"
+        Me.miSend.Size = New System.Drawing.Size(44, 21)
+        Me.miSend.Text = "发送"
+        '
+        'miSendPacket
+        '
+        Me.miSendPacket.Name = "miSendPacket"
+        Me.miSendPacket.Size = New System.Drawing.Size(180, 22)
+        Me.miSendPacket.Text = "发送数据包"
+        '
+        'miHelp
+        '
+        Me.miHelp.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.miAbout})
+        Me.miHelp.Name = "miHelp"
+        Me.miHelp.Size = New System.Drawing.Size(44, 21)
+        Me.miHelp.Text = "帮助"
+        '
+        'miAbout
+        '
+        Me.miAbout.Name = "miAbout"
+        Me.miAbout.Size = New System.Drawing.Size(180, 22)
+        Me.miAbout.Text = "关于"
         '
         'ToolStripMain
         '
@@ -251,6 +402,7 @@ Partial Class MainForm
         Me.DGV.Location = New System.Drawing.Point(3, 3)
         Me.DGV.Name = "DGV"
         Me.DGV.RowTemplate.Height = 23
+        Me.DGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DGV.Size = New System.Drawing.Size(728, 519)
         Me.DGV.TabIndex = 0
         '
@@ -271,124 +423,6 @@ Partial Class MainForm
         Me.TVDetail.Name = "TVDetail"
         Me.TVDetail.Size = New System.Drawing.Size(334, 551)
         Me.TVDetail.TabIndex = 0
-        '
-        'ToolStripMenuItem3
-        '
-        Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
-        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(177, 6)
-        '
-        'ToolStripMenuItem5
-        '
-        Me.ToolStripMenuItem5.Name = "ToolStripMenuItem5"
-        Me.ToolStripMenuItem5.Size = New System.Drawing.Size(180, 22)
-        Me.ToolStripMenuItem5.Text = "另存为"
-        '
-        'ToolStripMenuItem6
-        '
-        Me.ToolStripMenuItem6.Name = "ToolStripMenuItem6"
-        Me.ToolStripMenuItem6.Size = New System.Drawing.Size(180, 22)
-        Me.ToolStripMenuItem6.Text = "保存选择数据"
-        '
-        'ToolStripMenuItem7
-        '
-        Me.ToolStripMenuItem7.Name = "ToolStripMenuItem7"
-        Me.ToolStripMenuItem7.Size = New System.Drawing.Size(180, 22)
-        Me.ToolStripMenuItem7.Text = "复制"
-        '
-        '查找下一个ToolStripMenuItem
-        '
-        Me.查找下一个ToolStripMenuItem.Name = "查找下一个ToolStripMenuItem"
-        Me.查找下一个ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.查找下一个ToolStripMenuItem.Text = "查找下一个"
-        '
-        '查找上一个ToolStripMenuItem
-        '
-        Me.查找上一个ToolStripMenuItem.Name = "查找上一个ToolStripMenuItem"
-        Me.查找上一个ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.查找上一个ToolStripMenuItem.Text = "查找上一个"
-        '
-        'ToolStripMenuItem8
-        '
-        Me.ToolStripMenuItem8.Name = "ToolStripMenuItem8"
-        Me.ToolStripMenuItem8.Size = New System.Drawing.Size(177, 6)
-        '
-        '设置ToolStripMenuItem
-        '
-        Me.设置ToolStripMenuItem.Name = "设置ToolStripMenuItem"
-        Me.设置ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.设置ToolStripMenuItem.Text = "设置"
-        '
-        'ToolStripMenuItem9
-        '
-        Me.ToolStripMenuItem9.Name = "ToolStripMenuItem9"
-        Me.ToolStripMenuItem9.Size = New System.Drawing.Size(180, 22)
-        Me.ToolStripMenuItem9.Text = "选择设备"
-        '
-        'ToolStripMenuItem10
-        '
-        Me.ToolStripMenuItem10.Name = "ToolStripMenuItem10"
-        Me.ToolStripMenuItem10.Size = New System.Drawing.Size(180, 22)
-        Me.ToolStripMenuItem10.Text = "选项"
-        '
-        'ToolStripMenuItem11
-        '
-        Me.ToolStripMenuItem11.Name = "ToolStripMenuItem11"
-        Me.ToolStripMenuItem11.Size = New System.Drawing.Size(177, 6)
-        '
-        'ToolStripMenuItem12
-        '
-        Me.ToolStripMenuItem12.Name = "ToolStripMenuItem12"
-        Me.ToolStripMenuItem12.Size = New System.Drawing.Size(177, 6)
-        '
-        'ToolStripMenuItem13
-        '
-        Me.ToolStripMenuItem13.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.上一个包ToolStripMenuItem, Me.下一个ToolStripMenuItem, Me.ToolStripMenuItem14, Me.ToolStripMenuItem15, Me.转到指定序号ToolStripMenuItem})
-        Me.ToolStripMenuItem13.Name = "ToolStripMenuItem13"
-        Me.ToolStripMenuItem13.Size = New System.Drawing.Size(44, 21)
-        Me.ToolStripMenuItem13.Text = "导航"
-        '
-        '上一个包ToolStripMenuItem
-        '
-        Me.上一个包ToolStripMenuItem.Name = "上一个包ToolStripMenuItem"
-        Me.上一个包ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.上一个包ToolStripMenuItem.Text = "上一个"
-        '
-        '下一个ToolStripMenuItem
-        '
-        Me.下一个ToolStripMenuItem.Name = "下一个ToolStripMenuItem"
-        Me.下一个ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.下一个ToolStripMenuItem.Text = "下一个"
-        '
-        '转到指定序号ToolStripMenuItem
-        '
-        Me.转到指定序号ToolStripMenuItem.Name = "转到指定序号ToolStripMenuItem"
-        Me.转到指定序号ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.转到指定序号ToolStripMenuItem.Text = "转到指定序号"
-        '
-        'ToolStripMenuItem14
-        '
-        Me.ToolStripMenuItem14.Name = "ToolStripMenuItem14"
-        Me.ToolStripMenuItem14.Size = New System.Drawing.Size(180, 22)
-        Me.ToolStripMenuItem14.Text = "第一个"
-        '
-        'ToolStripMenuItem15
-        '
-        Me.ToolStripMenuItem15.Name = "ToolStripMenuItem15"
-        Me.ToolStripMenuItem15.Size = New System.Drawing.Size(180, 22)
-        Me.ToolStripMenuItem15.Text = "最后一个"
-        '
-        'ToolStripMenuItem16
-        '
-        Me.ToolStripMenuItem16.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.发送数据包ToolStripMenuItem})
-        Me.ToolStripMenuItem16.Name = "ToolStripMenuItem16"
-        Me.ToolStripMenuItem16.Size = New System.Drawing.Size(44, 21)
-        Me.ToolStripMenuItem16.Text = "发送"
-        '
-        '发送数据包ToolStripMenuItem
-        '
-        Me.发送数据包ToolStripMenuItem.Name = "发送数据包ToolStripMenuItem"
-        Me.发送数据包ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.发送数据包ToolStripMenuItem.Text = "发送数据包"
         '
         'MainForm
         '
@@ -418,47 +452,52 @@ Partial Class MainForm
     Friend WithEvents MenuStripMain As MenuStrip
     Friend WithEvents ToolStripMain As ToolStrip
     Friend WithEvents SplitContainer1 As SplitContainer
-    Friend WithEvents 文件ToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents 打开ToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents 打开ToolStripMenuItem1 As ToolStripMenuItem
-    Friend WithEvents 关闭ToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents miFile As ToolStripMenuItem
+    Friend WithEvents miNew As ToolStripMenuItem
+    Friend WithEvents miOpen As ToolStripMenuItem
+    Friend WithEvents miClose As ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem1 As ToolStripSeparator
-    Friend WithEvents 退出ToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents 编辑ToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents 查找ToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents 捕获ToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents 开始ToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents 停止ToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents 重新开始ToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents 过滤器ToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents 帮助ToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents 关于ToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents miExit As ToolStripMenuItem
+    Friend WithEvents miEdit As ToolStripMenuItem
+    Friend WithEvents miFind As ToolStripMenuItem
+    Friend WithEvents miCapture As ToolStripMenuItem
+    Friend WithEvents miStart As ToolStripMenuItem
+    Friend WithEvents miStop As ToolStripMenuItem
+    Friend WithEvents miRestart As ToolStripMenuItem
+    Friend WithEvents miFilter As ToolStripMenuItem
+    Friend WithEvents miHelp As ToolStripMenuItem
+    Friend WithEvents miAbout As ToolStripMenuItem
     Friend WithEvents TCMain As TabControl
     Friend WithEvents TabPage1 As TabPage
     Friend WithEvents TabPage2 As TabPage
     Friend WithEvents TVDetail As TreeView
     Friend WithEvents DGV As DataGridView
-    Friend WithEvents ToolStripMenuItem2 As ToolStripMenuItem
+    Friend WithEvents miOpenRecent As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
-    Friend WithEvents ToolStripMenuItem4 As ToolStripMenuItem
+    Friend WithEvents miSave As ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem3 As ToolStripSeparator
-    Friend WithEvents ToolStripMenuItem5 As ToolStripMenuItem
-    Friend WithEvents ToolStripMenuItem6 As ToolStripMenuItem
-    Friend WithEvents ToolStripMenuItem7 As ToolStripMenuItem
-    Friend WithEvents 查找下一个ToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents 查找上一个ToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents miSaveAs As ToolStripMenuItem
+    Friend WithEvents miSaveSelected As ToolStripMenuItem
+    Friend WithEvents miCopy As ToolStripMenuItem
+    Friend WithEvents miFindNext As ToolStripMenuItem
+    Friend WithEvents miFinePrevious As ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem8 As ToolStripSeparator
-    Friend WithEvents 设置ToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ToolStripMenuItem9 As ToolStripMenuItem
-    Friend WithEvents ToolStripMenuItem13 As ToolStripMenuItem
-    Friend WithEvents 上一个包ToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents 下一个ToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ToolStripMenuItem14 As ToolStripMenuItem
-    Friend WithEvents ToolStripMenuItem15 As ToolStripMenuItem
-    Friend WithEvents 转到指定序号ToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ToolStripMenuItem10 As ToolStripMenuItem
+    Friend WithEvents miSetup As ToolStripMenuItem
+    Friend WithEvents miSelectInterface As ToolStripMenuItem
+    Friend WithEvents miNav As ToolStripMenuItem
+    Friend WithEvents miPrevious As ToolStripMenuItem
+    Friend WithEvents miNext As ToolStripMenuItem
+    Friend WithEvents miFirst As ToolStripMenuItem
+    Friend WithEvents miLast As ToolStripMenuItem
+    Friend WithEvents miGotoPacket As ToolStripMenuItem
+    Friend WithEvents miOptions As ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem11 As ToolStripSeparator
     Friend WithEvents ToolStripMenuItem12 As ToolStripSeparator
-    Friend WithEvents ToolStripMenuItem16 As ToolStripMenuItem
-    Friend WithEvents 发送数据包ToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents miSend As ToolStripMenuItem
+    Friend WithEvents miSendPacket As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem19 As ToolStripSeparator
+    Friend WithEvents miDeleteAll As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem17 As ToolStripSeparator
+    Friend WithEvents miAutoScrollToLast As ToolStripMenuItem
+    Friend WithEvents miAutoSelectLast As ToolStripMenuItem
 End Class
