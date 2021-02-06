@@ -397,10 +397,14 @@ Partial Class MainForm
         '
         'DGV
         '
+        Me.DGV.AllowUserToAddRows = False
+        Me.DGV.AllowUserToResizeRows = False
+        Me.DGV.BackgroundColor = System.Drawing.SystemColors.ControlLightLight
         Me.DGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DGV.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DGV.Location = New System.Drawing.Point(3, 3)
         Me.DGV.Name = "DGV"
+        Me.DGV.ReadOnly = True
         Me.DGV.RowTemplate.Height = 23
         Me.DGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DGV.Size = New System.Drawing.Size(728, 519)

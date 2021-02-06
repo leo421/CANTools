@@ -4,6 +4,7 @@
     Private Sub miNew_Click(sender As Object, e As EventArgs) Handles miNew.Click
         Dim r As DataRow
 
+
         m_dt = New DataTable()
         With m_dt
             .Columns.Add("No")
@@ -28,11 +29,25 @@
         r("RTR") = "0"
         r("DLC") = 8
         r("Payload") = "f6 00 35 24 43 00 40 43"
+        m_dt.Rows.Add(r)
 
+        r = m_dt.NewRow()
+        r("No") = "2"
+        r("Time") = "2021-02-06 17:57:27.234"
+        r("CAN") = "0"
+        r("StdId") = "0x602"
+        r("ExtId") = "0x035"
+        r("IDE") = "0"
+        r("RTR") = "0"
+        r("DLC") = 8
+        r("Payload") = "f6 00 35 24 43 00 40 43"
         m_dt.Rows.Add(r)
 
         DGV.DataSource = m_dt
 
+        For Each c As DataGridViewColumn In DGV.Columns
+            c.SortMode = DataGridViewColumnSortMode.NotSortable
+        Next
 
     End Sub
 
