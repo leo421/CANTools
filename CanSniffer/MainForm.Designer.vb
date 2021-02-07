@@ -73,8 +73,8 @@ Partial Class MainForm
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.DGV = New System.Windows.Forms.DataGridView()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
-        Me.TVDetail = New System.Windows.Forms.TreeView()
         Me.SP = New System.IO.Ports.SerialPort(Me.components)
+        Me.tDetail = New System.Windows.Forms.RichTextBox()
         Me.MenuStripMain.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -370,7 +370,7 @@ Partial Class MainForm
         '
         'SplitContainer1.Panel2
         '
-        Me.SplitContainer1.Panel2.Controls.Add(Me.TVDetail)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.tDetail)
         Me.SplitContainer1.Size = New System.Drawing.Size(1080, 551)
         Me.SplitContainer1.SplitterDistance = 742
         Me.SplitContainer1.TabIndex = 2
@@ -403,6 +403,7 @@ Partial Class MainForm
         Me.DGV.AllowUserToDeleteRows = False
         Me.DGV.AllowUserToResizeRows = False
         Me.DGV.BackgroundColor = System.Drawing.SystemColors.ControlLightLight
+        Me.DGV.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.DGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DGV.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DGV.Location = New System.Drawing.Point(3, 3)
@@ -423,13 +424,14 @@ Partial Class MainForm
         Me.TabPage2.Text = "TabPage2"
         Me.TabPage2.UseVisualStyleBackColor = True
         '
-        'TVDetail
+        'tDetail
         '
-        Me.TVDetail.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TVDetail.Location = New System.Drawing.Point(0, 0)
-        Me.TVDetail.Name = "TVDetail"
-        Me.TVDetail.Size = New System.Drawing.Size(334, 551)
-        Me.TVDetail.TabIndex = 0
+        Me.tDetail.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tDetail.Location = New System.Drawing.Point(0, 0)
+        Me.tDetail.Name = "tDetail"
+        Me.tDetail.Size = New System.Drawing.Size(334, 551)
+        Me.tDetail.TabIndex = 0
+        Me.tDetail.Text = ""
         '
         'MainForm
         '
@@ -477,7 +479,6 @@ Partial Class MainForm
     Friend WithEvents TCMain As TabControl
     Friend WithEvents TabPage1 As TabPage
     Friend WithEvents TabPage2 As TabPage
-    Friend WithEvents TVDetail As TreeView
     Friend WithEvents DGV As DataGridView
     Friend WithEvents miOpenRecent As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
@@ -508,4 +509,5 @@ Partial Class MainForm
     Friend WithEvents miAutoScrollToLast As ToolStripMenuItem
     Friend WithEvents miAutoSelectLast As ToolStripMenuItem
     Friend WithEvents SP As IO.Ports.SerialPort
+    Friend WithEvents tDetail As RichTextBox
 End Class

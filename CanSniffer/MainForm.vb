@@ -42,6 +42,7 @@
             .AllowUserToAddRows = False
             .AllowUserToResizeRows = False
             .AllowUserToDeleteRows = False
+            .BorderStyle = BorderStyle.None
             .ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
             .ReadOnly = True
             .SelectionMode = DataGridViewSelectionMode.FullRowSelect
@@ -93,7 +94,7 @@
 
         bindData(dgv, c.Data)
 
-        'AddHandler dgv.RowEnter, AddressOf DGV_RowEnter
+        AddHandler dgv.RowEnter, AddressOf DGV_RowEnter
 
     End Sub
 
@@ -178,7 +179,24 @@
     End Sub
 
     Private Sub DGV_RowEnter(sender As Object, e As DataGridViewCellEventArgs)
-        MsgBox(e.RowIndex)
+        Dim dgv As DataGridView
+        Dim r As DataGridViewRow
+        'MsgBox(e.RowIndex)
+
+        dgv = m_DataGridViewList(m_Current)
+        r = dgv.Rows(e.RowIndex)
+        tDetail.Clear()
+        tDetail.AppendText("序号：" + r.Cells("No").Value + vbCrLf)
+        tDetail.AppendText("时间：" + r.Cells("Time").Value + vbCrLf)
+        tDetail.AppendText("接口：" + r.Cells("CAN").Value + vbCrLf)
+        tDetail.AppendText("帧ID：" + r.Cells("ID").Value + vbCrLf)
+        If r.Cells("IDE").Value = "1" Then
+            tDetail.AppendText("帧类型：扩展帧 (IDE=1)" + vbCrLf)
+        Else
+            tDetail.AppendText("帧类型：标准帧 (IDE=0)" + vbCrLf)
+        End If
+        tDetail.AppendText("数据长度：" + r.Cells("DLC").Value + vbCrLf)
+        tDetail.AppendText("数据内容：" + r.Cells("Payload").Value + vbCrLf)
     End Sub
 
     Public Delegate Sub updateDGVdelegate(r As DataRow)
