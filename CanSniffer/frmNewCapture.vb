@@ -12,13 +12,12 @@
     End Sub
 
     Private Sub frmNewCapture_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'Dim ssNames As String()
-
         Dim search As System.Management.ManagementObjectSearcher
         Dim o As System.Management.ManagementObject
 
         'search = New System.Management.ManagementObjectSearcher("SELECT * FROM Win32_PnPEntity  WHERE Name LIKE '%STMicroelectronics Virtual COM Port%'")
-        search = New System.Management.ManagementObjectSearcher("SELECT * FROM Win32_SerialPort  WHERE Name LIKE '%STMicroelectronics Virtual COM Port%'")
+        'search = New System.Management.ManagementObjectSearcher("SELECT * FROM Win32_SerialPort  WHERE Name LIKE '%STMicroelectronics Virtual COM Port%'")
+        search = New System.Management.ManagementObjectSearcher("SELECT * FROM Win32_SerialPort  WHERE Name LIKE '%STM%'")
 
         For Each o In search.Get
             cbCOM.Items.Add(o.Item("Name"))
@@ -49,5 +48,31 @@
     Private Sub btCancel_Click(sender As Object, e As EventArgs) Handles btCancel.Click
         Me.DialogResult = DialogResult.Cancel
         Close()
+    End Sub
+
+    Private Sub cbAll_CheckedChanged(sender As Object, e As EventArgs) Handles cbAll.CheckedChanged
+        Dim search As System.Management.ManagementObjectSearcher
+        Dim o As System.Management.ManagementObject
+
+        If cbAll.Checked Then
+            search = New System.Management.ManagementObjectSearcher("SELECT * FROM Win32_SerialPort WHERE Name LIKE '%(COM%'")
+        Else
+            'search = New System.Management.ManagementObjectSearcher("SELECT * FROM Win32_PnPEntity  WHERE Name LIKE '%STMicroelectronics Virtual COM Port%'")
+            'search = New System.Management.ManagementObjectSearcher("SELECT * FROM Win32_SerialPort  WHERE Name LIKE '%STMicroelectronics Virtual COM Port%'")
+            search = New System.Management.ManagementObjectSearcher("SELECT * FROM Win32_SerialPort  WHERE Name LIKE '%STM%'")
+        End If
+
+        cbCOM.Items.Clear()
+
+        For Each o In search.Get
+            cbCOM.Items.Add(o.Item("Name"))
+        Next
+
+        If cbCOM.Items.Count > 0 Then
+            cbCOM.SelectedIndex = 0
+        End If
+
+        cbBps.SelectedIndex = 0
+
     End Sub
 End Class

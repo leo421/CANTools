@@ -23,6 +23,7 @@ Partial Class frmNewCapture
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.cbBps = New System.Windows.Forms.ComboBox()
         Me.btCancel = New System.Windows.Forms.Button()
         Me.btOK = New System.Windows.Forms.Button()
         Me.cbCan1 = New System.Windows.Forms.CheckBox()
@@ -32,12 +33,16 @@ Partial Class frmNewCapture
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.cbCOM = New System.Windows.Forms.ComboBox()
-        Me.cbBps = New System.Windows.Forms.ComboBox()
+        Me.cbAll = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox1
         '
+        Me.GroupBox1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.Controls.Add(Me.cbAll)
         Me.GroupBox1.Controls.Add(Me.cbBps)
         Me.GroupBox1.Controls.Add(Me.btCancel)
         Me.GroupBox1.Controls.Add(Me.btOK)
@@ -50,14 +55,24 @@ Partial Class frmNewCapture
         Me.GroupBox1.Controls.Add(Me.cbCOM)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 12)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(389, 180)
+        Me.GroupBox1.Size = New System.Drawing.Size(466, 190)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "参数设置"
         '
+        'cbBps
+        '
+        Me.cbBps.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbBps.FormattingEnabled = True
+        Me.cbBps.Items.AddRange(New Object() {"500", "1000"})
+        Me.cbBps.Location = New System.Drawing.Point(121, 108)
+        Me.cbBps.Name = "cbBps"
+        Me.cbBps.Size = New System.Drawing.Size(100, 20)
+        Me.cbBps.TabIndex = 11
+        '
         'btCancel
         '
-        Me.btCancel.Location = New System.Drawing.Point(314, 149)
+        Me.btCancel.Location = New System.Drawing.Point(373, 149)
         Me.btCancel.Name = "btCancel"
         Me.btCancel.Size = New System.Drawing.Size(75, 23)
         Me.btCancel.TabIndex = 10
@@ -66,7 +81,7 @@ Partial Class frmNewCapture
         '
         'btOK
         '
-        Me.btOK.Location = New System.Drawing.Point(233, 149)
+        Me.btOK.Location = New System.Drawing.Point(281, 149)
         Me.btOK.Name = "btOK"
         Me.btOK.Size = New System.Drawing.Size(75, 23)
         Me.btOK.TabIndex = 9
@@ -140,22 +155,23 @@ Partial Class frmNewCapture
         Me.cbCOM.Size = New System.Drawing.Size(239, 20)
         Me.cbCOM.TabIndex = 0
         '
-        'cbBps
+        'cbAll
         '
-        Me.cbBps.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cbBps.FormattingEnabled = True
-        Me.cbBps.Items.AddRange(New Object() {"500", "1000"})
-        Me.cbBps.Location = New System.Drawing.Point(121, 108)
-        Me.cbBps.Name = "cbBps"
-        Me.cbBps.Size = New System.Drawing.Size(100, 20)
-        Me.cbBps.TabIndex = 11
+        Me.cbAll.AutoSize = True
+        Me.cbAll.Location = New System.Drawing.Point(376, 33)
+        Me.cbAll.Name = "cbAll"
+        Me.cbAll.Size = New System.Drawing.Size(72, 16)
+        Me.cbAll.TabIndex = 12
+        Me.cbAll.Text = "所有设备"
+        Me.cbAll.UseVisualStyleBackColor = True
         '
         'frmNewCapture
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(413, 204)
+        Me.ClientSize = New System.Drawing.Size(490, 214)
         Me.Controls.Add(Me.GroupBox1)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "frmNewCapture"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "新建捕获"
@@ -176,4 +192,5 @@ Partial Class frmNewCapture
     Friend WithEvents Label1 As Label
     Friend WithEvents cbCOM As ComboBox
     Friend WithEvents cbBps As ComboBox
+    Friend WithEvents cbAll As CheckBox
 End Class

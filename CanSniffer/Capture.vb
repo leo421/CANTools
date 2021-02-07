@@ -101,7 +101,11 @@
 
     Public Sub StartCapture()
         '开启串口
-        m_SerialPort.Open()
+        Try
+            m_SerialPort.Open()
+        Catch ex As Exception
+            MsgBox("串口打开失败：" + ex.Message)
+        End Try
     End Sub
 
     Public Sub StopCapture()
@@ -241,7 +245,7 @@
             r("ID") = "0x" + s
         Else
             '标准帧
-            r("ID") = r("StdId")
+            r("ID") = "0x" + Convert.ToString(stdid, 16)
         End If
         m_Data.Rows.Add(r)
         m_Data.AcceptChanges()
@@ -250,7 +254,13 @@
     End Sub
 
     Private Sub updateDGV(r As DataRow)
-        m_MainForm.updateDGV(r)
+        'TODO 效率太低
+        'm_MainForm.updateDGV(r)
+    End Sub
+
+    Public Sub clearData()
+        m_Data.Rows.Clear()
+        m_No = 0
     End Sub
 
 End Class

@@ -202,7 +202,10 @@
     Public Delegate Sub updateDGVdelegate(r As DataRow)
     Public Sub updateDGV(r As DataRow)
         If Me.InvokeRequired Then
-            Me.Invoke(New updateDGVdelegate(AddressOf updateDGV), New Object() {r})
+            Try
+                Me.Invoke(New updateDGVdelegate(AddressOf updateDGV), New Object() {r})
+            Catch ex As Exception
+            End Try
         Else
             Dim dgv As DataGridView
             Dim i, j As Integer
@@ -214,8 +217,63 @@
                 dgv.Rows(i).Cells(j).Value = r.Item(j)
             Next
 
+            If miAutoScrollToLast.Checked Then
+                dgv.FirstDisplayedScrollingRowIndex = dgv.Rows.Count - 1
+            End If
+            If miAutoSelectLast.Checked Then
+                For Each row As DataGridViewRow In dgv.SelectedRows
+                    row.Selected = False
+                Next
+                dgv.Rows(dgv.Rows.Count - 1).Selected = True
+            End If
 
         End If
     End Sub
 
+    Private Sub miDeleteAll_Click(sender As Object, e As EventArgs) Handles miDeleteAll.Click
+        Dim dgv As DataGridView
+        Dim cap As Capture
+
+        dgv = m_DataGridViewList(m_Current)
+        cap = m_Captures(m_Current)
+
+        cap.clearData()
+        dgv.Rows.Clear()
+    End Sub
+
+    Private Sub tmUpdateData_Tick(sender As Object, e As EventArgs) Handles tmUpdateData.Tick
+        Dim i, j As Integer
+        Dim dgv As DataGridView
+        Dim cap As Capture
+        Dim r As DataRow
+
+        If m_DataGridViewList.Count > 0 Then
+
+            dgv = m_DataGridViewList(m_Current)
+            cap = m_Captures(m_Current)
+
+            If cap.Data.Rows.Count > dgv.Rows.Count Then
+                For i = dgv.Rows.Count To cap.Data.Rows.Count - 1
+                    dgv.Rows.Add()
+                    r = cap.Data.Rows(i)
+                    For j = 0 To r.ItemArray.Length - 1
+                        dgv.Rows(i).Cells(j).Value = r.Item(j)
+                    Next
+
+                Next
+
+                If miAutoScrollToLast.Checked Then
+                    dgv.FirstDisplayedScrollingRowIndex = dgv.Rows.Count - 1
+                End If
+                If miAutoSelectLast.Checked Then
+                    For Each row As DataGridViewRow In dgv.SelectedRows
+                        row.Selected = False
+                    Next
+                    dgv.Rows(dgv.Rows.Count - 1).Selected = True
+                End If
+
+            End If
+
+        End If
+    End Sub
 End Class
