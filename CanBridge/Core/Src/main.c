@@ -23,6 +23,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "usbd_cdc_if.h"
 #include "canbridge.h"
 /* USER CODE END Includes */
 
@@ -67,6 +68,14 @@ static void MX_CAN_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
+  char buf[1024];
+  CanBridge_Pkt_Response pktResponse;
+  CanBridge_Pkt_Packet pktPacket;
+  CanBridge_Pkt_Config pktConfig;
+  CanBridge_Pkt_Config_Response pktConfigRsp;
+  CanBridge_Pkt_Get_Can pktGetCan;
+  CanBridge_Pkt_Get_Can_Response pktGetCanRsp;
+  CanBridge_Pkt_Send_Packet pktSendPacket;
 
   /* USER CODE END 1 */
 
@@ -92,6 +101,22 @@ int main(void)
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
 
+  pktPacket.can_idx = 0;
+  pktPacket.header = CANBRIDGE_HEADER;
+  pktPacket.pkt_type = CANBRIDGE_PKT_TYPE_PACKET;
+  pktPacket.len = sizeof(pktPacket) - 3 ;
+  pktPacket.hdr.StdId = 0x583;
+  pktPacket.hdr.ExtId = 0x345;
+  pktPacket.hdr.IDE = 1;
+  pktPacket.hdr.RTR = 0;
+  pktPacket.hdr.DLC = 8;
+  pktPacket.hdr.FilterMatchIndex = 0;
+  pktPacket.hdr.Timestamp = 0x234345;
+  for (int i=0;i<8;i++) {
+	  pktPacket.playload[i] = i;
+  }
+  CalcCRC16((unsigned char*)&pktPacket);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -101,6 +126,12 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+    HAL_Delay(500);
+    //sprintf(buf, "response=%d\tpacket=%d\tconfig=%d\tconfigresponse=%d\tgetcan=%d\tgetcanresponse=%d\tsendpacket=%d\r\nrx=%d\ttx=%d\r\n", sizeof(pktResponse), sizeof(pktPacket), sizeof(pktConfig), sizeof(pktConfigRsp), sizeof(pktGetCan), sizeof(pktGetCanRsp), sizeof(pktSendPacket), sizeof(CAN_RxHeaderTypeDef), sizeof(CAN_TxHeaderTypeDef));
+    //CDC_Transmit_FS((uint8_t*)buf, strlen(buf));
+    pktPacket.hdr.StdId++;
+    CalcCRC16((unsigned char*)&pktPacket);
+    CDC_Transmit_FS((uint8_t*)&pktPacket, sizeof(pktPacket));
   }
   /* USER CODE END 3 */
 }
