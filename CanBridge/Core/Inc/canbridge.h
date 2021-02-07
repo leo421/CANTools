@@ -47,7 +47,7 @@ typedef struct {
 	CanBridge_Pkt_Type		pkt_type;		//数据包类型
 	uint8_t					can_idx;		//can接口索引
 	CAN_RxHeaderTypeDef		hdr;			//can数据包头
-	uint8_t					playload[8];	//can数据
+	uint8_t					payload[8];	//can数据
 	uint16_t				crc16;			//校验数据
 }__attribute__((packed)) CanBridge_Pkt_Packet;
 
@@ -96,7 +96,7 @@ typedef struct {
 	uint8_t					can_idx;		//can接口索引
 	uint32_t				mailbox;		//can发送邮箱，指为1、2、4，可组合。也可以不指定
 	CAN_TxHeaderTypeDef		hdr;			//can数据包头
-	uint8_t					playload[8];	//can数据
+	uint8_t					payload[8];	//can数据
 	uint16_t				crc16;			//校验数据
 }__attribute__((packed)) CanBridge_Pkt_Send_Packet;
 

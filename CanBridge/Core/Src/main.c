@@ -29,11 +29,40 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
+typedef struct
+{
+	uint32_t mailbox;
+	CAN_TxHeaderTypeDef hdr;
+	uint8_t payload[8];
+} CAN_TxPacketTypeDef;
+
+typedef struct
+{
+	CAN_RxHeaderTypeDef hdr;
+	uint8_t payload[8];
+} CAN_RxPacketTypeDef;
+
+/// CAN过滤器寄存器位宽类型定义
+typedef union
+{
+    __IO uint32_t value;
+    struct
+    {
+        uint8_t REV : 1;			///< [0]    ：未使用
+        uint8_t RTR : 1;			///< [1]    : RTR（数据帧或远程帧标志位）
+        uint8_t IDE : 1;			///< [2]    : IDE（标准帧或扩展帧标志位）
+        uint32_t EXID : 18;			///< [21:3] : 存放扩展帧ID
+        uint16_t STID : 11;			///< [31:22]: 存放标准帧ID
+    } Sub;
+} CAN_FilterRegTypeDef;
 
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define CAN_BASE_ID 0						///< CAN标准ID，最大11位，也就是0x7FF
+#define CAN_FILTER_MODE_MASK_ENABLE 1		///< CAN过滤器模式选择：=0：列表模式  =1：屏蔽模式
+#define CAN_ID_TYPE_STD_ENABLE      1       ///< CAN过滤ID类型选择：=1：标准ID，=0：扩展ID
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -53,6 +82,9 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_CAN_Init(void);
 /* USER CODE BEGIN PFP */
+void CAN_Filter_Config(void);
+uint8_t CAN_Transmit(CAN_TxPacketTypeDef* packet);
+void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *canHandle);
 
 /* USER CODE END PFP */
 
@@ -101,6 +133,10 @@ int main(void)
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
 
+  CAN_Filter_Config();
+  HAL_CAN_Start(&hcan);
+  HAL_CAN_ActivateNotification(&hcan, CAN_IT_RX_FIFO0_MSG_PENDING);					// 使能CAN接收中断
+
   pktPacket.can_idx = 0;
   pktPacket.header = CANBRIDGE_HEADER;
   pktPacket.pkt_type = CANBRIDGE_PKT_TYPE_PACKET;
@@ -113,7 +149,7 @@ int main(void)
   pktPacket.hdr.FilterMatchIndex = 0;
   pktPacket.hdr.Timestamp = 0x234345;
   for (int i=0;i<8;i++) {
-	  pktPacket.playload[i] = i;
+	  pktPacket.payload[i] = i;
   }
   CalcCRC16((unsigned char*)&pktPacket);
 
@@ -129,9 +165,9 @@ int main(void)
     HAL_Delay(500);
     //sprintf(buf, "response=%d\tpacket=%d\tconfig=%d\tconfigresponse=%d\tgetcan=%d\tgetcanresponse=%d\tsendpacket=%d\r\nrx=%d\ttx=%d\r\n", sizeof(pktResponse), sizeof(pktPacket), sizeof(pktConfig), sizeof(pktConfigRsp), sizeof(pktGetCan), sizeof(pktGetCanRsp), sizeof(pktSendPacket), sizeof(CAN_RxHeaderTypeDef), sizeof(CAN_TxHeaderTypeDef));
     //CDC_Transmit_FS((uint8_t*)buf, strlen(buf));
-    pktPacket.hdr.StdId++;
-    CalcCRC16((unsigned char*)&pktPacket);
-    CDC_Transmit_FS((uint8_t*)&pktPacket, sizeof(pktPacket));
+    //pktPacket.hdr.StdId++;
+    //CalcCRC16((unsigned char*)&pktPacket);
+    //CDC_Transmit_FS((uint8_t*)&pktPacket, sizeof(pktPacket));
   }
   /* USER CODE END 3 */
 }
@@ -246,6 +282,92 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+void CAN_Filter_Config(void)
+{
+    CAN_FilterTypeDef sFilterConfig;
+    CAN_FilterRegTypeDef IDH = {0};
+    CAN_FilterRegTypeDef IDL = {0};
+
+#if CAN_ID_TYPE_STD_ENABLE
+    IDH.Sub.STID = (CAN_BASE_ID >> 16) & 0xFFFF;		// 标准ID高16位
+    IDL.Sub.STID = (CAN_BASE_ID & 0xFFFF);				// 标准ID低16位
+#else
+    IDH.Sub.EXID = (CAN_BASE_ID >> 16) & 0xFFFF;		// 扩展ID高16位
+    IDL.Sub.EXID = (CAN_BASE_ID & 0xFFFF);				// 扩展ID低16位
+    IDL.Sub.IDE  = 1;									// 扩展帧标志位置位
+#endif
+    sFilterConfig.FilterBank           = 0;												// 设置过滤器组编号
+#if CAN_FILTER_MODE_MASK_ENABLE
+    sFilterConfig.FilterMode           = CAN_FILTERMODE_IDMASK;							// 屏蔽位模式
+#else
+    sFilterConfig.FilterMode           = CAN_FILTERMODE_IDLIST;							// 列表模式
+#endif
+    sFilterConfig.FilterScale          = CAN_FILTERSCALE_32BIT;							// 32位宽
+//    sFilterConfig.FilterIdHigh         = IDH.value;										// 标识符寄存器一ID高十六位，放入扩展帧位
+//    sFilterConfig.FilterIdLow          = IDL.value;										// 标识符寄存器一ID低十六位，放入扩展帧位
+//    sFilterConfig.FilterMaskIdHigh     = IDH.value;										// 标识符寄存器二ID高十六位，放入扩展帧位
+//    sFilterConfig.FilterMaskIdLow      = IDL.value;										// 标识符寄存器二ID低十六位，放入扩展帧位
+    sFilterConfig.FilterIdHigh         = 0x0000;										// 标识符寄存器一ID高十六位，放入扩展帧位
+    sFilterConfig.FilterIdLow          = 0x0000;										// 标识符寄存器一ID低十六位，放入扩展帧位
+    sFilterConfig.FilterMaskIdHigh     = 0x0000;										// 标识符寄存器二ID高十六位，放入扩展帧位
+    sFilterConfig.FilterMaskIdLow      = 0x0000;										// 标识符寄存器二ID低十六位，放入扩展帧位
+    sFilterConfig.FilterFIFOAssignment = CAN_RX_FIFO0;									// 过滤器组关联到FIFO0
+    sFilterConfig.FilterActivation     = ENABLE;										// 激活过滤器
+    sFilterConfig.SlaveStartFilterBank = 14;											// 设置从CAN的起始过滤器编号，本单片机只有一个CAN，顾此参数无效
+    if (HAL_CAN_ConfigFilter(&hcan, &sFilterConfig) != HAL_OK)
+    {
+        Error_Handler();
+    }
+}
+
+uint8_t CAN_Transmit(CAN_TxPacketTypeDef * packet)
+{
+	if(HAL_CAN_AddTxMessage(&hcan, &packet->hdr, packet->payload, &packet->mailbox) != HAL_OK)
+		return 1;
+	return 0;
+}
+
+//void CAN_Init(void)
+//{
+//    MX_CAN_Init();
+//    CAN_Filter_Config();
+//    HAL_CAN_Start(&hcan);
+//    HAL_CAN_ActivateNotification(&hcan, CAN_IT_RX_FIFO0_MSG_PENDING);					// 使能CAN接收中断
+//}
+
+void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *canHandle)
+{
+	static CAN_RxPacketTypeDef packet;
+	CanBridge_Pkt_Packet pktPacket;
+
+    // CAN数据接收
+    if (canHandle->Instance == hcan.Instance)
+    {
+        if (HAL_CAN_GetRxMessage(canHandle, CAN_RX_FIFO0, &packet.hdr, packet.payload) == HAL_OK)		// 获得接收到的数据头和数据
+        {
+//			printf("\r\n\r\n\r\n################### CAN RECV ###################\r\n");
+//			printf("STID:0x%X\r\n",packet.hdr.StdId);
+//			printf("EXID:0x%X\r\n",packet.hdr.ExtId);
+//			printf("DLC :%d\r\n", packet.hdr.DLC);
+//			printf("DATA:");
+//			for(int i = 0; i < packet.hdr.DLC; i++)
+//			{
+//				printf("0x%02X ", packet.payload[i]);
+//			}
+
+            pktPacket.header = CANBRIDGE_HEADER;
+            pktPacket.len = sizeof(pktPacket) - 3 ;
+            pktPacket.pkt_type = CANBRIDGE_PKT_TYPE_PACKET;
+            pktPacket.can_idx = 0;
+            memcpy(&pktPacket.hdr, &packet.hdr, sizeof(packet.hdr));
+            memcpy(pktPacket.payload, packet.payload, 8);
+            CalcCRC16((unsigned char*)&pktPacket);
+            CDC_Transmit_FS((uint8_t*)&pktPacket, sizeof(pktPacket));
+
+        	HAL_CAN_ActivateNotification(canHandle, CAN_IT_RX_FIFO0_MSG_PENDING);						// 再次使能FIFO0接收中断
+        }
+    }
+}
 
 /* USER CODE END 4 */
 
