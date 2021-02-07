@@ -171,9 +171,19 @@
         Dim r As DataRow
         Dim payload As String
         Dim h As String
+        Dim stdid, extid As UInt32
+        Dim s As String
 
         '判断是否是can数据包
         If buf(offset + 3) <> 2 Then
+            Exit Sub
+        End If
+
+        '过滤不需要的can接口数据
+        If (buf(offset + 4) = 0) And (m_Can0 = False) Then
+            Exit Sub
+        End If
+        If (buf(offset + 4) = 1) And (m_Can1 = False) Then
             Exit Sub
         End If
 
@@ -182,8 +192,6 @@
         m_No += 1
         r("Time") = Now.ToString("yyyy-MM-dd HH:mm:ss.fff")
         r("CAN") = CStr(buf(offset + 4))
-        r("StdId") = Hex(BitConverter.ToUInt32(buf, offset + 5))
-        r("ExtId") = Hex(BitConverter.ToUInt32(buf, offset + 9))
         r("IDE") = CStr(BitConverter.ToUInt32(buf, offset + 13))
         r("RTR") = CStr(BitConverter.ToUInt32(buf, offset + 17))
         r("DLC") = CStr(BitConverter.ToUInt32(buf, offset + 21))
@@ -196,6 +204,45 @@
             payload += h + " "
         Next
         r("Payload") = payload.Trim()
+
+
+        stdid = BitConverter.ToUInt32(buf, offset + 5)
+        s = Convert.ToString(stdid, 2)
+        If s.Length < 11 Then
+            s = Space(11 - s.Length).Replace(" ", "0") + s
+        End If
+        s = s.Insert(3, " ")
+        s = s.Insert(8, " ")
+        r("StdId") = "0x" + Convert.ToString(stdid, 16) + " [ " + s + " ]"
+
+        extid = BitConverter.ToUInt32(buf, offset + 9)
+        s = Convert.ToString(extid, 2)
+        If s.Length < 18 Then
+            s = Space(18 - s.Length).Replace(" ", "0") + s
+        End If
+        s = s.Insert(2, " ")
+        s = s.Insert(7, " ")
+        s = s.Insert(12, " ")
+        s = s.Insert(17, " ")
+        r("ExtId") = "0x" + Convert.ToString(extid, 16) + " [ " + s + " ]"
+
+
+        If r("IDE") = "1" Then
+            '扩展帧
+            s = Convert.ToString(extid, 2)
+            If s.Length < 18 Then
+                s = Space(18 - s.Length).Replace(" ", "0") + s
+            End If
+            s = Convert.ToString(stdid, 2) + s
+            s = Convert.ToString(Convert.ToUInt32(s, 2), 16)
+            If s.Length < 8 Then
+                s = Space(8 - s.Length).Replace(" ", "0") + s
+            End If
+            r("ID") = "0x" + s
+        Else
+            '标准帧
+            r("ID") = r("StdId")
+        End If
         m_Data.Rows.Add(r)
         m_Data.AcceptChanges()
 
