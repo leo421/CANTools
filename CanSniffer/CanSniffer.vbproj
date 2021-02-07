@@ -74,10 +74,17 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Capture.vb" />
     <Compile Include="frmInterfaces.Designer.vb">
       <DependentUpon>frmInterfaces.vb</DependentUpon>
     </Compile>
     <Compile Include="frmInterfaces.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmNewCapture.Designer.vb">
+      <DependentUpon>frmNewCapture.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmNewCapture.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.vb">
@@ -106,6 +113,9 @@
   <ItemGroup>
     <EmbeddedResource Include="frmInterfaces.resx">
       <DependentUpon>frmInterfaces.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmNewCapture.resx">
+      <DependentUpon>frmNewCapture.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.vb</DependentUpon>
