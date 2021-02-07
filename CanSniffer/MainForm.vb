@@ -175,7 +175,6 @@
             .Columns("Payload").Width = 400
         End With
 
-        'TODO 设置事件处理函数
     End Sub
 
     Private Sub DGV_RowEnter(sender As Object, e As DataGridViewCellEventArgs)
@@ -269,7 +268,8 @@
                     For Each row As DataGridViewRow In dgv.SelectedRows
                         row.Selected = False
                     Next
-                    dgv.Rows(dgv.Rows.Count - 1).Selected = True
+                    'dgv.Rows(dgv.Rows.Count - 1).Selected = True
+                    dgv.CurrentCell = dgv.Rows(dgv.Rows.Count - 1).Cells(0)
                 End If
 
             End If
