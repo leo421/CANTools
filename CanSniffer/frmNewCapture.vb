@@ -32,7 +32,7 @@
     End Sub
 
     Private Sub btOK_Click(sender As Object, e As EventArgs) Handles btOK.Click
-        If Not (cbCan0.Checked Or cbCan0.Checked) Then
+        If Not (cbCan0.Checked Or cbCan1.Checked) Then
             MsgBox("请至少选择一个CAN接口！")
             Exit Sub
         End If

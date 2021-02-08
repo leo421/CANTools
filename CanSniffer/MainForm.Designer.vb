@@ -23,6 +23,7 @@ Partial Class MainForm
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MainForm))
         Me.MenuStripMain = New System.Windows.Forms.MenuStrip()
         Me.miFile = New System.Windows.Forms.ToolStripMenuItem()
         Me.miNew = New System.Windows.Forms.ToolStripMenuItem()
@@ -76,6 +77,7 @@ Partial Class MainForm
         Me.tDetail = New System.Windows.Forms.RichTextBox()
         Me.SP = New System.IO.Ports.SerialPort(Me.components)
         Me.tmUpdateData = New System.Windows.Forms.Timer(Me.components)
+        Me.TCIMGLIST = New System.Windows.Forms.ImageList(Me.components)
         Me.MenuStripMain.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -105,64 +107,64 @@ Partial Class MainForm
         'miNew
         '
         Me.miNew.Name = "miNew"
-        Me.miNew.Size = New System.Drawing.Size(148, 22)
+        Me.miNew.Size = New System.Drawing.Size(180, 22)
         Me.miNew.Text = "新建"
         '
         'miOpen
         '
         Me.miOpen.Name = "miOpen"
-        Me.miOpen.Size = New System.Drawing.Size(148, 22)
+        Me.miOpen.Size = New System.Drawing.Size(180, 22)
         Me.miOpen.Text = "打开"
         '
         'miOpenRecent
         '
         Me.miOpenRecent.Name = "miOpenRecent"
-        Me.miOpenRecent.Size = New System.Drawing.Size(148, 22)
+        Me.miOpenRecent.Size = New System.Drawing.Size(180, 22)
         Me.miOpenRecent.Text = "打开最近"
         '
         'ToolStripMenuItem3
         '
         Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
-        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(145, 6)
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(177, 6)
         '
         'miSave
         '
         Me.miSave.Name = "miSave"
-        Me.miSave.Size = New System.Drawing.Size(148, 22)
+        Me.miSave.Size = New System.Drawing.Size(180, 22)
         Me.miSave.Text = "保存"
         '
         'miSaveAs
         '
         Me.miSaveAs.Name = "miSaveAs"
-        Me.miSaveAs.Size = New System.Drawing.Size(148, 22)
+        Me.miSaveAs.Size = New System.Drawing.Size(180, 22)
         Me.miSaveAs.Text = "另存为"
         '
         'miSaveSelected
         '
         Me.miSaveSelected.Name = "miSaveSelected"
-        Me.miSaveSelected.Size = New System.Drawing.Size(148, 22)
+        Me.miSaveSelected.Size = New System.Drawing.Size(180, 22)
         Me.miSaveSelected.Text = "保存选择数据"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(145, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(177, 6)
         '
         'miClose
         '
         Me.miClose.Name = "miClose"
-        Me.miClose.Size = New System.Drawing.Size(148, 22)
+        Me.miClose.Size = New System.Drawing.Size(180, 22)
         Me.miClose.Text = "关闭"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(145, 6)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(177, 6)
         '
         'miExit
         '
         Me.miExit.Name = "miExit"
-        Me.miExit.Size = New System.Drawing.Size(148, 22)
+        Me.miExit.Size = New System.Drawing.Size(180, 22)
         Me.miExit.Text = "退出"
         '
         'miEdit
@@ -383,6 +385,7 @@ Partial Class MainForm
         Me.TCMain.Controls.Add(Me.TabPage1)
         Me.TCMain.Controls.Add(Me.TabPage2)
         Me.TCMain.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TCMain.ImageList = Me.TCIMGLIST
         Me.TCMain.Location = New System.Drawing.Point(0, 0)
         Me.TCMain.Name = "TCMain"
         Me.TCMain.SelectedIndex = 0
@@ -392,10 +395,11 @@ Partial Class MainForm
         'TabPage1
         '
         Me.TabPage1.Controls.Add(Me.DGV)
-        Me.TabPage1.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage1.ImageIndex = 0
+        Me.TabPage1.Location = New System.Drawing.Point(4, 23)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(734, 525)
+        Me.TabPage1.Size = New System.Drawing.Size(734, 524)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "TabPage1"
         Me.TabPage1.UseVisualStyleBackColor = True
@@ -414,15 +418,16 @@ Partial Class MainForm
         Me.DGV.ReadOnly = True
         Me.DGV.RowTemplate.Height = 23
         Me.DGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DGV.Size = New System.Drawing.Size(728, 519)
+        Me.DGV.Size = New System.Drawing.Size(728, 518)
         Me.DGV.TabIndex = 0
         '
         'TabPage2
         '
-        Me.TabPage2.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage2.ImageIndex = 1
+        Me.TabPage2.Location = New System.Drawing.Point(4, 23)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(734, 525)
+        Me.TabPage2.Size = New System.Drawing.Size(734, 524)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "TabPage2"
         Me.TabPage2.UseVisualStyleBackColor = True
@@ -439,6 +444,13 @@ Partial Class MainForm
         'tmUpdateData
         '
         Me.tmUpdateData.Enabled = True
+        '
+        'TCIMGLIST
+        '
+        Me.TCIMGLIST.ImageStream = CType(resources.GetObject("TCIMGLIST.ImageStream"), System.Windows.Forms.ImageListStreamer)
+        Me.TCIMGLIST.TransparentColor = System.Drawing.Color.Transparent
+        Me.TCIMGLIST.Images.SetKeyName(0, "running.png")
+        Me.TCIMGLIST.Images.SetKeyName(1, "stopped.png")
         '
         'MainForm
         '
@@ -518,4 +530,5 @@ Partial Class MainForm
     Friend WithEvents SP As IO.Ports.SerialPort
     Friend WithEvents tDetail As RichTextBox
     Friend WithEvents tmUpdateData As Timer
+    Friend WithEvents TCIMGLIST As ImageList
 End Class

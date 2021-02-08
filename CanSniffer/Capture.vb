@@ -99,23 +99,37 @@
         m_SerialPort.PortName = com
     End Sub
 
-    Public Sub StartCapture()
+    Public Function StartCapture() As Boolean
         '开启串口
         Try
             m_SerialPort.Open()
+            m_State = CAPTURE_STATE.RUNNING
+            Return True
         Catch ex As Exception
             MsgBox("串口打开失败：" + ex.Message)
+            m_State = CAPTURE_STATE.STOPPED
+            Return False
         End Try
-    End Sub
+    End Function
 
     Public Sub StopCapture()
         '关闭串口
+        Try
+            m_SerialPort.Close()
+        Catch ex As Exception
+            MsgBox("串口关闭失败：" + ex.Message)
+        End Try
+        m_State = CAPTURE_STATE.STOPPED
     End Sub
 
     Public Sub RestartCapture()
         '关闭串口
+        StopCapture()
         '清除数据
+        m_Data.Rows.Clear()
+        m_No = 0
         '开启串口
+        StartCapture()
     End Sub
 
     Private Function newData() As DataTable
@@ -177,6 +191,8 @@
         Dim h As String
         Dim stdid, extid As UInt32
         Dim s As String
+
+        'TODO 做数据检查，防止解析失败导致错误
 
         '判断是否是can数据包
         If buf(offset + 3) <> 2 Then

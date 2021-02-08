@@ -2,13 +2,13 @@
 
 
     '数据数组
-    Private m_DataList As New ArrayList()
+    'Private m_DataList As New ArrayList()
 
     Private m_Captures As New ArrayList()
 
-    Private m_Current As Integer = 0
+    Private m_Current As Integer = -1
 
-    Private m_DataGridViewList As New ArrayList
+    Private m_DataGridViewList As New ArrayList()
 
     Private Sub miNew_Click(sender As Object, e As EventArgs) Handles miNew.Click
         Dim r As DataRow
@@ -33,6 +33,7 @@
         End If
         tpcap += CStr(fnc.Bitrate) + "kbps)"
         tp = New TabPage(tpcap)
+        tp.ImageIndex = 0
         TCMain.TabPages.Add(tp)
         dgv = New DataGridView()
         tp.Controls.Add(dgv)
@@ -49,6 +50,8 @@
         End With
         m_DataGridViewList.Add(dgv)
 
+        TCMain.SelectedIndex = m_Captures.Count
+
         Dim c As New Capture()
         c.setCOM(fnc.ComPort)
         c.Bitrate = fnc.Bitrate
@@ -58,7 +61,9 @@
 
         m_Captures.Add(c)
         m_Current = m_Captures.Count - 1
-        c.StartCapture()
+        If Not c.StartCapture() Then
+            tp.ImageIndex = 1
+        End If
 
 
         'dt = newData()
@@ -95,6 +100,7 @@
         bindData(dgv, c.Data)
 
         AddHandler dgv.RowEnter, AddressOf DGV_RowEnter
+
 
     End Sub
 
@@ -274,6 +280,75 @@
 
             End If
 
+        End If
+    End Sub
+
+    Private Sub miClose_Click(sender As Object, e As EventArgs) Handles miClose.Click
+        Dim dgv As DataGridView
+        Dim cap As Capture
+
+        If m_Current >= 0 Then
+            tmUpdateData.Stop()
+
+            dgv = m_DataGridViewList(m_Current)
+            cap = m_Captures(m_Current)
+
+            cap.StopCapture()
+            m_Captures.Remove(cap)
+
+            RemoveHandler dgv.RowEnter, AddressOf DGV_RowEnter
+            m_DataGridViewList.Remove(dgv)
+            TCMain.TabPages.Item(m_Current).Controls.Remove(dgv)
+
+            TCMain.TabPages.RemoveAt(m_Current)
+
+            If m_Captures.Count > 0 Then
+                m_Current = m_Current - 1
+                If m_Current < 0 Then
+                    m_Current = 0
+                End If
+                TCMain.SelectedIndex = m_Current
+            Else
+                    m_Current = -1
+            End If
+
+            tmUpdateData.Start()
+        End If
+
+    End Sub
+
+    Private Sub TCMain_SelectedIndexChanged(sender As Object, e As EventArgs) Handles TCMain.SelectedIndexChanged
+        m_Current = TCMain.SelectedIndex
+    End Sub
+
+    Private Sub miStart_Click(sender As Object, e As EventArgs) Handles miStart.Click
+        Dim cap As Capture
+        If m_Current > -1 Then
+            cap = m_Captures(m_Current)
+            If cap.State <> CanSniffer.Capture.CAPTURE_STATE.RUNNING Then
+                cap.StartCapture()
+                TCMain.TabPages.Item(m_Current).ImageIndex = 0
+            End If
+        End If
+    End Sub
+
+    Private Sub miStop_Click(sender As Object, e As EventArgs) Handles miStop.Click
+        Dim cap As Capture
+        If m_Current > -1 Then
+            cap = m_Captures(m_Current)
+            If cap.State = CanSniffer.Capture.CAPTURE_STATE.RUNNING Then
+                cap.StopCapture()
+                TCMain.TabPages.Item(m_Current).ImageIndex = 1
+            End If
+        End If
+    End Sub
+
+    Private Sub miRestart_Click(sender As Object, e As EventArgs) Handles miRestart.Click
+        Dim cap As Capture
+        If m_Current > -1 Then
+            cap = m_Captures(m_Current)
+            cap.RestartCapture()
+            TCMain.TabPages.Item(m_Current).ImageIndex = 0
         End If
     End Sub
 End Class
