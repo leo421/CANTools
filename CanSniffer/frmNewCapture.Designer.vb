@@ -23,6 +23,7 @@ Partial Class frmNewCapture
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.cbAll = New System.Windows.Forms.CheckBox()
         Me.cbBps = New System.Windows.Forms.ComboBox()
         Me.btCancel = New System.Windows.Forms.Button()
         Me.btOK = New System.Windows.Forms.Button()
@@ -33,7 +34,6 @@ Partial Class frmNewCapture
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.cbCOM = New System.Windows.Forms.ComboBox()
-        Me.cbAll = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -59,6 +59,16 @@ Partial Class frmNewCapture
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "参数设置"
+        '
+        'cbAll
+        '
+        Me.cbAll.AutoSize = True
+        Me.cbAll.Location = New System.Drawing.Point(376, 33)
+        Me.cbAll.Name = "cbAll"
+        Me.cbAll.Size = New System.Drawing.Size(72, 16)
+        Me.cbAll.TabIndex = 12
+        Me.cbAll.Text = "所有设备"
+        Me.cbAll.UseVisualStyleBackColor = True
         '
         'cbBps
         '
@@ -154,16 +164,6 @@ Partial Class frmNewCapture
         Me.cbCOM.Name = "cbCOM"
         Me.cbCOM.Size = New System.Drawing.Size(239, 20)
         Me.cbCOM.TabIndex = 0
-        '
-        'cbAll
-        '
-        Me.cbAll.AutoSize = True
-        Me.cbAll.Location = New System.Drawing.Point(376, 33)
-        Me.cbAll.Name = "cbAll"
-        Me.cbAll.Size = New System.Drawing.Size(72, 16)
-        Me.cbAll.TabIndex = 12
-        Me.cbAll.Text = "所有设备"
-        Me.cbAll.UseVisualStyleBackColor = True
         '
         'frmNewCapture
         '

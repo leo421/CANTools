@@ -60,9 +60,9 @@ typedef union
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define CAN_BASE_ID 0						///< CAN标准ID，最�?11位，也就�?0x7FF
-#define CAN_FILTER_MODE_MASK_ENABLE 1		///< CAN过滤器模式�?�择�?=0：列表模�?  =1：屏蔽模�?
-#define CAN_ID_TYPE_STD_ENABLE      1       ///< CAN过滤ID类型选择�?=1：标准ID�?=0：扩展ID
+#define CAN_BASE_ID 0						///< CAN标准ID，最�??11位，也就�??0x7FF
+#define CAN_FILTER_MODE_MASK_ENABLE 1		///< CAN过滤器模式�?�择�??=0：列表模�??  =1：屏蔽模�??
+#define CAN_ID_TYPE_STD_ENABLE      1       ///< CAN过滤ID类型选择�??=1：标准ID�??=0：扩展ID
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -100,6 +100,7 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *canHandle);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
+  int i;
   char buf[1024];
   CanBridge_Pkt_Response pktResponse;
   CanBridge_Pkt_Packet pktPacket;
@@ -141,7 +142,7 @@ int main(void)
   pktPacket.header = CANBRIDGE_HEADER;
   pktPacket.pkt_type = CANBRIDGE_PKT_TYPE_PACKET;
   pktPacket.len = sizeof(pktPacket) - 3 ;
-  pktPacket.hdr.StdId = 0x583;
+  pktPacket.hdr.StdId = 0x00;
   pktPacket.hdr.ExtId = 0x345;
   pktPacket.hdr.IDE = 1;
   pktPacket.hdr.RTR = 0;
@@ -162,12 +163,16 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    HAL_Delay(500);
+    HAL_Delay(1000);
     //sprintf(buf, "response=%d\tpacket=%d\tconfig=%d\tconfigresponse=%d\tgetcan=%d\tgetcanresponse=%d\tsendpacket=%d\r\nrx=%d\ttx=%d\r\n", sizeof(pktResponse), sizeof(pktPacket), sizeof(pktConfig), sizeof(pktConfigRsp), sizeof(pktGetCan), sizeof(pktGetCanRsp), sizeof(pktSendPacket), sizeof(CAN_RxHeaderTypeDef), sizeof(CAN_TxHeaderTypeDef));
     //CDC_Transmit_FS((uint8_t*)buf, strlen(buf));
-    //pktPacket.hdr.StdId++;
-    //CalcCRC16((unsigned char*)&pktPacket);
-    //CDC_Transmit_FS((uint8_t*)&pktPacket, sizeof(pktPacket));
+    for (i=0;i<20;i++) {
+      pktPacket.hdr.StdId++;
+      if (pktPacket.hdr.StdId>2047) pktPacket.hdr.StdId = 0;
+      CalcCRC16((unsigned char*)&pktPacket);
+      CDC_Transmit_FS((uint8_t*)&pktPacket, sizeof(pktPacket));
+      HAL_Delay(1);
+    }
   }
   /* USER CODE END 3 */
 }
@@ -289,31 +294,31 @@ void CAN_Filter_Config(void)
     CAN_FilterRegTypeDef IDL = {0};
 
 #if CAN_ID_TYPE_STD_ENABLE
-    IDH.Sub.STID = (CAN_BASE_ID >> 16) & 0xFFFF;		// 标准ID�?16�?
-    IDL.Sub.STID = (CAN_BASE_ID & 0xFFFF);				// 标准ID�?16�?
+    IDH.Sub.STID = (CAN_BASE_ID >> 16) & 0xFFFF;		// 标准ID�??16�??
+    IDL.Sub.STID = (CAN_BASE_ID & 0xFFFF);				// 标准ID�??16�??
 #else
-    IDH.Sub.EXID = (CAN_BASE_ID >> 16) & 0xFFFF;		// 扩展ID�?16�?
-    IDL.Sub.EXID = (CAN_BASE_ID & 0xFFFF);				// 扩展ID�?16�?
+    IDH.Sub.EXID = (CAN_BASE_ID >> 16) & 0xFFFF;		// 扩展ID�??16�??
+    IDL.Sub.EXID = (CAN_BASE_ID & 0xFFFF);				// 扩展ID�??16�??
     IDL.Sub.IDE  = 1;									// 扩展帧标志位置位
 #endif
     sFilterConfig.FilterBank           = 0;												// 设置过滤器组编号
 #if CAN_FILTER_MODE_MASK_ENABLE
-    sFilterConfig.FilterMode           = CAN_FILTERMODE_IDMASK;							// 屏蔽位模�?
+    sFilterConfig.FilterMode           = CAN_FILTERMODE_IDMASK;							// 屏蔽位模�??
 #else
     sFilterConfig.FilterMode           = CAN_FILTERMODE_IDLIST;							// 列表模式
 #endif
     sFilterConfig.FilterScale          = CAN_FILTERSCALE_32BIT;							// 32位宽
-//    sFilterConfig.FilterIdHigh         = IDH.value;										// 标识符寄存器�?ID高十六位，放入扩展帧�?
-//    sFilterConfig.FilterIdLow          = IDL.value;										// 标识符寄存器�?ID低十六位，放入扩展帧�?
-//    sFilterConfig.FilterMaskIdHigh     = IDH.value;										// 标识符寄存器二ID高十六位，放入扩展帧�?
-//    sFilterConfig.FilterMaskIdLow      = IDL.value;										// 标识符寄存器二ID低十六位，放入扩展帧�?
-    sFilterConfig.FilterIdHigh         = 0x0000;										// 标识符寄存器�?ID高十六位，放入扩展帧�?
-    sFilterConfig.FilterIdLow          = 0x0000;										// 标识符寄存器�?ID低十六位，放入扩展帧�?
-    sFilterConfig.FilterMaskIdHigh     = 0x0000;										// 标识符寄存器二ID高十六位，放入扩展帧�?
-    sFilterConfig.FilterMaskIdLow      = 0x0000;										// 标识符寄存器二ID低十六位，放入扩展帧�?
+//    sFilterConfig.FilterIdHigh         = IDH.value;										// 标识符寄存器�??ID高十六位，放入扩展帧�??
+//    sFilterConfig.FilterIdLow          = IDL.value;										// 标识符寄存器�??ID低十六位，放入扩展帧�??
+//    sFilterConfig.FilterMaskIdHigh     = IDH.value;										// 标识符寄存器二ID高十六位，放入扩展帧�??
+//    sFilterConfig.FilterMaskIdLow      = IDL.value;										// 标识符寄存器二ID低十六位，放入扩展帧�??
+    sFilterConfig.FilterIdHigh         = 0x0000;										// 标识符寄存器�??ID高十六位，放入扩展帧�??
+    sFilterConfig.FilterIdLow          = 0x0000;										// 标识符寄存器�??ID低十六位，放入扩展帧�??
+    sFilterConfig.FilterMaskIdHigh     = 0x0000;										// 标识符寄存器二ID高十六位，放入扩展帧�??
+    sFilterConfig.FilterMaskIdLow      = 0x0000;										// 标识符寄存器二ID低十六位，放入扩展帧�??
     sFilterConfig.FilterFIFOAssignment = CAN_RX_FIFO0;									// 过滤器组关联到FIFO0
-    sFilterConfig.FilterActivation     = ENABLE;										// �?活过滤器
-    sFilterConfig.SlaveStartFilterBank = 14;											// 设置从CAN的起始过滤器编号，本单片机只有一个CAN，顾此参数无�?
+    sFilterConfig.FilterActivation     = ENABLE;										// �??活过滤器
+    sFilterConfig.SlaveStartFilterBank = 14;											// 设置从CAN的起始过滤器编号，本单片机只有一个CAN，顾此参数无�??
     if (HAL_CAN_ConfigFilter(&hcan, &sFilterConfig) != HAL_OK)
     {
         Error_Handler();

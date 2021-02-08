@@ -17,7 +17,7 @@
 
         'search = New System.Management.ManagementObjectSearcher("SELECT * FROM Win32_PnPEntity  WHERE Name LIKE '%STMicroelectronics Virtual COM Port%'")
         'search = New System.Management.ManagementObjectSearcher("SELECT * FROM Win32_SerialPort  WHERE Name LIKE '%STMicroelectronics Virtual COM Port%'")
-        search = New System.Management.ManagementObjectSearcher("SELECT * FROM Win32_SerialPort  WHERE Name LIKE '%STM%'")
+        search = New System.Management.ManagementObjectSearcher("SELECT * FROM Win32_SerialPort  WHERE Name LIKE '%STM%' OR Name LIKE '%USB%'")
 
         For Each o In search.Get
             cbCOM.Items.Add(o.Item("Name"))
@@ -59,7 +59,8 @@
         Else
             'search = New System.Management.ManagementObjectSearcher("SELECT * FROM Win32_PnPEntity  WHERE Name LIKE '%STMicroelectronics Virtual COM Port%'")
             'search = New System.Management.ManagementObjectSearcher("SELECT * FROM Win32_SerialPort  WHERE Name LIKE '%STMicroelectronics Virtual COM Port%'")
-            search = New System.Management.ManagementObjectSearcher("SELECT * FROM Win32_SerialPort  WHERE Name LIKE '%STM%'")
+            'search = New System.Management.ManagementObjectSearcher("SELECT * FROM Win32_SerialPort  WHERE Name LIKE '%STM%'")
+            search = New System.Management.ManagementObjectSearcher("SELECT * FROM Win32_SerialPort  WHERE Name LIKE '%STM%' OR Name LIKE '%USB%'")
         End If
 
         cbCOM.Items.Clear()
@@ -75,4 +76,5 @@
         cbBps.SelectedIndex = 0
 
     End Sub
+
 End Class
