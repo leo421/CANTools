@@ -110,6 +110,8 @@ int main(void)
   CanBridge_Pkt_Get_Can_Response pktGetCanRsp;
   CanBridge_Pkt_Send_Packet pktSendPacket;
 
+  //for (i=0;i<100000;i++)  __NOP();
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -118,6 +120,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
+  //HAL_Delay(50);
 
   /* USER CODE END Init */
 
@@ -166,13 +169,13 @@ int main(void)
     HAL_Delay(1000);
     //sprintf(buf, "response=%d\tpacket=%d\tconfig=%d\tconfigresponse=%d\tgetcan=%d\tgetcanresponse=%d\tsendpacket=%d\r\nrx=%d\ttx=%d\r\n", sizeof(pktResponse), sizeof(pktPacket), sizeof(pktConfig), sizeof(pktConfigRsp), sizeof(pktGetCan), sizeof(pktGetCanRsp), sizeof(pktSendPacket), sizeof(CAN_RxHeaderTypeDef), sizeof(CAN_TxHeaderTypeDef));
     //CDC_Transmit_FS((uint8_t*)buf, strlen(buf));
-    for (i=0;i<20;i++) {
-      pktPacket.hdr.StdId++;
-      if (pktPacket.hdr.StdId>2047) pktPacket.hdr.StdId = 0;
-      CalcCRC16((unsigned char*)&pktPacket);
-      CDC_Transmit_FS((uint8_t*)&pktPacket, sizeof(pktPacket));
-      HAL_Delay(1);
-    }
+//    for (i=0;i<20;i++) {
+//      pktPacket.hdr.StdId++;
+//      if (pktPacket.hdr.StdId>2047) pktPacket.hdr.StdId = 0;
+//      CalcCRC16((unsigned char*)&pktPacket);
+//      CDC_Transmit_FS((uint8_t*)&pktPacket, sizeof(pktPacket));
+//      HAL_Delay(1);
+//    }
   }
   /* USER CODE END 3 */
 }
