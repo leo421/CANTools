@@ -156,10 +156,14 @@
         Dim c As Integer
         Dim buf As Byte()
         ReDim buf(4096)
-        c = m_SerialPort.Read(buf, 0, 4096)
-        Array.Copy(buf, 0, m_RecvBuf, m_RecvBufSize, c)
-        m_RecvBufSize += c
-        processPacket()
+        Try
+            c = m_SerialPort.Read(buf, 0, 4096)
+            Array.Copy(buf, 0, m_RecvBuf, m_RecvBufSize, c)
+            m_RecvBufSize += c
+            processPacket()
+        Catch ex As Exception
+
+        End Try
     End Sub
 
     Private Sub processPacket()

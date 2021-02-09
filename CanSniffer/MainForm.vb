@@ -188,20 +188,24 @@
         Dim r As DataGridViewRow
         'MsgBox(e.RowIndex)
 
-        dgv = m_DataGridViewList(m_Current)
-        r = dgv.Rows(e.RowIndex)
-        tDetail.Clear()
-        tDetail.AppendText("序号：" + r.Cells("No").Value + vbCrLf)
-        tDetail.AppendText("时间：" + r.Cells("Time").Value + vbCrLf)
-        tDetail.AppendText("接口：" + r.Cells("CAN").Value + vbCrLf)
-        tDetail.AppendText("帧ID：" + r.Cells("ID").Value + vbCrLf)
-        If r.Cells("IDE").Value = "1" Then
-            tDetail.AppendText("帧类型：扩展帧 (IDE=1)" + vbCrLf)
-        Else
-            tDetail.AppendText("帧类型：标准帧 (IDE=0)" + vbCrLf)
-        End If
-        tDetail.AppendText("数据长度：" + r.Cells("DLC").Value + vbCrLf)
-        tDetail.AppendText("数据内容：" + r.Cells("Payload").Value + vbCrLf)
+        Try
+            dgv = m_DataGridViewList(m_Current)
+            r = dgv.Rows(e.RowIndex)
+            tDetail.Clear()
+            tDetail.AppendText("序号：" + r.Cells("No").Value + vbCrLf)
+            tDetail.AppendText("时间：" + r.Cells("Time").Value + vbCrLf)
+            tDetail.AppendText("接口：" + r.Cells("CAN").Value + vbCrLf)
+            tDetail.AppendText("帧ID：" + r.Cells("ID").Value + vbCrLf)
+            If r.Cells("IDE").Value = "1" Then
+                tDetail.AppendText("帧类型：扩展帧 (IDE=1)" + vbCrLf)
+            Else
+                tDetail.AppendText("帧类型：标准帧 (IDE=0)" + vbCrLf)
+            End If
+            tDetail.AppendText("数据长度：" + r.Cells("DLC").Value + vbCrLf)
+            tDetail.AppendText("数据内容：" + r.Cells("Payload").Value + vbCrLf)
+        Catch ex As Exception
+
+        End Try
     End Sub
 
     Public Delegate Sub updateDGVdelegate(r As DataRow)
@@ -351,4 +355,81 @@
             TCMain.TabPages.Item(m_Current).ImageIndex = 0
         End If
     End Sub
+
+#Region "工具栏"
+
+
+    Private Sub tsbNew_Click(sender As Object, e As EventArgs) Handles tsbNew.Click
+        miNew.PerformClick()
+    End Sub
+
+    Private Sub tsbOpen_Click(sender As Object, e As EventArgs) Handles tsbOpen.Click
+        miOpen.PerformClick()
+    End Sub
+
+    Private Sub tsbSave_Click(sender As Object, e As EventArgs) Handles tsbSave.Click
+        miSave.PerformClick()
+    End Sub
+
+    Private Sub tsbClose_Click(sender As Object, e As EventArgs) Handles tsbClose.Click
+        miClose.PerformClick()
+    End Sub
+
+    Private Sub tsbDeleteAll_Click(sender As Object, e As EventArgs) Handles tsbDeleteAll.Click
+        miDeleteAll.PerformClick()
+    End Sub
+
+    Private Sub tsbPrevious_Click(sender As Object, e As EventArgs) Handles tsbPrevious.Click
+        miPrevious.PerformClick()
+    End Sub
+
+    Private Sub tsbNext_Click(sender As Object, e As EventArgs) Handles tsbNext.Click
+        miNext.PerformClick()
+    End Sub
+
+    Private Sub tsbFirst_Click(sender As Object, e As EventArgs) Handles tsbFirst.Click
+        miFirst.PerformClick()
+    End Sub
+
+    Private Sub tsbLast_Click(sender As Object, e As EventArgs) Handles tsbLast.Click
+        miLast.PerformClick()
+    End Sub
+
+    Private Sub tsbJump_Click(sender As Object, e As EventArgs) Handles tsbJump.Click
+        miJump.PerformClick()
+    End Sub
+
+    Private Sub tsbAutoScrollToLast_Click(sender As Object, e As EventArgs) Handles tsbAutoScrollToLast.Click
+        miAutoScrollToLast.PerformClick()
+    End Sub
+
+    Private Sub tsbAutoSelectLast_Click(sender As Object, e As EventArgs) Handles tsbAutoSelectLast.Click
+        miAutoSelectLast.PerformClick()
+    End Sub
+
+    Private Sub tsbStartCapture_Click(sender As Object, e As EventArgs) Handles tsbStartCapture.Click
+        miStart.PerformClick()
+    End Sub
+
+    Private Sub tsbStopCapture_Click(sender As Object, e As EventArgs) Handles tsbStopCapture.Click
+        miStop.PerformClick()
+    End Sub
+
+    Private Sub tsbRestartCapture_Click(sender As Object, e As EventArgs) Handles tsbRestartCapture.Click
+        miRestart.PerformClick()
+    End Sub
+
+    Private Sub tsbSendPacket_Click(sender As Object, e As EventArgs) Handles tsbSendPacket.Click
+        miSendPacket.PerformClick()
+    End Sub
+
+    Private Sub miAutoScrollToLast_Click(sender As Object, e As EventArgs) Handles miAutoScrollToLast.Click
+        tsbAutoScrollToLast.Checked = miAutoScrollToLast.Checked
+    End Sub
+
+    Private Sub miAutoSelectLast_Click(sender As Object, e As EventArgs) Handles miAutoSelectLast.Click
+        tsbAutoSelectLast.Checked = miAutoSelectLast.Checked
+    End Sub
+#End Region
+
 End Class

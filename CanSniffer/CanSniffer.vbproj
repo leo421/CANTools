@@ -140,8 +140,34 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="res\autoscroll_24.png" />
+    <Content Include="res\edit-find.png" />
+    <Content Include="res\filter-toolbar-apply.png" />
+    <Content Include="res\restart_capture.png" />
     <Content Include="res\running.png" />
+    <Content Include="res\startcapture.png" />
+    <Content Include="res\stock_add_24.png" />
+    <Content Include="res\stock_apply_20.png" />
+    <Content Include="res\stock_bottom_24.png" />
+    <Content Include="res\stock_clear_24.png" />
+    <Content Include="res\stock_close_24.png" />
+    <Content Include="res\stock_jump_to_24.png" />
+    <Content Include="res\stock_left_arrow_24.png" />
+    <Content Include="res\stock_open_24.png" />
+    <Content Include="res\stock_right_arrow_24.png" />
+    <Content Include="res\stock_save_24.png" />
+    <Content Include="res\stock_top_24.png" />
     <Content Include="res\stopped.png" />
+    <Content Include="res\x-capture-file-save.png" />
+    <Content Include="res\x-capture-options.png" />
+    <Content Include="res\x-capture-stop.png" />
+    <Content Include="res\x-expert-chat.png" />
+    <Content Include="res\x-expert-error.png" />
+    <Content Include="res\x-expert-note.png" />
+    <Content Include="res\x-stay-last.png" />
+    <Content Include="res\zoom-in.png" />
+    <Content Include="res\zoom-original.png" />
+    <Content Include="res\zoom-out.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
