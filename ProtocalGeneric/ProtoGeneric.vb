@@ -1,13 +1,13 @@
 ﻿Imports System.Windows.Forms
-Imports CanSniffer
 
 Public Class ProtoGeneric
-    Implements CanSniffer.IProtocal
 
-    Public Function Decode(row As DataGridViewRow) As String Implements IProtocal.Decode
+    Public Function Decode(row As DataGridViewRow) As String
         Dim tDetail As New System.Text.StringBuilder
 
         tDetail.Clear()
+        tDetail.Append("通用协议" + vbCrLf)
+        tDetail.Append("===========================" + vbCrLf)
         tDetail.Append("序号：" + row.Cells("No").Value + vbCrLf)
         tDetail.Append("时间：" + row.Cells("Time").Value + vbCrLf)
         tDetail.Append("接口：" + row.Cells("CAN").Value + vbCrLf)
@@ -22,5 +22,9 @@ Public Class ProtoGeneric
 
         Return tDetail.ToString
 
+    End Function
+
+    Public Function GetName() As String
+        Return "通用协议"
     End Function
 End Class

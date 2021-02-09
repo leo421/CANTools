@@ -115,10 +115,11 @@ Public Class MainForm
 
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         TCMain.TabPages.Clear()
-        cbProtocol.SelectedIndex = 0
 
         '加载插件
         loadProtocalPlugins()
+
+        cbProtocol.SelectedIndex = 0
     End Sub
 
 
@@ -127,10 +128,47 @@ Public Class MainForm
         Dim proto As Reflection.Assembly
         Dim m As Object
 
-        proto = System.Reflection.Assembly.LoadFrom("..\..\..\ProtocalGeneric\bin\Debug\ProtocalGeneric.dll")
-        'Debug.Print(proto.GetType("ProtocalGeneric.ProtoGeneric").GetMethod("Decode").GetParameters()(0).Name)
-        m = proto.CreateInstance(proto.GetExportedTypes(0).FullName)
-        m_Protos.Add(m)
+        Try
+            Try
+                proto = System.Reflection.Assembly.LoadFrom("ProtocalGeneric.dll")
+            Catch ex As Exception
+                proto = System.Reflection.Assembly.LoadFrom("..\..\..\ProtocalGeneric\bin\Debug\ProtocalGeneric.dll")
+            End Try
+            'Debug.Print(proto.GetType("ProtocalGeneric.ProtoGeneric").GetMethod("Decode").GetParameters()(0).Name)
+            m = proto.CreateInstance(proto.GetExportedTypes(0).FullName)
+            m_Protos.Add(m)
+            cbProtocol.Items.Add(CallByName(m, "GetName", vbMethod))
+        Catch ex As Exception
+            Debug.Print(ex.Message)
+        End Try
+
+        Try
+            Try
+                proto = System.Reflection.Assembly.LoadFrom("ProtocalCANOpen.dll")
+            Catch ex As Exception
+                proto = System.Reflection.Assembly.LoadFrom("..\..\..\ProtocalCANOpen\bin\Debug\ProtocalCANOpen.dll")
+            End Try
+            'Debug.Print(proto.GetType("ProtocalGeneric.ProtoGeneric").GetMethod("Decode").GetParameters()(0).Name)
+            m = proto.CreateInstance(proto.GetExportedTypes(0).FullName)
+            m_Protos.Add(m)
+            cbProtocol.Items.Add(CallByName(m, "GetName", vbMethod))
+        Catch ex As Exception
+            Debug.Print(ex.Message)
+        End Try
+
+        Try
+            Try
+                proto = System.Reflection.Assembly.LoadFrom("ProtocalAmps.dll")
+            Catch ex As Exception
+                proto = System.Reflection.Assembly.LoadFrom("..\..\..\ProtocalAmps\bin\Debug\ProtocalAmps.dll")
+            End Try
+            'Debug.Print(proto.GetType("ProtocalGeneric.ProtoGeneric").GetMethod("Decode").GetParameters()(0).Name)
+            m = proto.CreateInstance(proto.GetExportedTypes(0).FullName)
+            m_Protos.Add(m)
+            cbProtocol.Items.Add(CallByName(m, "GetName", vbMethod))
+        Catch ex As Exception
+            Debug.Print(ex.Message)
+        End Try
 
     End Sub
 
@@ -208,7 +246,8 @@ Public Class MainForm
 
         Try
             dgv = m_DataGridViewList(m_Current)
-            r = dgv.Rows(e.RowIndex)
+            'r = dgv.Rows(e.RowIndex)
+            r = dgv.Rows(dgv.SelectedRows(0).Index)
             tDetail.Clear()
             tDetail.AppendText(CallByName(m_Protos(cbProtocol.SelectedIndex), "Decode", vbMethod, r))
             'tDetail.AppendText("序号：" + r.Cells("No").Value + vbCrLf)
@@ -448,6 +487,10 @@ Public Class MainForm
 
     Private Sub miAutoSelectLast_Click(sender As Object, e As EventArgs) Handles miAutoSelectLast.Click
         tsbAutoSelectLast.Checked = miAutoSelectLast.Checked
+    End Sub
+
+    Private Sub cbProtocol_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbProtocol.SelectedIndexChanged
+        DGV_RowEnter(Nothing, Nothing)
     End Sub
 
 #End Region
