@@ -24,9 +24,7 @@
     '运行状态
     Private m_State As CAPTURE_STATE
 
-    Private m_MainForm As MainForm
-
-    Private m_DataThread As Threading.Thread
+    Private m_MainForm As Form1
 
     Public ReadOnly Property SerialPort As IO.Ports.SerialPort
         Get
@@ -72,11 +70,11 @@
         End Get
     End Property
 
-    Public Property MainForm As MainForm
+    Public Property MainForm As Form1
         Get
             Return m_MainForm
         End Get
-        Set(value As MainForm)
+        Set(value As Form1)
             m_MainForm = value
         End Set
     End Property
@@ -95,9 +93,6 @@
         m_RecvBufSize = 0
 
         m_SerialPort.BaudRate = 921600
-
-        m_DataThread = New Threading.Thread(AddressOf processData)
-        m_DataThread.Start()
     End Sub
 
     Public Sub setCOM(com As String)
@@ -137,10 +132,6 @@
         StartCapture()
     End Sub
 
-    Public Sub CloseCapture()
-        m_DataThread.Interrupt()
-    End Sub
-
     Private Function newData() As DataTable
         Dim dt = New DataTable()
         With dt
@@ -161,59 +152,16 @@
 
     Private m_RecvBuf As Byte()
     Private m_RecvBufSize As Integer
-    'Private m_DataQueue As New Concurrent.ConcurrentQueue(Of ReceivedData)
-    Private m_DataQueue As New Concurrent.BlockingCollection(Of ReceivedData)
-
-    Private m_total As Integer = 0
+    Private m_DataQueue As New Concurrent.ConcurrentQueue(Of Byte())
     Private Sub SP_DataReceived(sender As Object, e As IO.Ports.SerialDataReceivedEventArgs) Handles m_SerialPort.DataReceived
         Dim c As Integer
         Dim buf As Byte()
         ReDim buf(4096)
-        Dim rd As ReceivedData
-
-        Try
-            Do
-                c = m_SerialPort.Read(buf, 0, 4096)
-                If c <= 0 Then
-                    Exit Do
-                End If
-                m_total += c
-                'Debug.Print("total=" & m_total / 43)
-
-                rd = New ReceivedData(c)
-                Array.Copy(buf, 0, rd.data, 0, c)
-                'm_DataQueue.Enqueue(rd)
-                m_DataQueue.Add(rd)
-            Loop
-        Catch ex As Exception
-        End Try
-        'Array.Copy(buf, 0, m_RecvBuf, m_RecvBufSize, c)
-        'm_RecvBufSize += c
-        'processPacket()
+        c = m_SerialPort.Read(buf, 0, 4096)
+        m_Count += c
+        m_DataQueue.Enqueue(buf)
+        updateDGV()
     End Sub
-
-    Public Class ReceivedData
-        Public data As Byte()
-        Public Sub New(c As Integer)
-            ReDim data(c - 1)
-        End Sub
-    End Class
-
-    Private Sub processData()
-        Dim rd As New ReceivedData(0)
-
-        Try
-            Do
-                rd = m_DataQueue.Take()
-                Array.Copy(rd.data, 0, m_RecvBuf, m_RecvBufSize, rd.data.Length)
-                m_RecvBufSize += rd.data.Length
-                processPacket()
-            Loop
-        Catch ex As Exception
-            Exit Sub
-        End Try
-    End Sub
-
 
     Private Sub processPacket()
         Dim i As Integer
@@ -230,7 +178,6 @@
                     addData(m_RecvBuf, i, m_RecvBuf(i + 2) + 3)
                     i += m_RecvBuf(i + 2) + 3
                     pos = i
-                    i -= 1
                 End If
             End If
         Next
@@ -239,6 +186,8 @@
             m_RecvBufSize = m_RecvBufSize - pos
         End If
     End Sub
+
+    Private m_Count As Integer = 0
     Private Sub addData(buf As Byte(), offset As Integer, length As Integer)
         Dim r As DataRow
         Dim payload As String
@@ -261,71 +210,13 @@
             Exit Sub
         End If
 
-        r = m_Data.NewRow
-        r("No") = m_No
-        m_No += 1
-        r("Time") = Now.ToString("yyyy-MM-dd HH:mm:ss.fff")
-        r("CAN") = CStr(buf(offset + 4))
-        r("IDE") = CStr(BitConverter.ToUInt32(buf, offset + 13))
-        r("RTR") = CStr(BitConverter.ToUInt32(buf, offset + 17))
-        r("DLC") = CStr(BitConverter.ToUInt32(buf, offset + 21))
-        payload = ""
-        For i = 0 To 7
-            h = Hex(buf(offset + 33 + i))
-            If h.Length < 2 Then
-                h = "0" + h
-            End If
-            payload += h + " "
-        Next
-        r("Payload") = payload.Trim()
-
-
-        stdid = BitConverter.ToUInt32(buf, offset + 5)
-        s = Convert.ToString(stdid, 2)
-        If s.Length < 11 Then
-            s = Space(11 - s.Length).Replace(" ", "0") + s
-        End If
-        s = s.Insert(3, " ")
-        s = s.Insert(8, " ")
-        r("StdId") = "0x" + Convert.ToString(stdid, 16) + " [ " + s + " ]"
-
-        extid = BitConverter.ToUInt32(buf, offset + 9)
-        s = Convert.ToString(extid, 2)
-        If s.Length < 18 Then
-            s = Space(18 - s.Length).Replace(" ", "0") + s
-        End If
-        s = s.Insert(2, " ")
-        s = s.Insert(7, " ")
-        s = s.Insert(12, " ")
-        s = s.Insert(17, " ")
-        r("ExtId") = "0x" + Convert.ToString(extid, 16) + " [ " + s + " ]"
-
-
-        If r("IDE") = "1" Then
-            '扩展帧
-            s = Convert.ToString(extid, 2)
-            If s.Length < 18 Then
-                s = Space(18 - s.Length).Replace(" ", "0") + s
-            End If
-            s = Convert.ToString(stdid, 2) + s
-            s = Convert.ToString(Convert.ToUInt32(s, 2), 16)
-            If s.Length < 8 Then
-                s = Space(8 - s.Length).Replace(" ", "0") + s
-            End If
-            r("ID") = "0x" + s
-        Else
-            '标准帧
-            r("ID") = "0x" + Convert.ToString(stdid, 16)
-        End If
-        m_Data.Rows.Add(r)
-        m_Data.AcceptChanges()
-
-        updateDGV(r)
+        m_Count += 1
+        updateDGV()
     End Sub
 
-    Private Sub updateDGV(r As DataRow)
+    Private Sub updateDGV()
         'TODO 效率太低
-        'm_MainForm.updateDGV(r)
+        m_MainForm.updateCount(m_Count / 43)
     End Sub
 
     Public Sub clearData()

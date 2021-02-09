@@ -188,20 +188,24 @@
         Dim r As DataGridViewRow
         'MsgBox(e.RowIndex)
 
-        dgv = m_DataGridViewList(m_Current)
-        r = dgv.Rows(e.RowIndex)
-        tDetail.Clear()
-        tDetail.AppendText("序号：" + r.Cells("No").Value + vbCrLf)
-        tDetail.AppendText("时间：" + r.Cells("Time").Value + vbCrLf)
-        tDetail.AppendText("接口：" + r.Cells("CAN").Value + vbCrLf)
-        tDetail.AppendText("帧ID：" + r.Cells("ID").Value + vbCrLf)
-        If r.Cells("IDE").Value = "1" Then
-            tDetail.AppendText("帧类型：扩展帧 (IDE=1)" + vbCrLf)
-        Else
-            tDetail.AppendText("帧类型：标准帧 (IDE=0)" + vbCrLf)
-        End If
-        tDetail.AppendText("数据长度：" + r.Cells("DLC").Value + vbCrLf)
-        tDetail.AppendText("数据内容：" + r.Cells("Payload").Value + vbCrLf)
+        Try
+            dgv = m_DataGridViewList(m_Current)
+            r = dgv.Rows(e.RowIndex)
+            tDetail.Clear()
+            tDetail.AppendText("序号：" + r.Cells("No").Value + vbCrLf)
+            tDetail.AppendText("时间：" + r.Cells("Time").Value + vbCrLf)
+            tDetail.AppendText("接口：" + r.Cells("CAN").Value + vbCrLf)
+            tDetail.AppendText("帧ID：" + r.Cells("ID").Value + vbCrLf)
+            If r.Cells("IDE").Value = "1" Then
+                tDetail.AppendText("帧类型：扩展帧 (IDE=1)" + vbCrLf)
+            Else
+                tDetail.AppendText("帧类型：标准帧 (IDE=0)" + vbCrLf)
+            End If
+            tDetail.AppendText("数据长度：" + r.Cells("DLC").Value + vbCrLf)
+            tDetail.AppendText("数据内容：" + r.Cells("Payload").Value + vbCrLf)
+        Catch ex As Exception
+
+        End Try
     End Sub
 
     Public Delegate Sub updateDGVdelegate(r As DataRow)
@@ -294,6 +298,7 @@
             cap = m_Captures(m_Current)
 
             cap.StopCapture()
+            cap.CloseCapture()
             m_Captures.Remove(cap)
 
             RemoveHandler dgv.RowEnter, AddressOf DGV_RowEnter
