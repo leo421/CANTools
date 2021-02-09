@@ -1,4 +1,5 @@
-﻿Public Class MainForm
+﻿
+Public Class MainForm
 
 
     '数据数组
@@ -115,6 +116,22 @@
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         TCMain.TabPages.Clear()
         cbProtocol.SelectedIndex = 0
+
+        '加载插件
+        loadProtocalPlugins()
+    End Sub
+
+
+    Private m_Protos As New ArrayList()
+    Private Sub loadProtocalPlugins()
+        Dim proto As Reflection.Assembly
+        Dim m As Object
+
+        proto = System.Reflection.Assembly.LoadFrom("..\..\..\ProtocalGeneric\bin\Debug\ProtocalGeneric.dll")
+        'Debug.Print(proto.GetType("ProtocalGeneric.ProtoGeneric").GetMethod("Decode").GetParameters()(0).Name)
+        m = proto.CreateInstance(proto.GetExportedTypes(0).FullName)
+        m_Protos.Add(m)
+
     End Sub
 
     Private Function newData() As DataTable
@@ -193,19 +210,20 @@
             dgv = m_DataGridViewList(m_Current)
             r = dgv.Rows(e.RowIndex)
             tDetail.Clear()
-            tDetail.AppendText("序号：" + r.Cells("No").Value + vbCrLf)
-            tDetail.AppendText("时间：" + r.Cells("Time").Value + vbCrLf)
-            tDetail.AppendText("接口：" + r.Cells("CAN").Value + vbCrLf)
-            tDetail.AppendText("帧ID：" + r.Cells("ID").Value + vbCrLf)
-            If r.Cells("IDE").Value = "1" Then
-                tDetail.AppendText("帧类型：扩展帧 (IDE=1)" + vbCrLf)
-            Else
-                tDetail.AppendText("帧类型：标准帧 (IDE=0)" + vbCrLf)
-            End If
-            tDetail.AppendText("数据长度：" + r.Cells("DLC").Value + vbCrLf)
-            tDetail.AppendText("数据内容：" + r.Cells("Payload").Value + vbCrLf)
+            tDetail.AppendText(CallByName(m_Protos(cbProtocol.SelectedIndex), "Decode", vbMethod, r))
+            'tDetail.AppendText("序号：" + r.Cells("No").Value + vbCrLf)
+            'tDetail.AppendText("时间：" + r.Cells("Time").Value + vbCrLf)
+            'tDetail.AppendText("接口：" + r.Cells("CAN").Value + vbCrLf)
+            'tDetail.AppendText("帧ID：" + r.Cells("ID").Value + vbCrLf)
+            'If r.Cells("IDE").Value = "1" Then
+            '    tDetail.AppendText("帧类型：扩展帧 (IDE=1)" + vbCrLf)
+            'Else
+            '    tDetail.AppendText("帧类型：标准帧 (IDE=0)" + vbCrLf)
+            'End If
+            'tDetail.AppendText("数据长度：" + r.Cells("DLC").Value + vbCrLf)
+            'tDetail.AppendText("数据内容：" + r.Cells("Payload").Value + vbCrLf)
         Catch ex As Exception
-
+            Debug.Print(ex.Message)
         End Try
     End Sub
 
@@ -314,7 +332,7 @@
                 End If
                 TCMain.SelectedIndex = m_Current
             Else
-                    m_Current = -1
+                m_Current = -1
             End If
 
             tmUpdateData.Start()
@@ -431,6 +449,7 @@
     Private Sub miAutoSelectLast_Click(sender As Object, e As EventArgs) Handles miAutoSelectLast.Click
         tsbAutoSelectLast.Checked = miAutoSelectLast.Checked
     End Sub
+
 #End Region
 
 End Class

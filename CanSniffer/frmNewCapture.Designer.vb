@@ -172,7 +172,11 @@ Partial Class frmNewCapture
         Me.ClientSize = New System.Drawing.Size(490, 214)
         Me.Controls.Add(Me.GroupBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "frmNewCapture"
+        Me.ShowIcon = False
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "新建捕获"
         Me.GroupBox1.ResumeLayout(False)
