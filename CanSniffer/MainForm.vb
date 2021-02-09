@@ -114,6 +114,7 @@
 
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         TCMain.TabPages.Clear()
+        cbProtocol.SelectedIndex = 0
     End Sub
 
     Private Function newData() As DataTable
