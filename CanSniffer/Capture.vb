@@ -177,6 +177,7 @@
                     addData(m_RecvBuf, i, m_RecvBuf(i + 2) + 3)
                     i += m_RecvBuf(i + 2) + 3
                     pos = i
+                    i -= 1
                 End If
             End If
         Next
