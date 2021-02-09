@@ -11,6 +11,9 @@ Public Class MainForm
 
     Private m_DataGridViewList As New ArrayList()
 
+    '协议插件列表
+    Private m_Protos As New List(Of IProtocal)
+
     Private Sub miNew_Click(sender As Object, e As EventArgs) Handles miNew.Click
         Dim r As DataRow
         Dim dt As DataTable
@@ -66,38 +69,6 @@ Public Class MainForm
             tp.ImageIndex = 1
         End If
 
-
-        'dt = newData()
-
-        'r = dt.NewRow()
-        'r("No") = "1"
-        'r("Time") = "2021-02-06 17:57:27.234"
-        'r("CAN") = "0"
-        'r("StdId") = "0x602"
-        'r("ExtId") = "0x035"
-        'r("IDE") = "0"
-        'r("RTR") = "0"
-        'r("DLC") = 8
-        'r("Payload") = "f6 00 35 24 43 00 40 43"
-        'dt.Rows.Add(r)
-
-        'r = dt.NewRow()
-        'r("No") = "2"
-        'r("Time") = "2021-02-06 17:57:27.234"
-        'r("CAN") = "0"
-        'r("StdId") = "0x602 [ 011 0101 0011 ]"
-        'r("ExtId") = "0x00035 [ 00 1010 0010 0011 0111 ]"
-        'r("ID") = "0x00035223"
-        'r("IDE") = "0"
-        'r("RTR") = "0"
-        'r("DLC") = 8
-        'r("Payload") = "f6 00 35 24 43 00 40 43"
-        'dt.Rows.Add(r)
-
-
-        'm_DataList.Add(dt)
-        'bindData(dgv, dt)
-
         bindData(dgv, c.Data)
 
         AddHandler dgv.RowEnter, AddressOf DGV_RowEnter
@@ -122,11 +93,10 @@ Public Class MainForm
         cbProtocol.SelectedIndex = 0
     End Sub
 
-
-    Private m_Protos As New ArrayList()
     Private Sub loadProtocalPlugins()
         Dim proto As Reflection.Assembly
         Dim m As Object
+        Dim p As IProtocal
 
         Try
             Try
@@ -136,8 +106,10 @@ Public Class MainForm
             End Try
             'Debug.Print(proto.GetType("ProtocalGeneric.ProtoGeneric").GetMethod("Decode").GetParameters()(0).Name)
             m = proto.CreateInstance(proto.GetExportedTypes(0).FullName)
-            m_Protos.Add(m)
-            cbProtocol.Items.Add(CallByName(m, "GetName", vbMethod))
+            p = CallByName(m, "GetObject", vbMethod)
+            m_Protos.Add(p)
+            'cbProtocol.Items.Add(CallByName(m, "GetName", vbMethod))
+            cbProtocol.Items.Add(p.GetName)
         Catch ex As Exception
             Debug.Print(ex.Message)
         End Try
@@ -150,8 +122,10 @@ Public Class MainForm
             End Try
             'Debug.Print(proto.GetType("ProtocalGeneric.ProtoGeneric").GetMethod("Decode").GetParameters()(0).Name)
             m = proto.CreateInstance(proto.GetExportedTypes(0).FullName)
-            m_Protos.Add(m)
-            cbProtocol.Items.Add(CallByName(m, "GetName", vbMethod))
+            p = CallByName(m, "GetObject", vbMethod)
+            m_Protos.Add(p)
+            'cbProtocol.Items.Add(CallByName(m, "GetName", vbMethod))
+            cbProtocol.Items.Add(p.GetName)
         Catch ex As Exception
             Debug.Print(ex.Message)
         End Try
@@ -164,8 +138,10 @@ Public Class MainForm
             End Try
             'Debug.Print(proto.GetType("ProtocalGeneric.ProtoGeneric").GetMethod("Decode").GetParameters()(0).Name)
             m = proto.CreateInstance(proto.GetExportedTypes(0).FullName)
-            m_Protos.Add(m)
-            cbProtocol.Items.Add(CallByName(m, "GetName", vbMethod))
+            p = CallByName(m, "GetObject", vbMethod)
+            m_Protos.Add(p)
+            'cbProtocol.Items.Add(CallByName(m, "GetName", vbMethod))
+            cbProtocol.Items.Add(p.GetName)
         Catch ex As Exception
             Debug.Print(ex.Message)
         End Try
@@ -249,7 +225,8 @@ Public Class MainForm
             'r = dgv.Rows(e.RowIndex)
             r = dgv.Rows(dgv.SelectedRows(0).Index)
             tDetail.Clear()
-            tDetail.AppendText(CallByName(m_Protos(cbProtocol.SelectedIndex), "Decode", vbMethod, r))
+            'tDetail.AppendText(CallByName(m_Protos(cbProtocol.SelectedIndex), "Decode", vbMethod, r))
+            tDetail.AppendText(m_Protos(cbProtocol.SelectedIndex).Decode(r))
             'tDetail.AppendText("序号：" + r.Cells("No").Value + vbCrLf)
             'tDetail.AppendText("时间：" + r.Cells("Time").Value + vbCrLf)
             'tDetail.AppendText("接口：" + r.Cells("CAN").Value + vbCrLf)

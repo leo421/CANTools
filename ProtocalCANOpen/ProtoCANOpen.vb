@@ -1,8 +1,9 @@
 ﻿Imports System.Windows.Forms
-
+Imports CanSniffer
 Public Class ProtoCANOpen
+    Implements IProtocal
 
-    Public Function Decode(row As DataGridViewRow) As String
+    Public Function Decode(row As DataGridViewRow) As String Implements IProtocal.Decode
         Dim tDetail As New System.Text.StringBuilder
 
         tDetail.Clear()
@@ -24,7 +25,12 @@ Public Class ProtoCANOpen
 
     End Function
 
-    Public Function GetName() As String
+    Public Function GetName() As String Implements IProtocal.GetName
         Return "CANopen"
     End Function
+
+    Public Function GetObject() As IProtocal Implements IProtocal.GetObject
+        Return Me
+    End Function
+
 End Class

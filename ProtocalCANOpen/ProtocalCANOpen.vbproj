@@ -101,5 +101,11 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CanSniffer\CanSniffer.vbproj">
+      <Project>{3184d3a9-77f3-4be6-a1c8-bb208fc45efb}</Project>
+      <Name>CanSniffer</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
