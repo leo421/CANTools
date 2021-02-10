@@ -362,7 +362,7 @@ Partial Class MainForm
         'miSendPacket
         '
         Me.miSendPacket.Name = "miSendPacket"
-        Me.miSendPacket.Size = New System.Drawing.Size(136, 22)
+        Me.miSendPacket.Size = New System.Drawing.Size(180, 22)
         Me.miSendPacket.Text = "发送数据包"
         '
         'miHelp
@@ -375,7 +375,7 @@ Partial Class MainForm
         'miAbout
         '
         Me.miAbout.Name = "miAbout"
-        Me.miAbout.Size = New System.Drawing.Size(100, 22)
+        Me.miAbout.Size = New System.Drawing.Size(180, 22)
         Me.miAbout.Text = "关于"
         '
         'ToolStripMain

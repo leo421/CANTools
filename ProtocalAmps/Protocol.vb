@@ -1,13 +1,13 @@
 ﻿Imports System.Windows.Forms
 Imports CanSniffer
-Public Class ProtoCANOpen
-    Implements IProtocal
 
-    Public Function Decode(row As DataGridViewRow) As String Implements IProtocal.Decode
+Public Class Protocol
+    Implements IProtocol
+    Public Function Decode(row As DataGridViewRow) As String Implements IProtocol.Decode
         Dim tDetail As New System.Text.StringBuilder
 
         tDetail.Clear()
-        tDetail.Append("CANopen协议" + vbCrLf)
+        tDetail.Append("Amps BLDC" + vbCrLf)
         tDetail.Append("===========================" + vbCrLf)
         tDetail.Append("序号：" + row.Cells("No").Value + vbCrLf)
         tDetail.Append("时间：" + row.Cells("Time").Value + vbCrLf)
@@ -25,12 +25,15 @@ Public Class ProtoCANOpen
 
     End Function
 
-    Public Function GetName() As String Implements IProtocal.GetName
-        Return "CANopen"
+    Public Function GetName() As String Implements IProtocol.GetName
+        Return "Amps BLDC"
     End Function
 
-    Public Function GetObject() As IProtocal Implements IProtocal.GetObject
+    Public Function GetObject() As IProtocol Implements IProtocol.GetObject
         Return Me
     End Function
 
+    Public Function GetSendPacketControl() As SendPacketControl Implements IProtocol.GetSendPacketControl
+        Throw New NotImplementedException()
+    End Function
 End Class

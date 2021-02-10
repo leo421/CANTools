@@ -1,8 +1,8 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmSendPacket
-    Inherits System.Windows.Forms.Form
+Partial Class SendPacketControl
+    Inherits System.Windows.Forms.UserControl
 
-    'Form 重写 Dispose，以清理组件列表。
+    'UserControl 重写释放以清理组件列表。
     <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
@@ -22,31 +22,15 @@ Partial Class frmSendPacket
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.pnlProto = New System.Windows.Forms.Panel()
         Me.SuspendLayout()
         '
-        'pnlProto
-        '
-        Me.pnlProto.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.pnlProto.BackColor = System.Drawing.Color.White
-        Me.pnlProto.Location = New System.Drawing.Point(12, 160)
-        Me.pnlProto.Name = "pnlProto"
-        Me.pnlProto.Size = New System.Drawing.Size(496, 286)
-        Me.pnlProto.TabIndex = 0
-        '
-        'frmSendPacket
+        'SendPacketControl
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(520, 458)
-        Me.Controls.Add(Me.pnlProto)
-        Me.Name = "frmSendPacket"
-        Me.Text = "发送数据包"
+        Me.Name = "SendPacketControl"
         Me.ResumeLayout(False)
 
     End Sub
 
-    Friend WithEvents pnlProto As Panel
 End Class

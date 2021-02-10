@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0B6D0FD0-4379-4D98-83CF-D5665BEA439A}</ProjectGuid>
+    <ProjectGuid>{D56C8190-0C4B-4AE3-8557-93DCEE48E41B}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>ProtocalAmps</RootNamespace>
-    <AssemblyName>ProtocalAmps</AssemblyName>
+    <RootNamespace>ProtocolGeneric</RootNamespace>
+    <AssemblyName>ProtocolGeneric</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -19,7 +19,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>ProtocalAmps.xml</DocumentationFile>
+    <DocumentationFile>ProtocolGeneric.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -28,7 +28,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>ProtocalAmps.xml</DocumentationFile>
+    <DocumentationFile>ProtocolGeneric.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -46,6 +46,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -65,11 +66,18 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ProtoAmps.vb" />
+    <Compile Include="GenericSendPacketControl.Designer.vb">
+      <DependentUpon>GenericSendPacketControl.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GenericSendPacketControl.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Protocol.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -83,6 +91,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="GenericSendPacketControl.resx">
+      <DependentUpon>GenericSendPacketControl.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
@@ -106,6 +117,9 @@
       <Project>{3184d3a9-77f3-4be6-a1c8-bb208fc45efb}</Project>
       <Name>CanSniffer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

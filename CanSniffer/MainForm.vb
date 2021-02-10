@@ -12,7 +12,7 @@ Public Class MainForm
     Private m_DataGridViewList As New ArrayList()
 
     '协议插件列表
-    Private m_Protos As New List(Of IProtocal)
+    Private m_Protos As New List(Of IProtocol)
 
     Private Sub miNew_Click(sender As Object, e As EventArgs) Handles miNew.Click
         Dim r As DataRow
@@ -88,63 +88,36 @@ Public Class MainForm
         TCMain.TabPages.Clear()
 
         '加载插件
-        loadProtocalPlugins()
+        loadProtocolPlugins()
 
         cbProtocol.SelectedIndex = 0
     End Sub
 
-    Private Sub loadProtocalPlugins()
+    Private Sub loadProtocolPlugins()
         Dim proto As Reflection.Assembly
         Dim m As Object
-        Dim p As IProtocal
+        Dim p As IProtocol
+        Dim proto_name As String
+        Dim protos As String() = {"ProtocolGeneric", "ProtocolAmps", "ProtocolCANOpen"}
 
-        Try
+        For Each proto_name In protos
             Try
-                proto = System.Reflection.Assembly.LoadFrom("ProtocalGeneric.dll")
+                Try
+                    proto = System.Reflection.Assembly.LoadFrom("protocols\" + proto_name + ".dll")
+                Catch ex As Exception
+                    proto = System.Reflection.Assembly.LoadFrom("..\..\..\" + proto_name.Replace("Protocol", "Protocal") + "\bin\Debug\" + proto_name + ".dll")
+                End Try
+                'Debug.Print(proto.GetType("ProtocolGeneric.ProtoGeneric").GetMethod("Decode").GetParameters()(0).Name)
+                'm = proto.CreateInstance(proto.GetExportedTypes(0).FullName)
+                m = proto.CreateInstance(proto_name + ".Protocol")
+                p = CallByName(m, "GetObject", vbMethod)
+                m_Protos.Add(p)
+                'cbProtocol.Items.Add(CallByName(m, "GetName", vbMethod))
+                cbProtocol.Items.Add(p.GetName)
             Catch ex As Exception
-                proto = System.Reflection.Assembly.LoadFrom("..\..\..\ProtocalGeneric\bin\Debug\ProtocalGeneric.dll")
+                Debug.Print(ex.Message)
             End Try
-            'Debug.Print(proto.GetType("ProtocalGeneric.ProtoGeneric").GetMethod("Decode").GetParameters()(0).Name)
-            m = proto.CreateInstance(proto.GetExportedTypes(0).FullName)
-            p = CallByName(m, "GetObject", vbMethod)
-            m_Protos.Add(p)
-            'cbProtocol.Items.Add(CallByName(m, "GetName", vbMethod))
-            cbProtocol.Items.Add(p.GetName)
-        Catch ex As Exception
-            Debug.Print(ex.Message)
-        End Try
-
-        Try
-            Try
-                proto = System.Reflection.Assembly.LoadFrom("ProtocalCANOpen.dll")
-            Catch ex As Exception
-                proto = System.Reflection.Assembly.LoadFrom("..\..\..\ProtocalCANOpen\bin\Debug\ProtocalCANOpen.dll")
-            End Try
-            'Debug.Print(proto.GetType("ProtocalGeneric.ProtoGeneric").GetMethod("Decode").GetParameters()(0).Name)
-            m = proto.CreateInstance(proto.GetExportedTypes(0).FullName)
-            p = CallByName(m, "GetObject", vbMethod)
-            m_Protos.Add(p)
-            'cbProtocol.Items.Add(CallByName(m, "GetName", vbMethod))
-            cbProtocol.Items.Add(p.GetName)
-        Catch ex As Exception
-            Debug.Print(ex.Message)
-        End Try
-
-        Try
-            Try
-                proto = System.Reflection.Assembly.LoadFrom("ProtocalAmps.dll")
-            Catch ex As Exception
-                proto = System.Reflection.Assembly.LoadFrom("..\..\..\ProtocalAmps\bin\Debug\ProtocalAmps.dll")
-            End Try
-            'Debug.Print(proto.GetType("ProtocalGeneric.ProtoGeneric").GetMethod("Decode").GetParameters()(0).Name)
-            m = proto.CreateInstance(proto.GetExportedTypes(0).FullName)
-            p = CallByName(m, "GetObject", vbMethod)
-            m_Protos.Add(p)
-            'cbProtocol.Items.Add(CallByName(m, "GetName", vbMethod))
-            cbProtocol.Items.Add(p.GetName)
-        Catch ex As Exception
-            Debug.Print(ex.Message)
-        End Try
+        Next
 
     End Sub
 
@@ -468,6 +441,21 @@ Public Class MainForm
 
     Private Sub cbProtocol_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbProtocol.SelectedIndexChanged
         DGV_RowEnter(Nothing, Nothing)
+    End Sub
+
+    Private Sub miSendPacket_Click(sender As Object, e As EventArgs) Handles miSendPacket.Click
+        Dim f As New frmSendPacket
+        f.Protos = m_Protos
+
+        f.Show()
+
+    End Sub
+
+    Private Sub miAbout_Click(sender As Object, e As EventArgs) Handles miAbout.Click
+        Dim f As New frmAboutBox
+        f.Protos = m_Protos
+
+        f.ShowDialog()
     End Sub
 
 #End Region
