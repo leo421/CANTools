@@ -446,6 +446,12 @@ Public Class MainForm
     Private Sub miSendPacket_Click(sender As Object, e As EventArgs) Handles miSendPacket.Click
         Dim f As New frmSendPacket
         f.Protos = m_Protos
+        f.Captures = m_Captures
+
+        If (m_Current > -1) Then
+            f.COM = m_Captures(m_Current).SerialPort.PortName
+        End If
+
 
         f.Show()
 
@@ -454,7 +460,6 @@ Public Class MainForm
     Private Sub miAbout_Click(sender As Object, e As EventArgs) Handles miAbout.Click
         Dim f As New frmAboutBox
         f.Protos = m_Protos
-
         f.ShowDialog()
     End Sub
 

@@ -284,4 +284,8 @@
         m_No = 0
     End Sub
 
+    Public Sub SendPacket(packetdata As Byte())
+        m_SerialPort.Write(packetdata, 0, packetdata.Length)
+    End Sub
+
 End Class

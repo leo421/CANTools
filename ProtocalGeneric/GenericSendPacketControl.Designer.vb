@@ -41,10 +41,14 @@ Partial Class GenericSendPacketControl
         Me.rbOverload = New System.Windows.Forms.RadioButton()
         Me.rbSpace = New System.Windows.Forms.RadioButton()
         Me.tPayload = New System.Windows.Forms.TextBox()
-        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
+        Me.nudDataLength = New System.Windows.Forms.NumericUpDown()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Panel2 = New System.Windows.Forms.Panel()
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
+        CType(Me.nudDataLength, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
@@ -164,6 +168,7 @@ Partial Class GenericSendPacketControl
         'rbError
         '
         Me.rbError.AutoSize = True
+        Me.rbError.Enabled = False
         Me.rbError.Location = New System.Drawing.Point(142, 0)
         Me.rbError.Name = "rbError"
         Me.rbError.Size = New System.Drawing.Size(59, 16)
@@ -174,6 +179,7 @@ Partial Class GenericSendPacketControl
         'rbOverload
         '
         Me.rbOverload.AutoSize = True
+        Me.rbOverload.Enabled = False
         Me.rbOverload.Location = New System.Drawing.Point(213, 0)
         Me.rbOverload.Name = "rbOverload"
         Me.rbOverload.Size = New System.Drawing.Size(59, 16)
@@ -184,6 +190,7 @@ Partial Class GenericSendPacketControl
         'rbSpace
         '
         Me.rbSpace.AutoSize = True
+        Me.rbSpace.Enabled = False
         Me.rbSpace.Location = New System.Drawing.Point(284, 0)
         Me.rbSpace.Name = "rbSpace"
         Me.rbSpace.Size = New System.Drawing.Size(59, 16)
@@ -198,15 +205,15 @@ Partial Class GenericSendPacketControl
         Me.tPayload.Size = New System.Drawing.Size(343, 21)
         Me.tPayload.TabIndex = 6
         '
-        'NumericUpDown1
+        'nudDataLength
         '
-        Me.NumericUpDown1.Location = New System.Drawing.Point(88, 180)
-        Me.NumericUpDown1.Maximum = New Decimal(New Integer() {8, 0, 0, 0})
-        Me.NumericUpDown1.Name = "NumericUpDown1"
-        Me.NumericUpDown1.Size = New System.Drawing.Size(47, 21)
-        Me.NumericUpDown1.TabIndex = 5
-        Me.NumericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.NumericUpDown1.Value = New Decimal(New Integer() {8, 0, 0, 0})
+        Me.nudDataLength.Location = New System.Drawing.Point(88, 180)
+        Me.nudDataLength.Maximum = New Decimal(New Integer() {8, 0, 0, 0})
+        Me.nudDataLength.Name = "nudDataLength"
+        Me.nudDataLength.Size = New System.Drawing.Size(47, 21)
+        Me.nudDataLength.TabIndex = 5
+        Me.nudDataLength.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.nudDataLength.Value = New Decimal(New Integer() {8, 0, 0, 0})
         '
         'Panel1
         '
@@ -229,13 +236,53 @@ Partial Class GenericSendPacketControl
         Me.Panel2.Size = New System.Drawing.Size(343, 20)
         Me.Panel2.TabIndex = 2
         '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(366, 102)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(59, 12)
+        Me.Label7.TabIndex = 9
+        Me.Label7.Text = "[0,0x7FF]"
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(366, 142)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(71, 12)
+        Me.Label8.TabIndex = 10
+        Me.Label8.Text = "[0,0x3FFFF]"
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(141, 182)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(35, 12)
+        Me.Label9.TabIndex = 11
+        Me.Label9.Text = "[0,8]"
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(86, 243)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(203, 12)
+        Me.Label10.TabIndex = 12
+        Me.Label10.Text = "(格式为：XX XX XX XX XX XX XX XX)"
+        '
         'GenericSendPacketControl
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.Controls.Add(Me.Label10)
+        Me.Controls.Add(Me.Label9)
+        Me.Controls.Add(Me.Label8)
+        Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel1)
-        Me.Controls.Add(Me.NumericUpDown1)
+        Me.Controls.Add(Me.nudDataLength)
         Me.Controls.Add(Me.tPayload)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.Label5)
@@ -246,8 +293,8 @@ Partial Class GenericSendPacketControl
         Me.Controls.Add(Me.tExtID)
         Me.Controls.Add(Me.tStdID)
         Me.Name = "GenericSendPacketControl"
-        Me.Size = New System.Drawing.Size(461, 268)
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Size = New System.Drawing.Size(496, 268)
+        CType(Me.nudDataLength, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         Me.Panel2.ResumeLayout(False)
@@ -273,7 +320,11 @@ Partial Class GenericSendPacketControl
     Friend WithEvents rbOverload As Windows.Forms.RadioButton
     Friend WithEvents rbSpace As Windows.Forms.RadioButton
     Friend WithEvents tPayload As Windows.Forms.TextBox
-    Friend WithEvents NumericUpDown1 As Windows.Forms.NumericUpDown
+    Friend WithEvents nudDataLength As Windows.Forms.NumericUpDown
     Friend WithEvents Panel1 As Windows.Forms.Panel
     Friend WithEvents Panel2 As Windows.Forms.Panel
+    Friend WithEvents Label7 As Windows.Forms.Label
+    Friend WithEvents Label8 As Windows.Forms.Label
+    Friend WithEvents Label9 As Windows.Forms.Label
+    Friend WithEvents Label10 As Windows.Forms.Label
 End Class

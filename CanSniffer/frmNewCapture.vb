@@ -73,8 +73,6 @@
             cbCOM.SelectedIndex = 0
         End If
 
-        cbBps.SelectedIndex = 0
-
     End Sub
 
 End Class
