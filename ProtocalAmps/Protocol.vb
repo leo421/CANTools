@@ -34,6 +34,6 @@ Public Class Protocol
     End Function
 
     Public Function GetSendPacketControl() As SendPacketControl Implements IProtocol.GetSendPacketControl
-        Throw New NotImplementedException()
+        Return New AmpsSendPacketControl()
     End Function
 End Class

@@ -46,6 +46,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -65,6 +66,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AmpsSendPacketControl.Designer.vb">
+      <DependentUpon>AmpsSendPacketControl.vb</DependentUpon>
+    </Compile>
+    <Compile Include="AmpsSendPacketControl.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Protocol.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -107,6 +114,9 @@
       <Project>{3184d3a9-77f3-4be6-a1c8-bb208fc45efb}</Project>
       <Name>CanSniffer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
