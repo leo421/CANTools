@@ -166,7 +166,8 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    HAL_Delay(1000);
+    HAL_Delay(100);
+    HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
     //sprintf(buf, "response=%d\tpacket=%d\tconfig=%d\tconfigresponse=%d\tgetcan=%d\tgetcanresponse=%d\tsendpacket=%d\r\nrx=%d\ttx=%d\r\n", sizeof(pktResponse), sizeof(pktPacket), sizeof(pktConfig), sizeof(pktConfigRsp), sizeof(pktGetCan), sizeof(pktGetCanRsp), sizeof(pktSendPacket), sizeof(CAN_RxHeaderTypeDef), sizeof(CAN_TxHeaderTypeDef));
     //CDC_Transmit_FS((uint8_t*)buf, strlen(buf));
 //    for (i=0;i<20;i++) {
