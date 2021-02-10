@@ -29,12 +29,6 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-typedef struct
-{
-	uint32_t mailbox;
-	CAN_TxHeaderTypeDef hdr;
-	uint8_t payload[8];
-} CAN_TxPacketTypeDef;
 
 typedef struct
 {

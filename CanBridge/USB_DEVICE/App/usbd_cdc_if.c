@@ -23,7 +23,7 @@
 #include "usbd_cdc_if.h"
 
 /* USER CODE BEGIN INCLUDE */
-
+#include "main.h"
 /* USER CODE END INCLUDE */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -32,7 +32,7 @@
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-
+extern CAN_HandleTypeDef hcan;
 /* USER CODE END PV */
 
 /** @addtogroup STM32_USB_OTG_DEVICE_LIBRARY
@@ -262,7 +262,24 @@ static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t *Len)
   /* USER CODE BEGIN 6 */
   USBD_CDC_SetRxBuffer(&hUsbDeviceFS, &Buf[0]);
   USBD_CDC_ReceivePacket(&hUsbDeviceFS);
+  //发送到can口
+//  if (CAN_Transmit(Buf+5) != 0) {
+//    HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_RESET);
+//  }
+
+  CAN_TxPacketTypeDef pkt;
+  pkt.mailbox = *(uint32_t *)(Buf + 5);
+  memcpy(pkt.payload, Buf + 33, 8);
+  pkt.hdr.StdId = *(uint32_t*)(Buf + 9);
+  pkt.hdr.ExtId = *(uint32_t*)(Buf + 9 + 4);
+  pkt.hdr.IDE = *(uint32_t*)(Buf + 9 + 8);
+  pkt.hdr.RTR = *(uint32_t*)(Buf + 9 + 12);
+  pkt.hdr.DLC = *(uint32_t*)(Buf + 9 + 16);
+  pkt.hdr.TransmitGlobalTime = *(uint32_t *)(Buf + 9 + 20);
+  if(HAL_CAN_AddTxMessage(&hcan, &((CAN_TxPacketTypeDef *)(Buf+5))->hdr, ((CAN_TxPacketTypeDef *)(Buf+5))->payload, &((CAN_TxPacketTypeDef *)(Buf+5))->mailbox) != HAL_OK)
+	return (USBD_FAIL);
   return (USBD_OK);
+
   /* USER CODE END 6 */
 }
 

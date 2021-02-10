@@ -37,6 +37,12 @@ extern "C" {
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
+typedef struct
+{
+	uint32_t mailbox;
+	CAN_TxHeaderTypeDef hdr;
+	uint8_t payload[8];
+} CAN_TxPacketTypeDef;
 
 /* USER CODE END ET */
 
