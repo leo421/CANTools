@@ -59,5 +59,41 @@ Namespace My.Resources
                 resourceCulture = value
             End Set
         End Property
+        
+        '''<summary>
+        '''  查找类似 [
+        '''  {
+        '''    &quot;table&quot;: &quot;电机参数&quot;,
+        '''    &quot;list&quot;: [
+        '''      {
+        '''        &quot;addr&quot;: 6557718,
+        '''        &quot;prop&quot;: {
+        '''          &quot;rw&quot;: &quot;RO&quot;,
+        '''          &quot;type&quot;: &quot;16U&quot;,
+        '''          &quot;save&quot;: null
+        '''        },
+        '''        &quot;unit&quot;: &quot;HEX&quot;,
+        '''        &quot;desc&quot;: &quot;当前电机型号代码&quot;
+        '''      },
+        '''      {
+        '''        &quot;addr&quot;: 6557697,
+        '''        &quot;prop&quot;: {
+        '''          &quot;rw&quot;: &quot;RW&quot;,
+        '''          &quot;type&quot;: &quot;16U&quot;,
+        '''          &quot;save&quot;: &quot;S4&quot;
+        '''        },
+        '''        &quot;unit&quot;: &quot;HEX&quot;,
+        '''        &quot;desc&quot;: &quot;电机型号代码&quot;
+        '''      },
+        '''      {
+        '''        &quot;addr&quot;: 6557698,
+        '''        &quot;prop&quot;: {
+        '''          &quot;rw [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        '''</summary>
+        Friend ReadOnly Property ProtoData() As String
+            Get
+                Return ResourceManager.GetString("ProtoData", resourceCulture)
+            End Get
+        End Property
     End Module
 End Namespace
