@@ -1,8 +1,17 @@
 ﻿Imports System.Windows.Forms
 Imports CanSniffer
+Imports Newtonsoft.Json
 
 Public Class Protocol
     Implements IProtocol
+
+    Private m_Data As ArrayList
+
+    Public Sub New()
+        m_Data = JsonConvert.DeserializeObject(Of ArrayList)(My.Resources.ProtoData)
+
+    End Sub
+
     Public Function Decode(row As DataGridViewRow) As String Implements IProtocol.Decode
         Dim tDetail As New System.Text.StringBuilder
 
@@ -13,7 +22,7 @@ Public Class Protocol
         tDetail.Append("时间：" + row.Cells("Time").Value + vbCrLf)
         tDetail.Append("接口：" + row.Cells("CAN").Value + vbCrLf)
         tDetail.Append("帧ID：" + row.Cells("ID").Value + vbCrLf)
-        If row.Cells("IDE").Value = "1" Then
+        If row.Cells("IDE").Value = "4" Then
             tDetail.Append("帧类型：扩展帧 (IDE=1)" + vbCrLf)
         Else
             tDetail.Append("帧类型：标准帧 (IDE=0)" + vbCrLf)

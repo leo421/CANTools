@@ -252,7 +252,7 @@
         r("ExtId") = "0x" + Convert.ToString(extid, 16) + " [ " + s + " ]"
 
 
-        If r("IDE") = "1" Then
+        If r("IDE") = "4" Then
             '扩展帧
             s = Convert.ToString(extid, 2)
             If s.Length < 18 Then

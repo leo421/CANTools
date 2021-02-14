@@ -33,7 +33,11 @@ Public Class Form1
         t = Newtonsoft.Json.JsonConvert.DeserializeObject(Of ArrayList)(tData.Text)
         Debug.Print(t.Count)
 
-        Newtonsoft.Json.JsonConvert.DeserializeObject()
+        Dim pt As Newtonsoft.Json.Linq.JObject
+        pt = t(0)
+        Debug.Print(pt.GetValue("addr"))
+
+        'Newtonsoft.Json.JsonConvert.DeserializeObject(t)
 
     End Sub
 
