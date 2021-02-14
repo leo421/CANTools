@@ -9,7 +9,9 @@ Public Class MainForm
 
     Private m_Current As Integer = -1
 
-    Private m_DataGridViewList As New ArrayList()
+    'Private m_DataGridViewList As New ArrayList()
+
+    Private m_ListViewList As New ArrayList()
 
     '协议插件列表
     Private m_Protos As New List(Of IProtocol)
@@ -19,7 +21,6 @@ Public Class MainForm
         Dim dt As DataTable
 
         Dim tp As TabPage
-        Dim dgv As DataGridView
 
         Dim fnc As frmNewCapture = New frmNewCapture()
         Dim tpcap As String = ""
@@ -39,20 +40,35 @@ Public Class MainForm
         tp = New TabPage(tpcap)
         tp.ImageIndex = 0
         TCMain.TabPages.Add(tp)
-        dgv = New DataGridView()
-        tp.Controls.Add(dgv)
-        With dgv
+
+        'Dim dgv As DataGridView
+        'dgv = New DataGridView()
+        'tp.Controls.Add(dgv)
+        'With dgv
+        '    .Dock = DockStyle.Fill
+        '    .BackgroundColor = System.Drawing.SystemColors.ControlLightLight
+        '    .AllowUserToAddRows = False
+        '    .AllowUserToResizeRows = False
+        '    .AllowUserToDeleteRows = False
+        '    .BorderStyle = BorderStyle.None
+        '    .ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        '    .ReadOnly = True
+        '    .SelectionMode = DataGridViewSelectionMode.FullRowSelect
+        'End With
+        'm_DataGridViewList.Add(dgv)
+        Dim lv As DBListView
+        lv = New DBListView
+        tp.Controls.Add(lv)
+        With lv
             .Dock = DockStyle.Fill
-            .BackgroundColor = System.Drawing.SystemColors.ControlLightLight
-            .AllowUserToAddRows = False
-            .AllowUserToResizeRows = False
-            .AllowUserToDeleteRows = False
-            .BorderStyle = BorderStyle.None
-            .ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-            .ReadOnly = True
-            .SelectionMode = DataGridViewSelectionMode.FullRowSelect
+            .BackColor = System.Drawing.SystemColors.ControlLightLight
+            .HeaderStyle = ColumnHeaderStyle.Nonclickable
+            .HideSelection = False
+            .BorderStyle = BorderStyle.FixedSingle
+            .View = View.Details
+            .FullRowSelect = True
         End With
-        m_DataGridViewList.Add(dgv)
+        m_ListViewList.Add(lv)
 
         TCMain.SelectedIndex = m_Captures.Count
 
@@ -69,9 +85,10 @@ Public Class MainForm
             tp.ImageIndex = 1
         End If
 
-        bindData(dgv, c.Data)
+        bindData(lv, c.Data)
 
-        AddHandler dgv.RowEnter, AddressOf DGV_RowEnter
+        'AddHandler dgv.RowEnter, AddressOf DGV_RowEnter
+        AddHandler lv.SelectedIndexChanged, AddressOf LV_SelectedIndexChanged
 
 
     End Sub
@@ -139,64 +156,75 @@ Public Class MainForm
         Return dt
     End Function
 
-    Private Sub bindData(dgv As DataGridView, data As DataTable)
+    Private Sub bindData(lv As DBListView, data As DataTable)
         'dgv.DataSource = data
 
         Dim i As Integer
-        Dim dc As DataGridViewColumn
+        Dim dc As ColumnHeader
 
         For i = 0 To data.Columns.Count - 1
-            dc = New DataGridViewColumn()
-            dc.Name = data.Columns(i).ColumnName
-            dc.CellTemplate = New DataGridViewTextBoxCell()
-            dgv.Columns.Add(dc)
+            dc = lv.Columns.Add(data.Columns(i).ColumnName)
+            'dc = New DataGridViewColumn()
+            'dc.Name = data.Columns(i).ColumnName
+            'dc.CellTemplate = New DataGridViewTextBoxCell()
+            'dgv.Columns.Add(dc)
         Next
 
-        For Each c As DataGridViewColumn In dgv.Columns
-            c.SortMode = DataGridViewColumnSortMode.NotSortable
-        Next
-        With dgv
-            .Columns("No").Width = 40
-            .Columns("No").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-            .Columns("No").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight
+        'For Each c As DataGridViewColumn In dgv.Columns
+        '    c.SortMode = DataGridViewColumnSortMode.NotSortable
+        'Next
+        'With dgv
+        With lv
+            .Columns(0).Width = 40
+            .Columns(0).TextAlign = HorizontalAlignment.Right
+            '.Columns("No").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            '.Columns("No").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight
 
+            .Columns(1).Width = 150
+            .Columns(1).TextAlign = HorizontalAlignment.Right
+            '.Columns("Time").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            '.Columns("Time").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight
 
-            .Columns("Time").Width = 150
-            .Columns("Time").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-            .Columns("Time").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight
+            .Columns(2).Width = 30
+            .Columns(2).TextAlign = HorizontalAlignment.Center
+            '.Columns("CAN").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
 
-            .Columns("CAN").Width = 30
-            .Columns("CAN").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+            .Columns(3).Width = 150
 
-            .Columns("StdId").Width = 150
+            .Columns(4).Width = 210
 
-            .Columns("ExtId").Width = 210
+            .Columns(5).Width = 70
 
-            .Columns("ID").Width = 70
+            .Columns(6).Width = 30
+            '.Columns("IDE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+            .Columns(6).TextAlign = HorizontalAlignment.Center
 
-            .Columns("IDE").Width = 30
-            .Columns("IDE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+            .Columns(7).Width = 30
+            '.Columns("RTR").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+            .Columns(7).TextAlign = HorizontalAlignment.Center
 
-            .Columns("RTR").Width = 30
-            .Columns("RTR").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+            .Columns(8).Width = 30
+            '.Columns("DLC").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+            .Columns(8).TextAlign = HorizontalAlignment.Center
 
-            .Columns("DLC").Width = 30
-            .Columns("DLC").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
-
-            .Columns("Payload").Width = 400
+            .Columns(9).Width = 400
         End With
 
     End Sub
 
-    Private Sub DGV_RowEnter(sender As Object, e As DataGridViewCellEventArgs)
-        Dim dgv As DataGridView
-        Dim r As DataGridViewRow
+    Private Sub LV_SelectedIndexChanged(sender As Object, e As EventArgs)
+        'Dim dgv As DataGridView
+        Dim lv As DBListView
+        'Dim r As DataGridViewRow
+        Dim r As ListViewItem
         'MsgBox(e.RowIndex)
 
         Try
-            dgv = m_DataGridViewList(m_Current)
+            'dgv = m_DataGridViewList(m_Current)
+            lv = m_ListViewList(m_Current)
             'r = dgv.Rows(e.RowIndex)
-            r = dgv.Rows(dgv.SelectedRows(0).Index)
+            'r = dgv.Rows(dgv.SelectedRows(0).Index)
+            r = lv.Items(lv.SelectedIndices(0))
             tDetail.Clear()
             'tDetail.AppendText(CallByName(m_Protos(cbProtocol.SelectedIndex), "Decode", vbMethod, r))
             tDetail.AppendText(m_Protos(cbProtocol.SelectedIndex).Decode(r))
@@ -224,93 +252,136 @@ Public Class MainForm
             Catch ex As Exception
             End Try
         Else
-            Dim dgv As DataGridView
+            'Dim dgv As DataGridView
+            Dim lv As DBListView
             Dim i, j As Integer
-            dgv = m_DataGridViewList(m_Current)
+            Dim item As ListViewItem
+            'dgv = m_DataGridViewList(m_Current)
+            lv = m_ListViewList(m_Current)
             'm_DataGridViewList(m_Current).Refresh()
             'dgv.DataSource = m_Captures(m_Current).Data
-            i = dgv.Rows.Add()
-            For j = 0 To r.ItemArray.Length - 1
-                dgv.Rows(i).Cells(j).Value = r.Item(j)
+            'i = dgv.Rows.Add()
+            item = lv.Items.Add(r.Item(0))
+            For j = 1 To r.ItemArray.Length - 1
+                'dgv.Rows(i).Cells(j).Value = r.Item(j)
+                item.SubItems.Add(r.Item(j))
             Next
 
             If miAutoScrollToLast.Checked Then
-                dgv.FirstDisplayedScrollingRowIndex = dgv.Rows.Count - 1
+                'dgv.FirstDisplayedScrollingRowIndex = dgv.Rows.Count - 1
+                lv.EnsureVisible(lv.Items.Count - 1)
             End If
             If miAutoSelectLast.Checked Then
-                For Each row As DataGridViewRow In dgv.SelectedRows
-                    row.Selected = False
+                'For Each row As DataGridViewRow In dgv.SelectedRows
+                '    row.Selected = False
+                'Next
+                For Each item In lv.SelectedItems
+                    item.Selected = False
                 Next
-                dgv.Rows(dgv.Rows.Count - 1).Selected = True
+                'dgv.Rows(dgv.Rows.Count - 1).Selected = True
+                lv.Items(lv.Items.Count - 1).Selected = True
             End If
 
         End If
     End Sub
 
     Private Sub miDeleteAll_Click(sender As Object, e As EventArgs) Handles miDeleteAll.Click
-        Dim dgv As DataGridView
+        'Dim dgv As DataGridView
+        Dim lv As DBListView
         Dim cap As Capture
 
-        dgv = m_DataGridViewList(m_Current)
+        'dgv = m_DataGridViewList(m_Current)
+        lv = m_ListViewList(m_Current)
         cap = m_Captures(m_Current)
 
         cap.clearData()
-        dgv.Rows.Clear()
+        'dgv.Rows.Clear()
+        lv.Items.Clear()
     End Sub
 
     Private Sub tmUpdateData_Tick(sender As Object, e As EventArgs) Handles tmUpdateData.Tick
         Dim i, j As Integer
-        Dim dgv As DataGridView
+        'Dim dgv As DataGridView
+        Dim lv As DBListView
+        Dim item As ListViewItem
         Dim cap As Capture
         Dim r As DataRow
 
-        If m_DataGridViewList.Count > 0 Then
+        'If m_DataGridViewList.Count > 0 Then
+        If m_ListViewList.Count > 0 Then
 
-            dgv = m_DataGridViewList(m_Current)
+            'dgv = m_DataGridViewList(m_Current)
+            lv = m_ListViewList(m_Current)
             cap = m_Captures(m_Current)
 
-            If cap.Data.Rows.Count > dgv.Rows.Count Then
-                For i = dgv.Rows.Count To cap.Data.Rows.Count - 1
-                    dgv.Rows.Add()
+            'If cap.Data.Rows.Count > dgv.Rows.Count Then
+
+            If cap.Data.Rows.Count > lv.Items.Count Then
+                For i = lv.Items.Count To cap.Data.Rows.Count - 1
+                    'dgv.Rows.Add()
                     r = cap.Data.Rows(i)
-                    For j = 0 To r.ItemArray.Length - 1
-                        dgv.Rows(i).Cells(j).Value = r.Item(j)
+                    item = lv.Items.Add(r.Item(0))
+                    For j = 1 To r.ItemArray.Length - 1
+                        'dgv.Rows(i).Cells(j).Value = r.Item(j)
+                        item.SubItems.Add(r.Item(j))
                     Next
 
                 Next
 
+                'If miAutoScrollToLast.Checked Then
+                '        dgv.FirstDisplayedScrollingRowIndex = dgv.Rows.Count - 1
+                '    End If
+                '    If miAutoSelectLast.Checked Then
+                '        For Each row As DataGridViewRow In dgv.SelectedRows
+                '            row.Selected = False
+                '        Next
+                '        'dgv.Rows(dgv.Rows.Count - 1).Selected = True
+                '        dgv.CurrentCell = dgv.Rows(dgv.Rows.Count - 1).Cells(0)
+                '    End If
+
+                'End If
                 If miAutoScrollToLast.Checked Then
-                    dgv.FirstDisplayedScrollingRowIndex = dgv.Rows.Count - 1
+                    'dgv.FirstDisplayedScrollingRowIndex = dgv.Rows.Count - 1
+                    lv.EnsureVisible(lv.Items.Count - 1)
                 End If
                 If miAutoSelectLast.Checked Then
-                    For Each row As DataGridViewRow In dgv.SelectedRows
-                        row.Selected = False
+                    'For Each row As DataGridViewRow In dgv.SelectedRows
+                    '    row.Selected = False
+                    'Next
+                    For Each item In lv.SelectedItems
+                        item.Selected = False
                     Next
                     'dgv.Rows(dgv.Rows.Count - 1).Selected = True
-                    dgv.CurrentCell = dgv.Rows(dgv.Rows.Count - 1).Cells(0)
+                    lv.Items(lv.Items.Count - 1).Selected = True
                 End If
 
-            End If
 
+            End If
         End If
+
     End Sub
 
     Private Sub miClose_Click(sender As Object, e As EventArgs) Handles miClose.Click
-        Dim dgv As DataGridView
+        'Dim dgv As DataGridView
+        Dim lv As DBListView
         Dim cap As Capture
 
         If m_Current >= 0 Then
             tmUpdateData.Stop()
 
-            dgv = m_DataGridViewList(m_Current)
+            'dgv = m_DataGridViewList(m_Current)
+            lv = m_ListViewList(m_Current)
             cap = m_Captures(m_Current)
 
             cap.StopCapture()
             m_Captures.Remove(cap)
 
-            RemoveHandler dgv.RowEnter, AddressOf DGV_RowEnter
-            m_DataGridViewList.Remove(dgv)
-            TCMain.TabPages.Item(m_Current).Controls.Remove(dgv)
+            'RemoveHandler dgv.RowEnter, AddressOf DGV_RowEnter
+            RemoveHandler lv.SelectedIndexChanged, AddressOf LV_SelectedIndexChanged
+            'm_DataGridViewList.Remove(dgv)
+            m_ListViewList.Remove(lv)
+            'TCMain.TabPages.Item(m_Current).Controls.Remove(dgv)
+            TCMain.TabPages.Item(m_Current).Controls.Remove(lv)
 
             TCMain.TabPages.RemoveAt(m_Current)
 
@@ -440,7 +511,8 @@ Public Class MainForm
     End Sub
 
     Private Sub cbProtocol_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbProtocol.SelectedIndexChanged
-        DGV_RowEnter(Nothing, Nothing)
+        'DGV_RowEnter(Nothing, Nothing)
+        LV_SelectedIndexChanged(Nothing, Nothing)
     End Sub
 
     Private Sub miSendPacket_Click(sender As Object, e As EventArgs) Handles miSendPacket.Click

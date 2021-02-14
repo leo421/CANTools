@@ -93,7 +93,7 @@ Partial Class MainForm
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.TCMain = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
-        Me.DGV = New System.Windows.Forms.DataGridView()
+        Me.LV = New System.Windows.Forms.ListView()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.TCIMGLIST = New System.Windows.Forms.ImageList(Me.components)
         Me.cbProtocol = New System.Windows.Forms.ComboBox()
@@ -108,7 +108,6 @@ Partial Class MainForm
         Me.SplitContainer1.SuspendLayout()
         Me.TCMain.SuspendLayout()
         Me.TabPage1.SuspendLayout()
-        CType(Me.DGV, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MenuStripMain
@@ -362,7 +361,7 @@ Partial Class MainForm
         'miSendPacket
         '
         Me.miSendPacket.Name = "miSendPacket"
-        Me.miSendPacket.Size = New System.Drawing.Size(180, 22)
+        Me.miSendPacket.Size = New System.Drawing.Size(136, 22)
         Me.miSendPacket.Text = "发送数据包"
         '
         'miHelp
@@ -375,7 +374,7 @@ Partial Class MainForm
         'miAbout
         '
         Me.miAbout.Name = "miAbout"
-        Me.miAbout.Size = New System.Drawing.Size(180, 22)
+        Me.miAbout.Size = New System.Drawing.Size(100, 22)
         Me.miAbout.Text = "关于"
         '
         'ToolStripMain
@@ -606,7 +605,7 @@ Partial Class MainForm
         '
         'TabPage1
         '
-        Me.TabPage1.Controls.Add(Me.DGV)
+        Me.TabPage1.Controls.Add(Me.LV)
         Me.TabPage1.ImageIndex = 0
         Me.TabPage1.Location = New System.Drawing.Point(4, 23)
         Me.TabPage1.Name = "TabPage1"
@@ -616,22 +615,18 @@ Partial Class MainForm
         Me.TabPage1.Text = "TabPage1"
         Me.TabPage1.UseVisualStyleBackColor = True
         '
-        'DGV
+        'LV
         '
-        Me.DGV.AllowUserToAddRows = False
-        Me.DGV.AllowUserToDeleteRows = False
-        Me.DGV.AllowUserToResizeRows = False
-        Me.DGV.BackgroundColor = System.Drawing.SystemColors.ControlLightLight
-        Me.DGV.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.DGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DGV.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.DGV.Location = New System.Drawing.Point(3, 3)
-        Me.DGV.Name = "DGV"
-        Me.DGV.ReadOnly = True
-        Me.DGV.RowTemplate.Height = 23
-        Me.DGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DGV.Size = New System.Drawing.Size(728, 518)
-        Me.DGV.TabIndex = 0
+        Me.LV.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.LV.FullRowSelect = True
+        Me.LV.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
+        Me.LV.HideSelection = False
+        Me.LV.Location = New System.Drawing.Point(432, 255)
+        Me.LV.Name = "LV"
+        Me.LV.Size = New System.Drawing.Size(121, 97)
+        Me.LV.TabIndex = 1
+        Me.LV.UseCompatibleStateImageBehavior = False
+        Me.LV.View = System.Windows.Forms.View.Details
         '
         'TabPage2
         '
@@ -677,6 +672,7 @@ Partial Class MainForm
         'tmUpdateData
         '
         Me.tmUpdateData.Enabled = True
+        Me.tmUpdateData.Interval = 10
         '
         'MainForm
         '
@@ -699,7 +695,6 @@ Partial Class MainForm
         Me.SplitContainer1.ResumeLayout(False)
         Me.TCMain.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
-        CType(Me.DGV, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -726,7 +721,6 @@ Partial Class MainForm
     Friend WithEvents TCMain As TabControl
     Friend WithEvents TabPage1 As TabPage
     Friend WithEvents TabPage2 As TabPage
-    Friend WithEvents DGV As DataGridView
     Friend WithEvents miOpenRecent As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
     Friend WithEvents miSave As ToolStripMenuItem
@@ -781,4 +775,5 @@ Partial Class MainForm
     Friend WithEvents ToolStripSeparator6 As ToolStripSeparator
     Friend WithEvents tsbSendPacket As ToolStripButton
     Friend WithEvents cbProtocol As ComboBox
+    Friend WithEvents LV As ListView
 End Class
