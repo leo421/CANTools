@@ -56,8 +56,8 @@ Public Class MainForm
         '    .SelectionMode = DataGridViewSelectionMode.FullRowSelect
         'End With
         'm_DataGridViewList.Add(dgv)
-        Dim lv As ListView
-        lv = New ListView
+        Dim lv As DBListView
+        lv = New DBListView
         tp.Controls.Add(lv)
         With lv
             .Dock = DockStyle.Fill
@@ -156,7 +156,7 @@ Public Class MainForm
         Return dt
     End Function
 
-    Private Sub bindData(lv As ListView, data As DataTable)
+    Private Sub bindData(lv As DBListView, data As DataTable)
         'dgv.DataSource = data
 
         Dim i As Integer
@@ -214,7 +214,7 @@ Public Class MainForm
 
     Private Sub LV_SelectedIndexChanged(sender As Object, e As EventArgs)
         'Dim dgv As DataGridView
-        Dim lv As ListView
+        Dim lv As DBListView
         'Dim r As DataGridViewRow
         Dim r As ListViewItem
         'MsgBox(e.RowIndex)
@@ -253,7 +253,7 @@ Public Class MainForm
             End Try
         Else
             'Dim dgv As DataGridView
-            Dim lv As ListView
+            Dim lv As DBListView
             Dim i, j As Integer
             Dim item As ListViewItem
             'dgv = m_DataGridViewList(m_Current)
@@ -287,7 +287,7 @@ Public Class MainForm
 
     Private Sub miDeleteAll_Click(sender As Object, e As EventArgs) Handles miDeleteAll.Click
         'Dim dgv As DataGridView
-        Dim lv As ListView
+        Dim lv As DBListView
         Dim cap As Capture
 
         'dgv = m_DataGridViewList(m_Current)
@@ -302,7 +302,7 @@ Public Class MainForm
     Private Sub tmUpdateData_Tick(sender As Object, e As EventArgs) Handles tmUpdateData.Tick
         Dim i, j As Integer
         'Dim dgv As DataGridView
-        Dim lv As ListView
+        Dim lv As DBListView
         Dim item As ListViewItem
         Dim cap As Capture
         Dim r As DataRow
@@ -363,7 +363,7 @@ Public Class MainForm
 
     Private Sub miClose_Click(sender As Object, e As EventArgs) Handles miClose.Click
         'Dim dgv As DataGridView
-        Dim lv As ListView
+        Dim lv As DBListView
         Dim cap As Capture
 
         If m_Current >= 0 Then

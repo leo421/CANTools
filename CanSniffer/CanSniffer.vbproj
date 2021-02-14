@@ -75,6 +75,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Capture.vb" />
+    <Compile Include="DBListView.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="frmAboutBox.Designer.vb">
       <DependentUpon>frmAboutBox.vb</DependentUpon>
     </Compile>
