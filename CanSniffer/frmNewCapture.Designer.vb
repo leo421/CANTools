@@ -82,6 +82,7 @@ Partial Class frmNewCapture
         '
         'btCancel
         '
+        Me.btCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.btCancel.Location = New System.Drawing.Point(373, 149)
         Me.btCancel.Name = "btCancel"
         Me.btCancel.Size = New System.Drawing.Size(75, 23)
@@ -167,8 +168,10 @@ Partial Class frmNewCapture
         '
         'frmNewCapture
         '
+        Me.AcceptButton = Me.btOK
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.CancelButton = Me.btCancel
         Me.ClientSize = New System.Drawing.Size(490, 214)
         Me.Controls.Add(Me.GroupBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle

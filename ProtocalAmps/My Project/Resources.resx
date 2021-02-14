@@ -46,7 +46,7 @@
     
     mimetype: application/x-microsoft.net.object.binary.base64
     value   : The object must be serialized with 
-            : System.Serialization.Formatters.Binary.BinaryFormatter
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
     
     mimetype: application/x-microsoft.net.object.soap.base64
@@ -60,6 +60,7 @@
             : and then encoded with base64 encoding.
     -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
@@ -68,9 +69,10 @@
               <xsd:sequence>
                 <xsd:element name="value" type="xsd:string" minOccurs="0" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="name" use="required" type="xsd:string" />
               <xsd:attribute name="type" type="xsd:string" />
               <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
@@ -85,9 +87,10 @@
                 <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
                 <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
               <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
               <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
@@ -109,9 +112,753 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ProtoData" xml:space="preserve">
+    <value>[
+  {
+    "table": "电机参数",
+    "list": [
+      {
+        "addr": 6557718,
+        "prop": {
+          "rw": "RO",
+          "type": "16U",
+          "save": null
+        },
+        "unit": "HEX",
+        "desc": "当前电机型号代码"
+      },
+      {
+        "addr": 6557697,
+        "prop": {
+          "rw": "RW",
+          "type": "16U",
+          "save": "S4"
+        },
+        "unit": "HEX",
+        "desc": "电机型号代码"
+      },
+      {
+        "addr": 6557698,
+        "prop": {
+          "rw": "RW",
+          "type": "08U",
+          "save": "S4"
+        },
+        "unit": "HEX",
+        "desc": "反馈类型"
+      },
+      {
+        "addr": 6557699,
+        "prop": {
+          "rw": "RW",
+          "type": "32U",
+          "save": "S4"
+        },
+        "unit": "DEC",
+        "desc": "编码器分辨率,即反馈精度 \n默认值:4096"
+      },
+      {
+        "addr": 6557701,
+        "prop": {
+          "rw": "RW",
+          "type": "08U",
+          "save": "S4"
+        },
+        "unit": "DEC",
+        "desc": "电机极对数"
+      },
+      {
+        "addr": 6557702,
+        "prop": {
+          "rw": "RW",
+          "type": "08U",
+          "save": "S4"
+        },
+        "unit": "DEC",
+        "desc": "励磁模式"
+      },
+      {
+        "addr": 6557703,
+        "prop": {
+          "rw": "RW",
+          "type": "16S",
+          "save": "S4"
+        },
+        "unit": "DEC",
+        "desc": "励磁电流"
+      },
+      {
+        "addr": 6557704,
+        "prop": {
+          "rw": "RW",
+          "type": "16U",
+          "save": "S4"
+        },
+        "unit": "ms",
+        "desc": "励磁时间"
+      },
+      {
+        "addr": 6557705,
+        "prop": {
+          "rw": "RW",
+          "type": "16U",
+          "save": "S4"
+        },
+        "unit": "0.1A",
+        "desc": "电机过载电流"
+      },
+      {
+        "addr": 6557706,
+        "prop": {
+          "rw": "RW",
+          "type": "16U",
+          "save": "S4"
+        },
+        "unit": "S",
+        "desc": "电机过载时间常数"
+      },
+      {
+        "addr": 6557707,
+        "prop": {
+          "rw": "RW",
+          "type": "16U",
+          "save": "S4"
+        },
+        "unit": "0.1A",
+        "desc": "电机最大电流"
+      },
+      {
+        "addr": 6557715,
+        "prop": {
+          "rw": "RW",
+          "type": "08U",
+          "save": "S4"
+        },
+        "unit": "DEC",
+        "desc": "电机旋转方向"
+      },
+      {
+        "addr": 6557722,
+        "prop": {
+          "rw": "RW",
+          "type": "16U",
+          "save": "S4"
+        },
+        "unit": "rpm",
+        "desc": "电机额定转速"
+      },
+      {
+        "addr": 6557723,
+        "prop": {
+          "rw": "RW",
+          "type": "16U",
+          "save": "S4"
+        },
+        "unit": "W",
+        "desc": "电机额定功率"
+      },
+      {
+        "addr": 6557727,
+        "prop": {
+          "rw": "RW",
+          "type": "16S",
+          "save": "S4"
+        },
+        "unit": "Degree",
+        "desc": "电机霍尔角度"
+      }
+    ]
+  },
+  {
+    "table": "基本模式及控制",
+    "list": [
+      {
+        "addr": 6316032,
+        "prop": {
+          "rw": "RW",
+          "type": "08S",
+          "save": "S5"
+        },
+        "unit": "DEC",
+        "desc": "工作模式 \n3 带加减速控制的速度模式 \n-3 立即速度模式 \n4 力矩模式 \n1位置模式 \n6 原点模式"
+      },
+      {
+        "addr": 6307840,
+        "prop": {
+          "rw": "RW",
+          "type": "16S",
+          "save": null
+        },
+        "unit": "HEX",
+        "desc": "控制字 \n0x06 电机断电（松轴） \n0x0F 电机上电(使能) \n0x86 清除驱动器报警"
+      },
+      {
+        "addr": 6316288,
+        "prop": {
+          "rw": "RO",
+          "type": "08S",
+          "save": null
+        },
+        "unit": "DEC",
+        "desc": "有效工作模式"
+      },
+      {
+        "addr": 6308096,
+        "prop": {
+          "rw": "RO",
+          "type": "16U",
+          "save": null
+        },
+        "unit": "HEX",
+        "desc": "驱动器状态字 \n0x0000:驱动器无有效报警 \n0x0008:驱动器报警 \n具体报警信息请读取对象[0x7011]"
+      },
+      {
+        "addr": 2490624,
+        "prop": {
+          "rw": "RO",
+          "type": "16U",
+          "save": null
+        },
+        "unit": "HEX",
+        "desc": "驱动器错误状态字1 \n*每个BIT代表一种错误,具体如下 \nBIT[0]:内部错误 \nBIT[1]:编码器ABZ信号错误 \nBIT[2]:编码器UVW信号错误 \nBIT[3]:编码器计数错误 \nBIT[4]:驱动器温度过高 \nBIT[5]:驱动器母线电压过高 \nBIT[6]:驱动器母线电压过低 \nBIT[7]:驱动器输出短路 \nBIT[8]:驱动器制动电阻异常 \nBIT[9]:实际跟踪误差超过允许值 \nBIT[10]:保留备用 \nBIT[11]:I2*T故障(驱动器或电机过载) \nBIT[12]:保留备用 \nBIT[13]:保留备用 \nBIT[14]:寻找电机错误(通讯式编码器) \nBIT[15]:保留备用"
+      },
+      {
+        "addr": 6314513,
+        "prop": {
+          "rw": "RW",
+          "type": "08U",
+          "save": null
+        },
+        "unit": "DEC",
+        "desc": "急停命令 \n1:急停生效 \n0:急停解除"
+      },
+      {
+        "addr": 6322688,
+        "prop": {
+          "rw": "RW",
+          "type": "32S",
+          "save": null
+        },
+        "unit": "DEC",
+        "desc": "绝对目标位置 \n（工作模式1下的绝对目标位置）"
+      },
+      {
+        "addr": 6322944,
+        "prop": {
+          "rw": "RW",
+          "type": "32S",
+          "save": null
+        },
+        "unit": "DEC",
+        "desc": "相对目标位置 \n（工作模式1下的相对目标位置）"
+      },
+      {
+        "addr": 6324480,
+        "prop": {
+          "rw": "RW",
+          "type": "32U",
+          "save": "S5"
+        },
+        "unit": "DEC",
+        "desc": "梯形速度 \n（工作模式1时的梯形曲线的最大速度） \nU[y,x]: \n[DEC]=([rpm]*512*[反馈精度])/1875; \n[反馈精度]默认值:4096"
+      },
+      {
+        "addr": 6324736,
+        "prop": {
+          "rw": "RW",
+          "type": "16U",
+          "save": "S5"
+        },
+        "unit": "rpm",
+        "desc": "梯形速度rpm \n（工作模式1时的梯形曲线的最大速度） \n注:写此对象将会更新[0x7098]对象值"
+      },
+      {
+        "addr": 6324992,
+        "prop": {
+          "rw": "RW",
+          "type": "32U",
+          "save": "S5"
+        },
+        "unit": "DEC",
+        "desc": "梯形加速度 \nU[y,x]: \n[DEC]=[rps/s]*256*[反馈精度]/15625; \n[反馈精度]默认值:4096"
+      },
+      {
+        "addr": 6325248,
+        "prop": {
+          "rw": "RW",
+          "type": "32U",
+          "save": "S5"
+        },
+        "unit": "DEC",
+        "desc": "梯形减速度 \nU[y,x]: \n[DEC]=[rps/s]*256*[反馈精度]/15625; \n[反馈精度]默认值:4096"
+      },
+      {
+        "addr": 6314497,
+        "prop": {
+          "rw": "RW",
+          "type": "32U",
+          "save": "S5"
+        },
+        "unit": "DEC",
+        "desc": "快速停止减速度 \n定义快速停止过程的减速度,在驱动器运\n行在3,1模式下有效 \n默认值:由配方而定 \nU[y,x]: \n[DEC]=[rps/s]*256*[反馈精度]/15625; \n[反馈精度]默认值:4096"
+      },
+      {
+        "addr": 3141641,
+        "prop": {
+          "rw": "RW",
+          "type": "16S",
+          "save": null
+        },
+        "unit": "rpm",
+        "desc": "目标速度rpm \n（在工作模式3,-3下的目标速度rpm） \n注:写此对象将会更新[0x70B2]对象值"
+      },
+      {
+        "addr": 6356736,
+        "prop": {
+          "rw": "RW",
+          "type": "32S",
+          "save": null
+        },
+        "unit": "DEC",
+        "desc": "目标速度 \n（在工作模式3,-3下的目标速度） \nU[y,x]: \n[DEC]=([rpm]*512*[反馈精度])/1875; \n[反馈精度]默认值:4096"
+      },
+      {
+        "addr": 6320384,
+        "prop": {
+          "rw": "RW",
+          "type": "16S",
+          "save": null
+        },
+        "unit": "DEC",
+        "desc": "目标电流 \n（在工作模式4下的目标电流） \nU[y,x]:[DEC]=[Arms]*1.414*2048/50"
+      },
+      {
+        "addr": 6320896,
+        "prop": {
+          "rw": "RW",
+          "type": "16U",
+          "save": null
+        },
+        "unit": "DEC",
+        "desc": "目标电流限制 \n（在所有工作模式下的电流环有效目标\n电流限制） \nU[y,x]:[DEC]=[Arms]*1.414*2048/50"
+      },
+      {
+        "addr": 6324224,
+        "prop": {
+          "rw": "RW",
+          "type": "16U",
+          "save": "S5"
+        },
+        "unit": "rpm",
+        "desc": "最大速度限制rpm \n任何模式下的电机最大速度限制"
+      },
+      {
+        "addr": 6317312,
+        "prop": {
+          "rw": "RW",
+          "type": "32U",
+          "save": "S5"
+        },
+        "unit": "DEC",
+        "desc": "位置跟随误差窗口 \n(在3,1,-4模式下,当[位置环比例增益0]\n不为0时有效)"
+      },
+      {
+        "addr": 6355848,
+        "prop": {
+          "rw": "RW",
+          "type": "08U",
+          "save": "S5"
+        },
+        "unit": "DEC",
+        "desc": "工作模式3的位置补偿使能 \n0:不使能, 1:使能 \n默认值:0"
+      },
+      {
+        "addr": 6355714,
+        "prop": {
+          "rw": "RW",
+          "type": "16S",
+          "save": "S5"
+        },
+        "unit": "DEC",
+        "desc": "位置环速度前馈 \n(在3,1模式下有效) \n范围值0~256,对应着前馈比例0~100%"
+      },
+      {
+        "addr": 6355713,
+        "prop": {
+          "rw": "RW",
+          "type": "16S",
+          "save": "S5"
+        },
+        "unit": "DEC",
+        "desc": "位置环比例增益0"
+      },
+      {
+        "addr": 6355201,
+        "prop": {
+          "rw": "RW",
+          "type": "16U",
+          "save": "S5"
+        },
+        "unit": "DEC",
+        "desc": "速度环比例增益0"
+      },
+      {
+        "addr": 6355202,
+        "prop": {
+          "rw": "RW",
+          "type": "16U",
+          "save": "S5"
+        },
+        "unit": "DEC",
+        "desc": "速度环积分增益0"
+      },
+      {
+        "addr": 6330368,
+        "prop": {
+          "rw": "RW",
+          "type": "08S",
+          "save": "S5"
+        },
+        "unit": "DEC",
+        "desc": "找原点方式选择 \n40: 以当前位置为原点 \n41: 以外接原点开关信号为原点,以正负 \n限位开关信号为辅助 \n43: 以正限位开关信号为原点,初始电机 \n运行方向为正转 \n45: 以负限位开关信号为原点,初始运行 \n运行方向为负转 \n默认值:41"
+      },
+      {
+        "addr": 6330626,
+        "prop": {
+          "rw": "RW",
+          "type": "16U",
+          "save": "S5"
+        },
+        "unit": "rpm",
+        "desc": "找原点速度rpm \n默认值:由配方而定"
+      },
+      {
+        "addr": 6330896,
+        "prop": {
+          "rw": "RW",
+          "type": "16U",
+          "save": "S5"
+        },
+        "unit": "rps/s",
+        "desc": "找原点加速度 \n默认值:由配方而定"
+      },
+      {
+        "addr": 6330897,
+        "prop": {
+          "rw": "RW",
+          "type": "16U",
+          "save": "S5"
+        },
+        "unit": "rps/s",
+        "desc": "找原点减速度 \n默认值:由配方而定"
+      },
+      {
+        "addr": 6323201,
+        "prop": {
+          "rw": "RO",
+          "type": "08U",
+          "save": null
+        },
+        "unit": "HEX",
+        "desc": "找原点状态 \n0x0F: 正在找原点 \n0xF0: 找原点成功 \n0x80: 找原点失败"
+      },
+      {
+        "addr": 6323200,
+        "prop": {
+          "rw": "RO",
+          "type": "32S",
+          "save": null
+        },
+        "unit": "DEC",
+        "desc": "原点位置偏移 \n找到原点后的位置偏移"
+      },
+      {
+        "addr": 6323202,
+        "prop": {
+          "rw": "RW",
+          "type": "08U",
+          "save": null
+        },
+        "unit": "DEC",
+        "desc": "当前位置清零命令 \n在电机不使能状态下对该对象写1即可清\n零当前位置."
+      }
+    ]
+  },
+  {
+    "table": "测量数据",
+    "list": [
+      {
+        "addr": 6316800,
+        "prop": {
+          "rw": "RO",
+          "type": "32S",
+          "save": null
+        },
+        "unit": "DEC",
+        "desc": "实际位置值"
+      },
+      {
+        "addr": 6355224,
+        "prop": {
+          "rw": "RO",
+          "type": "16S",
+          "save": null
+        },
+        "unit": "rpm",
+        "desc": "实际速度rpm \n采样周期可以更改,默认值为30ms, \n分辨率为1rpm"
+      },
+      {
+        "addr": 6355225,
+        "prop": {
+          "rw": "RO",
+          "type": "32S",
+          "save": null
+        },
+        "unit": "0.001rpm",
+        "desc": "实际速度_0.001rpm \n采样周期可以更改,默认值为30ms, \n分辨率为0.001rpm"
+      },
+      {
+        "addr": 6355226,
+        "prop": {
+          "rw": "RW",
+          "type": "16U",
+          "save": "S5"
+        },
+        "unit": "ms",
+        "desc": "实际速度的采样周期 \n默认值为:30"
+      },
+      {
+        "addr": 6319104,
+        "prop": {
+          "rw": "RO",
+          "type": "32S",
+          "save": null
+        },
+        "unit": "DEC",
+        "desc": "实际速度 \n内部采样时间为250uS \nU[y,x]: \n[DEC]=([rpm]*512*[反馈精度])/1875 \n[反馈精度]默认值:4096 \n注:因采样周期很短,所以速度值波动较大"
+      },
+      {
+        "addr": 6322176,
+        "prop": {
+          "rw": "RO",
+          "type": "16S",
+          "save": null
+        },
+        "unit": "DEC",
+        "desc": "实际电流Iq \nU[y,x]:[DEC]=[Arms]*1.414*2048/50"
+      },
+      {
+        "addr": 6354482,
+        "prop": {
+          "rw": "RO",
+          "type": "16U",
+          "save": null
+        },
+        "unit": "mA",
+        "desc": "电机IIt实际电流"
+      },
+      {
+        "addr": 6354706,
+        "prop": {
+          "rw": "RO",
+          "type": "16S",
+          "save": null
+        },
+        "unit": "V",
+        "desc": "实际直流母线电压 \n分辨率为1V"
+      }
+    ]
+  },
+  {
+    "table": "IO口数据及控制",
+    "list": [
+      {
+        "addr": 2101258,
+        "prop": {
+          "rw": "RO",
+          "type": "16U",
+          "save": null
+        },
+        "unit": "BIT",
+        "desc": "数字输入口实际输入状态（硬件输入）\nBIT[0]—DIN1_State \nBIT[1]—DIN2_State \n. \nBIT[7]—DIN8_State \nDINx输入有效则相应的BIT[x-1]被置位 \nDINx输入无效则相应的BIT[x-1]被清零"
+      },
+      {
+        "addr": 2101249,
+        "prop": {
+          "rw": "RO",
+          "type": "16U",
+          "save": "S2"
+        },
+        "unit": "BIT",
+        "desc": "数字输入口极性设置 \nBIT[0]—DIN1_Polarity \nBIT[1]—DIN2_Polarity \n. \nBIT[7]—DIN8_Polarity \n置位BIT[x]相应的DIN[x+1]极性不取反 \n清零BIT[x]相应的DIN[x+1]极性取反 \n默认值：0x00ff"
+      },
+      {
+        "addr": 2101250,
+        "prop": {
+          "rw": "RW",
+          "type": "16U",
+          "save": null
+        },
+        "unit": "BIT",
+        "desc": "数字输入口仿真输入（软件仿真输入状\n态） \nBIT[0]—DIN1_Simulate \nBIT[1]—DIN2_Simulate \n. \nBIT[7]—DIN8_Simulate \n置位BIT[x]相应的DIN[x+1]仿真置位 \n清零BIT[x]相应的DIN[x+1]仿真清零"
+      },
+      {
+        "addr": 2101259,
+        "prop": {
+          "rw": "RO",
+          "type": "16U",
+          "save": null
+        },
+        "unit": "BIT",
+        "desc": "数字输入口虚拟状态 \nBIT[0]—DIN1_Virtual \nBIT[1]—DIN2_Virtual \n. \nBIT[7]—DIN8_Virtual \n这个值来源于对象 \n.数字输入口实际输入状态（硬件输入）\n[0x20100A] \n.数字输入口极性设置[0x201001] \n.数字输入口仿真输入[0x201002] \n的组合逻辑,逻辑关系式为: \n([0x20100A]同或\n[0x201001])|[0x201002] \nBIT[x]为1,相应的DIN1_Virtual[x+1]有\n效, \nBIT[x]为0,相应的DIN1_Virtual[x+1]无\n效 \n如果对应的\"输入[x+1]功能定义\"有被设\n置,DIN1_Virtual[x+1]有效时将执行相\n应的功能."
+      },
+      {
+        "addr": 2101251,
+        "prop": {
+          "rw": "RW",
+          "type": "16U",
+          "save": "S2"
+        },
+        "unit": "HEX",
+        "desc": "输入DIN1功能定义 \n0000:取消功能设置 \n0001:驱动器使能(RUN/STOP) \n0002:保留 \n0004:保留 \n0008:保留 \n0010:正限位信号 \n0020:负限位信号 \n0040:原点信号 \n0080:指令反向(F/R) \n0100:保留 \n0200:保留 \n0400:保留 \n0800:保留 \n1000:急停信号(BRAKE) \n2000:保留 \n4000:保留 \n8000:保留"
+      },
+      {
+        "addr": 2101252,
+        "prop": {
+          "rw": "RW",
+          "type": "16U",
+          "save": "S2"
+        },
+        "unit": "",
+        "desc": "输入DIN22功能定义 \n（详细描述同\"输入1功能定义\"）"
+      },
+      {
+        "addr": 2101253,
+        "prop": {
+          "rw": "RW",
+          "type": "16U",
+          "save": "S2"
+        },
+        "unit": "",
+        "desc": "输入DIN3功能定义 \n（详细描述同\"输入1功能定义\"）"
+      }
+    ]
+  },
+  {
+    "table": "通讯参数",
+    "list": [
+      {
+        "addr": 3137537,
+        "prop": {
+          "rw": "RW",
+          "type": "08U",
+          "save": "S1"
+        },
+        "unit": "DEC",
+        "desc": "TTL232波特率设置 \n设定值 波特率 \n0: 4800 \n1: 9600 \n2: 14400 \n3: 19200 \n4: 38400 \n5: 56000 \n6: 57600 \n7: 115200 \n设置完毕后需要保存启动才生效 \n出厂默认值为:7"
+      },
+      {
+        "addr": 3137551,
+        "prop": {
+          "rw": "RW",
+          "type": "08U",
+          "save": "S1"
+        },
+        "unit": "DEC",
+        "desc": "TTL232协议选择 \n0: 自主协议 \n1: 定制协议1 \n2: 定制协议2 \n设置完毕后需要保存 \n出厂默认值为:根据出厂配方而定"
+      },
+      {
+        "addr": 6623247,
+        "prop": {
+          "rw": "RW",
+          "type": "08U",
+          "save": "S1"
+        },
+        "unit": "DEC",
+        "desc": "RS485/CAN站号(内部存储) \n设置完毕后需要保存启动才生效 \n出厂默认值为:17"
+      },
+      {
+        "addr": 4259856,
+        "prop": {
+          "rw": "RW",
+          "type": "08U",
+          "save": "S1"
+        },
+        "unit": "DEC",
+        "desc": "通信掉线停机使能 \n0:不使能 \n1:使能 \n默认值:由配方而定"
+      },
+      {
+        "addr": 4259857,
+        "prop": {
+          "rw": "RW",
+          "type": "32U",
+          "save": "S1"
+        },
+        "unit": "mS",
+        "desc": "通信掉线停机延时 \n默认值:600 \n当对象\"0x3010\"总线断线检测使能为1\n时,当总线断线超过设置时长,电机将松\n轴"
+      }
+    ]
+  },
+  {
+    "table": "参数保存",
+    "list": [
+      {
+        "addr": 3138817,
+        "prop": {
+          "rw": "RW",
+          "type": "08U",
+          "save": null
+        },
+        "unit": "DEC",
+        "desc": "保存S1标记参数群命令 \n1:保存所有标记为S1的对象 \n其他值:无动作"
+      },
+      {
+        "addr": 3138818,
+        "prop": {
+          "rw": "RW",
+          "type": "08U",
+          "save": null
+        },
+        "unit": "DEC",
+        "desc": "保存S2标记参数群命令 \n1:保存所有标记为S2的对象 \n其他值:无动作"
+      },
+      {
+        "addr": 3138819,
+        "prop": {
+          "rw": "RW",
+          "type": "08U",
+          "save": null
+        },
+        "unit": "DEC",
+        "desc": "保存S3标记参数群命令 \n1:保存所有标记为S3的对象 \n其他值:无动作"
+      },
+      {
+        "addr": 3138820,
+        "prop": {
+          "rw": "RW",
+          "type": "08U",
+          "save": null
+        },
+        "unit": "DEC",
+        "desc": "保存S4标记参数群命令 \n1:保存所有标记为S4的对象 \n其他值:无动作"
+      },
+      {
+        "addr": 3138821,
+        "prop": {
+          "rw": "RW",
+          "type": "08U",
+          "save": null
+        },
+        "unit": "DEC",
+        "desc": "保存S5标记参数群命令 \n1:保存所有标记为S5的对象 \n其他值:无动作"
+      }
+    ]
+  }
+]</value>
+  </data>
 </root>
