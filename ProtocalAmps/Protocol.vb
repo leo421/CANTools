@@ -50,7 +50,7 @@ Public Class Protocol
         Return "(未知)" + vbCrLf
     End Function
 
-    Public Function Decode(row As DataGridViewRow) As String Implements IProtocol.Decode
+    Public Function Decode(row As ListViewItem) As String Implements IProtocol.Decode
         Dim i As Integer
         Dim tDetail As New System.Text.StringBuilder
         Dim sAction As String = ""
@@ -67,32 +67,36 @@ Public Class Protocol
         tDetail.Clear()
         tDetail.Append("Amps BLDC" + vbCrLf)
         tDetail.Append("==基本信息=============================" + vbCrLf)
-        tDetail.Append("序号：" + row.Cells("No").Value + vbCrLf)
-        tDetail.Append("时间：" + row.Cells("Time").Value + vbCrLf)
-        tDetail.Append("接口：" + row.Cells("CAN").Value + vbCrLf)
-        tDetail.Append("帧ID：" + row.Cells("ID").Value + vbCrLf)
-        If row.Cells("IDE").Value = "4" Then
+        'tDetail.Append("序号：" + row.Cells("No").Value + vbCrLf)
+        tDetail.Append("序号：" + row.SubItems(0).Text + vbCrLf)
+        'tDetail.Append("时间：" + row.Cells("Time").Value + vbCrLf)
+        tDetail.Append("时间：" + row.SubItems(1).Text + vbCrLf)
+        'tDetail.Append("接口：" + row.Cells("CAN").Value + vbCrLf)
+        tDetail.Append("接口：" + row.SubItems(2).Text + vbCrLf)
+        'tDetail.Append("帧ID：" + row.Cells("ID").Value + vbCrLf)
+        tDetail.Append("帧ID：" + row.SubItems(5).Text + vbCrLf)
+        If row.SubItems(6).Text = "4" Then
             tDetail.Append("帧格式：扩展帧 (IDE=4)" + vbCrLf)
-        ElseIf row.Cells("IDE").Value = "0" Then
+        ElseIf row.SubItems(6).Text = "0" Then
             tDetail.Append("帧格式：标准帧 (IDE=0)" + vbCrLf)
         Else
-            tDetail.Append("帧格式：未知 (IDE=" + row.Cells("IDE").Value + ")" + vbCrLf)
+            tDetail.Append("帧格式：未知 (IDE=" + row.SubItems(6).Text + ")" + vbCrLf)
         End If
-        If row.Cells("RTR").Value = "2" Then
+        If row.SubItems(7).Text = "2" Then
             tDetail.Append("帧类型：远程帧 (RTR=2)" + vbCrLf)
-        ElseIf row.Cells("RTR").Value = "0" Then
+        ElseIf row.SubItems(7).Text = "0" Then
             tDetail.Append("帧类型：数据帧 (RTR=0)" + vbCrLf)
         Else
-            tDetail.Append("帧类型：未知 (RTR=" + row.Cells("RTR").Value + ")" + vbCrLf)
+            tDetail.Append("帧类型：未知 (RTR=" + row.SubItems(7).Text + ")" + vbCrLf)
         End If
-        tDetail.Append("数据长度：" + row.Cells("DLC").Value + vbCrLf)
-        tDetail.Append("数据内容：" + row.Cells("Payload").Value + vbCrLf)
+        tDetail.Append("数据长度：" + row.SubItems(8).Text + vbCrLf)
+        tDetail.Append("数据内容：" + row.SubItems(9).Text + vbCrLf)
 
         tDetail.Append(vbCrLf + "==协议信息=============================" + vbCrLf)
 
-        ss = Split(row.Cells("Payload").Value.ToString, " ")
+        ss = Split(row.SubItems(9).Text, " ")
 
-        If (row.Cells("DLC").Value.ToString <> "8") _
+        If (row.SubItems(8).Text <> "8") _
             Or (ss.Length <> 8) _
         Then
             tDetail.Append("无法解析！" + vbCrLf)
@@ -103,14 +107,14 @@ Public Class Protocol
             payload(i) = Convert.ToByte(ss(i), 16)
         Next
 
-        tDetail.Append("    站号：" + CStr(Convert.ToInt32(row.Cells("ID").Value.ToString.Substring(2), 16) And 15) + vbCrLf)
+        tDetail.Append("    站号：" + CStr(Convert.ToInt32(row.SubItems(5).Text.Substring(2), 16) And 15) + vbCrLf)
 
         Dim idx As Integer
         idx = payload(2)
         idx = (idx * 256 + payload(1)) * 256 + payload(3)
         tDetail.Append("数据对象：0x" + Convert.ToString(idx, 16).ToUpper() + " " + GetAmpsObject(idx))
 
-        If (Convert.ToInt32(row.Cells("ID").Value.ToString.Substring(2), 16) And &H7FFFFFF0) = &H600 Then
+        If (Convert.ToInt32(row.SubItems(5).Text.Substring(2), 16) And &H7FFFFFF0) = &H600 Then
             '请求
             If payload(0) = &H40 Then
                 '读请求
@@ -151,7 +155,7 @@ Public Class Protocol
                 tDetail.Append("无法解析！" + vbCrLf)
                 Return tDetail.ToString
             End If
-        ElseIf (Convert.ToInt32(row.Cells("ID").Value.ToString.Substring(2), 16) And &H7FFFFFF0) = &H580 Then
+        ElseIf (Convert.ToInt32(row.SubItems(5).Text.Substring(2), 16) And &H7FFFFFF0) = &H580 Then
             '响应
             If payload(0) = &H4F Then
                 '收到响应1个字节数据

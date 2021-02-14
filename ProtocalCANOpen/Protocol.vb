@@ -3,23 +3,32 @@ Imports CanSniffer
 Public Class Protocol
     Implements IProtocol
 
-    Public Function Decode(row As DataGridViewRow) As String Implements IProtocol.Decode
+    Public Function Decode(row As ListViewItem) As String Implements IProtocol.Decode
         Dim tDetail As New System.Text.StringBuilder
 
         tDetail.Clear()
-        tDetail.Append("CANopen协议" + vbCrLf)
+        tDetail.Append("通用协议" + vbCrLf)
         tDetail.Append("===========================" + vbCrLf)
-        tDetail.Append("序号：" + row.Cells("No").Value + vbCrLf)
-        tDetail.Append("时间：" + row.Cells("Time").Value + vbCrLf)
-        tDetail.Append("接口：" + row.Cells("CAN").Value + vbCrLf)
-        tDetail.Append("帧ID：" + row.Cells("ID").Value + vbCrLf)
-        If row.Cells("IDE").Value = "1" Then
-            tDetail.Append("帧类型：扩展帧 (IDE=1)" + vbCrLf)
+        tDetail.Append("序号：" + row.SubItems(0).Text + vbCrLf)
+        tDetail.Append("时间：" + row.SubItems(1).Text + vbCrLf)
+        tDetail.Append("接口：" + row.SubItems(2).Text + vbCrLf)
+        tDetail.Append("帧ID：" + row.SubItems(5).Text + vbCrLf)
+        If row.SubItems(6).Text = "4" Then
+            tDetail.Append("帧格式：扩展帧 (IDE=4)" + vbCrLf)
+        ElseIf row.SubItems(6).Text = "0" Then
+            tDetail.Append("帧格式：标准帧 (IDE=0)" + vbCrLf)
         Else
-            tDetail.Append("帧类型：标准帧 (IDE=0)" + vbCrLf)
+            tDetail.Append("帧格式：未知 (IDE=" + row.SubItems(6).Text + ")" + vbCrLf)
         End If
-        tDetail.Append("数据长度：" + row.Cells("DLC").Value + vbCrLf)
-        tDetail.Append("数据内容：" + row.Cells("Payload").Value + vbCrLf)
+        If row.SubItems(7).Text = "2" Then
+            tDetail.Append("帧类型：远程帧 (RTR=2)" + vbCrLf)
+        ElseIf row.SubItems(7).Text = "0" Then
+            tDetail.Append("帧类型：数据帧 (RTR=0)" + vbCrLf)
+        Else
+            tDetail.Append("帧类型：未知 (RTR=" + row.SubItems(7).Text + ")" + vbCrLf)
+        End If
+        tDetail.Append("数据长度：" + row.SubItems(8).Text + vbCrLf)
+        tDetail.Append("数据内容：" + row.SubItems(9).Text + vbCrLf)
 
         Return tDetail.ToString
 
