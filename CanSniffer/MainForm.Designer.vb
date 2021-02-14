@@ -672,6 +672,7 @@ Partial Class MainForm
         'tmUpdateData
         '
         Me.tmUpdateData.Enabled = True
+        Me.tmUpdateData.Interval = 10
         '
         'MainForm
         '
