@@ -1,5 +1,7 @@
 ﻿Public Class Capture
 
+    Public Shared COLUMNS() As String = {"No", "Time", "CAN", "StdId", "ExtId", "ID", "IDE", "RTR", "DLC", "Payload"}
+
     Public Enum CAPTURE_STATE
         NEW_CAPTURE = 1
         RUNNING = 2
@@ -19,7 +21,8 @@
     Private m_Bitrate As Integer
 
     '捕获的数据
-    Private m_Data As DataTable
+    'Private m_Data As DataTable
+    Private m_Data As List(Of String())
 
     '运行状态
     Private m_State As CAPTURE_STATE
@@ -34,7 +37,7 @@
         End Get
     End Property
 
-    Public ReadOnly Property Data As DataTable
+    Public ReadOnly Property Data As List(Of String())
         Get
             Return m_Data
         End Get
@@ -96,7 +99,8 @@
         m_Can1 = False
         m_Bitrate = 500
         m_State = CAPTURE_STATE.NEW_CAPTURE
-        m_Data = newData()
+        'm_Data = newData()
+        m_Data = New List(Of String())
 
         m_No = 0
 
@@ -137,29 +141,30 @@
         '关闭串口
         StopCapture()
         '清除数据
-        m_Data.Rows.Clear()
+        'm_Data.Rows.Clear()
+        m_Data.Clear()
         m_No = 0
         '开启串口
         StartCapture()
     End Sub
 
-    Private Function newData() As DataTable
-        Dim dt = New DataTable()
-        With dt
-            .Columns.Add("No")
-            .Columns.Add("Time")
-            .Columns.Add("CAN")
-            .Columns.Add("StdId")
-            .Columns.Add("ExtId")
-            .Columns.Add("ID")
-            .Columns.Add("IDE")
-            .Columns.Add("RTR")
-            .Columns.Add("DLC")
-            .Columns.Add("Payload")
-        End With
+    'Private Function newData() As DataTable
+    '    Dim dt = New DataTable()
+    '    With dt
+    '        .Columns.Add("No")
+    '        .Columns.Add("Time")
+    '        .Columns.Add("CAN")
+    '        .Columns.Add("StdId")
+    '        .Columns.Add("ExtId")
+    '        .Columns.Add("ID")
+    '        .Columns.Add("IDE")
+    '        .Columns.Add("RTR")
+    '        .Columns.Add("DLC")
+    '        .Columns.Add("Payload")
+    '    End With
 
-        Return dt
-    End Function
+    '    Return dt
+    'End Function
 
     Private m_RecvBuf As Byte()
     Private m_RecvBufSize As Integer
@@ -202,7 +207,8 @@
         End If
     End Sub
     Private Sub addData(buf As Byte(), offset As Integer, length As Integer)
-        Dim r As DataRow
+        'Dim r As DataRow
+        Dim r() As String
         Dim payload As String
         Dim h As String
         Dim stdid, extid As UInt32
@@ -223,14 +229,21 @@
             Exit Sub
         End If
 
-        r = m_Data.NewRow
-        r("No") = m_No
+        'r = m_Data.NewRow
+        ReDim r(9)
+        'r("No") = m_No
+        r(0) = m_No
         m_No += 1
-        r("Time") = Now.ToString("yyyy-MM-dd HH:mm:ss.fff")
-        r("CAN") = CStr(buf(offset + 4))
-        r("IDE") = CStr(BitConverter.ToUInt32(buf, offset + 13))
-        r("RTR") = CStr(BitConverter.ToUInt32(buf, offset + 17))
-        r("DLC") = CStr(BitConverter.ToUInt32(buf, offset + 21))
+        'r("Time") = Now.ToString("yyyy-MM-dd HH:mm:ss.fff")
+        r(1) = Now.ToString("yyyy-MM-dd HH:mm:ss.fff")
+        'r("CAN") = CStr(buf(offset + 4))
+        r(2) = CStr(buf(offset + 4))
+        'r("IDE") = CStr(BitConverter.ToUInt32(buf, offset + 13))
+        r(6) = CStr(BitConverter.ToUInt32(buf, offset + 13))
+        'r("RTR") = CStr(BitConverter.ToUInt32(buf, offset + 17))
+        r(7) = CStr(BitConverter.ToUInt32(buf, offset + 17))
+        'r("DLC") = CStr(BitConverter.ToUInt32(buf, offset + 21))
+        r(8) = CStr(BitConverter.ToUInt32(buf, offset + 21))
         payload = ""
         For i = 0 To 7
             h = Hex(buf(offset + 33 + i))
@@ -239,7 +252,8 @@
             End If
             payload += h + " "
         Next
-        r("Payload") = payload.Trim()
+        'r("Payload") = payload.Trim()
+        r(9) = payload.Trim()
 
 
         stdid = BitConverter.ToUInt32(buf, offset + 5)
@@ -249,7 +263,8 @@
         End If
         s = s.Insert(3, " ")
         s = s.Insert(8, " ")
-        r("StdId") = "0x" + Convert.ToString(stdid, 16) + " [ " + s + " ]"
+        'r("StdId") = "0x" + Convert.ToString(stdid, 16) + " [ " + s + " ]"
+        r(3) = "0x" + Convert.ToString(stdid, 16) + " [ " + s + " ]"
 
         extid = BitConverter.ToUInt32(buf, offset + 9)
         s = Convert.ToString(extid, 2)
@@ -260,10 +275,12 @@
         s = s.Insert(7, " ")
         s = s.Insert(12, " ")
         s = s.Insert(17, " ")
-        r("ExtId") = "0x" + Convert.ToString(extid, 16) + " [ " + s + " ]"
+        'r("ExtId") = "0x" + Convert.ToString(extid, 16) + " [ " + s + " ]"
+        r(4) = "0x" + Convert.ToString(extid, 16) + " [ " + s + " ]"
 
 
-        If r("IDE") = "4" Then
+        'If r("IDE") = "4" Then
+        If r(6) = "4" Then
             '扩展帧
             s = Convert.ToString(extid, 2)
             If s.Length < 18 Then
@@ -274,24 +291,29 @@
             If s.Length < 8 Then
                 s = Space(8 - s.Length).Replace(" ", "0") + s
             End If
-            r("ID") = "0x" + s
+            'r("ID") = "0x" + s
+            r(5) = "0x" + s
         Else
             '标准帧
-            r("ID") = "0x" + Convert.ToString(stdid, 16)
+            'r("ID") = "0x" + Convert.ToString(stdid, 16)
+            r(5) = "0x" + Convert.ToString(stdid, 16)
         End If
-        m_Data.Rows.Add(r)
-        m_Data.AcceptChanges()
+        'm_Data.Rows.Add(r)
+        'm_Data.AcceptChanges()
+        m_Data.Add(r)
 
         updateDGV(r)
     End Sub
 
-    Private Sub updateDGV(r As DataRow)
+    'Private Sub updateDGV(r As DataRow)
+    Private Sub updateDGV(r() As String)
         'TODO 效率太低
         'm_MainForm.updateDGV(r)
     End Sub
 
     Public Sub clearData()
-        m_Data.Rows.Clear()
+        'm_Data.Rows.Clear()
+        m_Data.Clear()
         m_No = 0
     End Sub
 
