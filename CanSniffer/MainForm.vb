@@ -662,13 +662,44 @@ Public Class MainForm
     End Sub
 
     Private Sub miSave_Click(sender As Object, e As EventArgs) Handles miSave.Click
+        Dim cap As Capture
 
-        If SFD.ShowDialog = DialogResult.OK Then
-
+        If m_Current < 0 Then
+            MsgBox("没有需要保存的数据！")
+            Exit Sub
         End If
+
+        cap = CType(m_Captures(m_Current), Capture)
+        If cap.FileName = "" Then
+            If SFD.ShowDialog <> DialogResult.OK Then
+                Exit Sub
+            End If
+            cap.FileName = SFD.FileName
+        End If
+
+        If Not cap.NewFile Then
+            Exit Sub
+        End If
+
+        cap.SaveFile()
+
     End Sub
 
     Private Sub miSaveAs_Click(sender As Object, e As EventArgs) Handles miSaveAs.Click
+        Dim cap As Capture
+
+        If m_Current < 0 Then
+            MsgBox("没有需要保存的数据！")
+            Exit Sub
+        End If
+
+        cap = CType(m_Captures(m_Current), Capture)
+        If SFD.ShowDialog <> DialogResult.OK Then
+            Exit Sub
+        End If
+        cap.FileName = SFD.FileName
+
+        cap.SaveFile()
 
     End Sub
 
@@ -677,6 +708,21 @@ Public Class MainForm
     End Sub
 
     Private Sub miOpen_Click(sender As Object, e As EventArgs) Handles miOpen.Click
+        Dim cap As Capture
+
+        If OFD.ShowDialog <> DialogResult.OK Then
+            Exit Sub
+        End If
+
+        'TODO
+        cap = New Capture()
+        cap.FileName = SFD.FileName
+
+        If Not cap.NewFile Then
+            Exit Sub
+        End If
+
+        cap.SaveFile()
 
     End Sub
 

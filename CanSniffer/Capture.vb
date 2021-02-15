@@ -28,6 +28,9 @@
 
     Private m_ListView As DBListView
 
+    Private m_FileName As String = ""
+    Private m_NewFile As Boolean = True
+
     Public ReadOnly Property SerialPort As IO.Ports.SerialPort
         Get
             Return m_SerialPort
@@ -87,6 +90,24 @@
         End Get
         Set(value As DBListView)
             m_ListView = value
+        End Set
+    End Property
+
+    Public Property FileName As String
+        Get
+            Return m_FileName
+        End Get
+        Set(value As String)
+            m_FileName = value
+        End Set
+    End Property
+
+    Public Property NewFile As Boolean
+        Get
+            Return m_NewFile
+        End Get
+        Set(value As Boolean)
+            m_NewFile = value
         End Set
     End Property
 
@@ -297,6 +318,14 @@
 
     Public Sub SendPacket(packetdata As Byte())
         m_SerialPort.Write(packetdata, 0, packetdata.Length)
+    End Sub
+
+    Public Sub SaveFile()
+        'TODO
+    End Sub
+
+    Public Sub OpenFile()
+        'TODO
     End Sub
 
 End Class

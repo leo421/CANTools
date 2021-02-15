@@ -101,6 +101,7 @@ Partial Class MainForm
         Me.SP = New System.IO.Ports.SerialPort(Me.components)
         Me.tmUpdateData = New System.Windows.Forms.Timer(Me.components)
         Me.SFD = New System.Windows.Forms.SaveFileDialog()
+        Me.OFD = New System.Windows.Forms.OpenFileDialog()
         Me.MenuStripMain.SuspendLayout()
         Me.ToolStripMain.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -678,10 +679,15 @@ Partial Class MainForm
         'SFD
         '
         Me.SFD.CheckFileExists = True
-        Me.SFD.CheckPathExists = False
         Me.SFD.DefaultExt = "csp"
         Me.SFD.Filter = "CAN Packet文件|*.csp"
         Me.SFD.Title = "保存文件"
+        '
+        'OFD
+        '
+        Me.OFD.DefaultExt = "csp"
+        Me.OFD.Filter = "CAN Packet文件|*.csp"
+        Me.OFD.Title = "打开文件"
         '
         'MainForm
         '
@@ -786,4 +792,5 @@ Partial Class MainForm
     Friend WithEvents cbProtocol As ComboBox
     Friend WithEvents LV As ListView
     Friend WithEvents SFD As SaveFileDialog
+    Friend WithEvents OFD As OpenFileDialog
 End Class
