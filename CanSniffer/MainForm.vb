@@ -466,16 +466,16 @@ Public Class MainForm
         miNext.PerformClick()
     End Sub
 
+    Private Sub tsbJump_Click(sender As Object, e As EventArgs) Handles tsbJump.Click
+        miJump.PerformClick()
+    End Sub
+
     Private Sub tsbFirst_Click(sender As Object, e As EventArgs) Handles tsbFirst.Click
         miFirst.PerformClick()
     End Sub
 
     Private Sub tsbLast_Click(sender As Object, e As EventArgs) Handles tsbLast.Click
         miLast.PerformClick()
-    End Sub
-
-    Private Sub tsbJump_Click(sender As Object, e As EventArgs) Handles tsbJump.Click
-        miJump.PerformClick()
     End Sub
 
     Private Sub tsbAutoScrollToLast_Click(sender As Object, e As EventArgs) Handles tsbAutoScrollToLast.Click
@@ -533,6 +533,117 @@ Public Class MainForm
         Dim f As New frmAboutBox
         f.Protos = m_Protos
         f.ShowDialog()
+    End Sub
+
+    Private Sub miPrevious_Click(sender As Object, e As EventArgs) Handles miPrevious.Click
+        Dim lv As ListView
+        Dim idx As Integer = 0
+
+        If m_Current < 0 Then
+            Exit Sub
+        End If
+
+        lv = m_ListViewList(m_Current)
+        If lv.Items.Count = 0 Then
+            Exit Sub
+        End If
+        For Each item In lv.SelectedItems
+            idx = lv.Items.IndexOf(item)
+            item.Selected = False
+        Next
+        idx -= 1
+        If idx < 0 Then idx = 0
+        lv.Items(idx).Selected = True
+
+    End Sub
+
+    Private Sub miNext_Click(sender As Object, e As EventArgs) Handles miNext.Click
+        Dim lv As ListView
+        Dim idx As Integer = 0
+
+        If m_Current < 0 Then
+            Exit Sub
+        End If
+
+        lv = m_ListViewList(m_Current)
+        If lv.Items.Count = 0 Then
+            Exit Sub
+        End If
+        For Each item In lv.SelectedItems
+            idx = lv.Items.IndexOf(item)
+            item.Selected = False
+        Next
+        idx += 1
+        If idx > (lv.Items.Count - 1) Then idx = lv.Items.Count - 1
+        lv.Items(idx).Selected = True
+    End Sub
+
+    Private Sub miFirst_Click(sender As Object, e As EventArgs) Handles miFirst.Click
+        Dim lv As ListView
+
+        If m_Current < 0 Then
+            Exit Sub
+        End If
+
+        lv = m_ListViewList(m_Current)
+        If lv.Items.Count = 0 Then
+            Exit Sub
+        End If
+        For Each item In lv.SelectedItems
+            item.Selected = False
+        Next
+        lv.Items(0).Selected = True
+
+    End Sub
+
+    Private Sub miLast_Click(sender As Object, e As EventArgs) Handles miLast.Click
+        Dim lv As ListView
+
+        If m_Current < 0 Then
+            Exit Sub
+        End If
+
+        lv = m_ListViewList(m_Current)
+        If lv.Items.Count = 0 Then
+            Exit Sub
+        End If
+
+        For Each item In lv.SelectedItems
+            item.Selected = False
+        Next
+        lv.Items(LV.Items.Count - 1).Selected = True
+    End Sub
+
+    Private Sub miJump_Click(sender As Object, e As EventArgs) Handles miJump.Click
+        Dim lv As ListView
+        Dim idx As Integer = 0
+        Dim sIdx As String
+
+        If m_Current < 0 Then
+            Exit Sub
+        End If
+
+        lv = m_ListViewList(m_Current)
+        If lv.Items.Count = 0 Then
+            Exit Sub
+        End If
+
+        sIdx = InputBox("请输入序号", "转到指定包")
+        Try
+            idx = CInt(sIdx)
+            If (idx < 0) Or (idx > lv.Items.Count - 1) Then
+                Throw New Exception("无效序号！")
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            Exit Sub
+        End Try
+
+        For Each item In lv.SelectedItems
+            item.Selected = False
+        Next
+        lv.Items(idx).Selected = True
+
     End Sub
 
 #End Region

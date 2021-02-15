@@ -78,9 +78,9 @@ Partial Class MainForm
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.tsbPrevious = New System.Windows.Forms.ToolStripButton()
         Me.tsbNext = New System.Windows.Forms.ToolStripButton()
+        Me.tsbJump = New System.Windows.Forms.ToolStripButton()
         Me.tsbFirst = New System.Windows.Forms.ToolStripButton()
         Me.tsbLast = New System.Windows.Forms.ToolStripButton()
-        Me.tsbJump = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
         Me.tsbAutoScrollToLast = New System.Windows.Forms.ToolStripButton()
         Me.tsbAutoSelectLast = New System.Windows.Forms.ToolStripButton()
@@ -129,64 +129,64 @@ Partial Class MainForm
         'miNew
         '
         Me.miNew.Name = "miNew"
-        Me.miNew.Size = New System.Drawing.Size(148, 22)
+        Me.miNew.Size = New System.Drawing.Size(180, 22)
         Me.miNew.Text = "新建"
         '
         'miOpen
         '
         Me.miOpen.Name = "miOpen"
-        Me.miOpen.Size = New System.Drawing.Size(148, 22)
+        Me.miOpen.Size = New System.Drawing.Size(180, 22)
         Me.miOpen.Text = "打开"
         '
         'miOpenRecent
         '
         Me.miOpenRecent.Name = "miOpenRecent"
-        Me.miOpenRecent.Size = New System.Drawing.Size(148, 22)
+        Me.miOpenRecent.Size = New System.Drawing.Size(180, 22)
         Me.miOpenRecent.Text = "打开最近"
         '
         'ToolStripMenuItem3
         '
         Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
-        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(145, 6)
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(177, 6)
         '
         'miSave
         '
         Me.miSave.Name = "miSave"
-        Me.miSave.Size = New System.Drawing.Size(148, 22)
+        Me.miSave.Size = New System.Drawing.Size(180, 22)
         Me.miSave.Text = "保存"
         '
         'miSaveAs
         '
         Me.miSaveAs.Name = "miSaveAs"
-        Me.miSaveAs.Size = New System.Drawing.Size(148, 22)
+        Me.miSaveAs.Size = New System.Drawing.Size(180, 22)
         Me.miSaveAs.Text = "另存为"
         '
         'miSaveSelected
         '
         Me.miSaveSelected.Name = "miSaveSelected"
-        Me.miSaveSelected.Size = New System.Drawing.Size(148, 22)
+        Me.miSaveSelected.Size = New System.Drawing.Size(180, 22)
         Me.miSaveSelected.Text = "保存选择数据"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(145, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(177, 6)
         '
         'miClose
         '
         Me.miClose.Name = "miClose"
-        Me.miClose.Size = New System.Drawing.Size(148, 22)
+        Me.miClose.Size = New System.Drawing.Size(180, 22)
         Me.miClose.Text = "关闭"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(145, 6)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(177, 6)
         '
         'miExit
         '
         Me.miExit.Name = "miExit"
-        Me.miExit.Size = New System.Drawing.Size(148, 22)
+        Me.miExit.Size = New System.Drawing.Size(180, 22)
         Me.miExit.Text = "退出"
         '
         'miEdit
@@ -199,47 +199,47 @@ Partial Class MainForm
         'miCopy
         '
         Me.miCopy.Name = "miCopy"
-        Me.miCopy.Size = New System.Drawing.Size(160, 22)
+        Me.miCopy.Size = New System.Drawing.Size(180, 22)
         Me.miCopy.Text = "复制"
         '
         'miFind
         '
         Me.miFind.Name = "miFind"
-        Me.miFind.Size = New System.Drawing.Size(160, 22)
+        Me.miFind.Size = New System.Drawing.Size(180, 22)
         Me.miFind.Text = "查找"
         '
         'miFindNext
         '
         Me.miFindNext.Name = "miFindNext"
-        Me.miFindNext.Size = New System.Drawing.Size(160, 22)
+        Me.miFindNext.Size = New System.Drawing.Size(180, 22)
         Me.miFindNext.Text = "查找下一个"
         '
         'miFinePrevious
         '
         Me.miFinePrevious.Name = "miFinePrevious"
-        Me.miFinePrevious.Size = New System.Drawing.Size(160, 22)
+        Me.miFinePrevious.Size = New System.Drawing.Size(180, 22)
         Me.miFinePrevious.Text = "查找上一个"
         '
         'ToolStripMenuItem19
         '
         Me.ToolStripMenuItem19.Name = "ToolStripMenuItem19"
-        Me.ToolStripMenuItem19.Size = New System.Drawing.Size(157, 6)
+        Me.ToolStripMenuItem19.Size = New System.Drawing.Size(177, 6)
         '
         'miDeleteAll
         '
         Me.miDeleteAll.Name = "miDeleteAll"
-        Me.miDeleteAll.Size = New System.Drawing.Size(160, 22)
+        Me.miDeleteAll.Size = New System.Drawing.Size(180, 22)
         Me.miDeleteAll.Text = "删除所有数据包"
         '
         'ToolStripMenuItem8
         '
         Me.ToolStripMenuItem8.Name = "ToolStripMenuItem8"
-        Me.ToolStripMenuItem8.Size = New System.Drawing.Size(157, 6)
+        Me.ToolStripMenuItem8.Size = New System.Drawing.Size(177, 6)
         '
         'miSetup
         '
         Me.miSetup.Name = "miSetup"
-        Me.miSetup.Size = New System.Drawing.Size(160, 22)
+        Me.miSetup.Size = New System.Drawing.Size(180, 22)
         Me.miSetup.Text = "设置"
         '
         'miNav
@@ -308,47 +308,47 @@ Partial Class MainForm
         'miSelectInterface
         '
         Me.miSelectInterface.Name = "miSelectInterface"
-        Me.miSelectInterface.Size = New System.Drawing.Size(124, 22)
+        Me.miSelectInterface.Size = New System.Drawing.Size(180, 22)
         Me.miSelectInterface.Text = "选择设备"
         '
         'miOptions
         '
         Me.miOptions.Name = "miOptions"
-        Me.miOptions.Size = New System.Drawing.Size(124, 22)
+        Me.miOptions.Size = New System.Drawing.Size(180, 22)
         Me.miOptions.Text = "选项"
         '
         'ToolStripMenuItem11
         '
         Me.ToolStripMenuItem11.Name = "ToolStripMenuItem11"
-        Me.ToolStripMenuItem11.Size = New System.Drawing.Size(121, 6)
+        Me.ToolStripMenuItem11.Size = New System.Drawing.Size(177, 6)
         '
         'miStart
         '
         Me.miStart.Name = "miStart"
-        Me.miStart.Size = New System.Drawing.Size(124, 22)
+        Me.miStart.Size = New System.Drawing.Size(180, 22)
         Me.miStart.Text = "开始"
         '
         'miStop
         '
         Me.miStop.Name = "miStop"
-        Me.miStop.Size = New System.Drawing.Size(124, 22)
+        Me.miStop.Size = New System.Drawing.Size(180, 22)
         Me.miStop.Text = "停止"
         '
         'miRestart
         '
         Me.miRestart.Name = "miRestart"
-        Me.miRestart.Size = New System.Drawing.Size(124, 22)
+        Me.miRestart.Size = New System.Drawing.Size(180, 22)
         Me.miRestart.Text = "重新开始"
         '
         'ToolStripMenuItem12
         '
         Me.ToolStripMenuItem12.Name = "ToolStripMenuItem12"
-        Me.ToolStripMenuItem12.Size = New System.Drawing.Size(121, 6)
+        Me.ToolStripMenuItem12.Size = New System.Drawing.Size(177, 6)
         '
         'miFilter
         '
         Me.miFilter.Name = "miFilter"
-        Me.miFilter.Size = New System.Drawing.Size(124, 22)
+        Me.miFilter.Size = New System.Drawing.Size(180, 22)
         Me.miFilter.Text = "过滤器"
         '
         'miSend
@@ -361,7 +361,7 @@ Partial Class MainForm
         'miSendPacket
         '
         Me.miSendPacket.Name = "miSendPacket"
-        Me.miSendPacket.Size = New System.Drawing.Size(136, 22)
+        Me.miSendPacket.Size = New System.Drawing.Size(180, 22)
         Me.miSendPacket.Text = "发送数据包"
         '
         'miHelp
@@ -374,12 +374,12 @@ Partial Class MainForm
         'miAbout
         '
         Me.miAbout.Name = "miAbout"
-        Me.miAbout.Size = New System.Drawing.Size(100, 22)
+        Me.miAbout.Size = New System.Drawing.Size(180, 22)
         Me.miAbout.Text = "关于"
         '
         'ToolStripMain
         '
-        Me.ToolStripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbNew, Me.tsbOpen, Me.tsbSave, Me.tsbClose, Me.ToolStripSeparator2, Me.tsbDeleteAll, Me.ToolStripSeparator3, Me.tsbPrevious, Me.tsbNext, Me.tsbFirst, Me.tsbLast, Me.tsbJump, Me.ToolStripSeparator4, Me.tsbAutoScrollToLast, Me.tsbAutoSelectLast, Me.ToolStripSeparator5, Me.tsbStartCapture, Me.tsbStopCapture, Me.tsbRestartCapture, Me.ToolStripSeparator6, Me.tsbSendPacket})
+        Me.ToolStripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbNew, Me.tsbOpen, Me.tsbSave, Me.tsbClose, Me.ToolStripSeparator2, Me.tsbDeleteAll, Me.ToolStripSeparator3, Me.tsbPrevious, Me.tsbNext, Me.tsbJump, Me.tsbFirst, Me.tsbLast, Me.ToolStripSeparator4, Me.tsbAutoScrollToLast, Me.tsbAutoSelectLast, Me.ToolStripSeparator5, Me.tsbStartCapture, Me.tsbStopCapture, Me.tsbRestartCapture, Me.ToolStripSeparator6, Me.tsbSendPacket})
         Me.ToolStripMain.Location = New System.Drawing.Point(0, 25)
         Me.ToolStripMain.Name = "ToolStripMain"
         Me.ToolStripMain.Size = New System.Drawing.Size(1080, 25)
@@ -466,6 +466,16 @@ Partial Class MainForm
         Me.tsbNext.Text = "ToolStripButton2"
         Me.tsbNext.ToolTipText = "下一个"
         '
+        'tsbJump
+        '
+        Me.tsbJump.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.tsbJump.Image = CType(resources.GetObject("tsbJump.Image"), System.Drawing.Image)
+        Me.tsbJump.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.tsbJump.Name = "tsbJump"
+        Me.tsbJump.Size = New System.Drawing.Size(23, 22)
+        Me.tsbJump.Text = "ToolStripButton3"
+        Me.tsbJump.ToolTipText = "转到指定序号"
+        '
         'tsbFirst
         '
         Me.tsbFirst.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
@@ -473,8 +483,8 @@ Partial Class MainForm
         Me.tsbFirst.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbFirst.Name = "tsbFirst"
         Me.tsbFirst.Size = New System.Drawing.Size(23, 22)
-        Me.tsbFirst.Text = "ToolStripButton3"
-        Me.tsbFirst.ToolTipText = "转到指定序号"
+        Me.tsbFirst.Text = "ToolStripButton4"
+        Me.tsbFirst.ToolTipText = "第一个"
         '
         'tsbLast
         '
@@ -483,18 +493,8 @@ Partial Class MainForm
         Me.tsbLast.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbLast.Name = "tsbLast"
         Me.tsbLast.Size = New System.Drawing.Size(23, 22)
-        Me.tsbLast.Text = "ToolStripButton4"
-        Me.tsbLast.ToolTipText = "第一个"
-        '
-        'tsbJump
-        '
-        Me.tsbJump.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbJump.Image = CType(resources.GetObject("tsbJump.Image"), System.Drawing.Image)
-        Me.tsbJump.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbJump.Name = "tsbJump"
-        Me.tsbJump.Size = New System.Drawing.Size(23, 22)
-        Me.tsbJump.Text = "ToolStripButton5"
-        Me.tsbJump.ToolTipText = "最后一个"
+        Me.tsbLast.Text = "ToolStripButton5"
+        Me.tsbLast.ToolTipText = "最后一个"
         '
         'ToolStripSeparator4
         '
@@ -762,9 +762,9 @@ Partial Class MainForm
     Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
     Friend WithEvents tsbPrevious As ToolStripButton
     Friend WithEvents tsbNext As ToolStripButton
+    Friend WithEvents tsbJump As ToolStripButton
     Friend WithEvents tsbFirst As ToolStripButton
     Friend WithEvents tsbLast As ToolStripButton
-    Friend WithEvents tsbJump As ToolStripButton
     Friend WithEvents ToolStripSeparator4 As ToolStripSeparator
     Friend WithEvents tsbAutoScrollToLast As ToolStripButton
     Friend WithEvents tsbAutoSelectLast As ToolStripButton
