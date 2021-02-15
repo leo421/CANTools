@@ -178,7 +178,7 @@ Public Class AmpsSendPacketControl
 
             For i = 0 To jl.Count - 1
                 jParam = jl(i)
-                cbAddr.Items.Add("0x" & Convert.ToString(UInt32.Parse(jParam.GetValue("addr").ToString), 16).ToUpper)
+                cbAddr.Items.Add("0x" & Convert.ToString(UInt32.Parse(jParam.GetValue("addr").ToString), 16).ToUpper & " " & jParam.GetValue("desc").ToString.Split(vbLf)(0))
             Next
             cbAddr.SelectedIndex = 0
         End If
