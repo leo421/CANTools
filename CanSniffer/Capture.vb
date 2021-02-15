@@ -26,6 +26,8 @@
 
     Private m_MainForm As MainForm
 
+    Private m_ListView As DBListView
+
     Public ReadOnly Property SerialPort As IO.Ports.SerialPort
         Get
             Return m_SerialPort
@@ -76,6 +78,15 @@
         End Get
         Set(value As MainForm)
             m_MainForm = value
+        End Set
+    End Property
+
+    Public Property ListView As DBListView
+        Get
+            Return m_ListView
+        End Get
+        Set(value As DBListView)
+            m_ListView = value
         End Set
     End Property
 

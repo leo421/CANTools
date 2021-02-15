@@ -11,7 +11,7 @@ Public Class MainForm
 
     'Private m_DataGridViewList As New ArrayList()
 
-    Private m_ListViewList As New ArrayList()
+    'Private m_ListViewList As New ArrayList()
 
     '协议插件列表
     Private m_Protos As New List(Of IProtocol)
@@ -68,7 +68,7 @@ Public Class MainForm
             .View = View.Details
             .FullRowSelect = True
         End With
-        m_ListViewList.Add(lv)
+        'm_ListViewList.Add(lv)
 
         TCMain.SelectedIndex = m_Captures.Count
 
@@ -78,6 +78,7 @@ Public Class MainForm
         c.CAN0 = fnc.Can0
         c.CAN1 = fnc.Can1
         c.MainForm = Me
+        c.ListView = lv
 
         m_Captures.Add(c)
         m_Current = m_Captures.Count - 1
@@ -221,7 +222,8 @@ Public Class MainForm
 
         Try
             'dgv = m_DataGridViewList(m_Current)
-            lv = m_ListViewList(m_Current)
+            'lv = m_ListViewList(m_Current)
+            lv = CType(m_Captures(m_Current), Capture).ListView
             'r = dgv.Rows(e.RowIndex)
             'r = dgv.Rows(dgv.SelectedRows(0).Index)
             r = lv.Items(lv.SelectedIndices(0))
@@ -257,7 +259,8 @@ Public Class MainForm
             Dim i, j As Integer
             Dim item As ListViewItem
             'dgv = m_DataGridViewList(m_Current)
-            lv = m_ListViewList(m_Current)
+            'lv = m_ListViewList(m_Current)
+            lv = CType(m_Captures(m_Current), Capture).ListView
             'm_DataGridViewList(m_Current).Refresh()
             'dgv.DataSource = m_Captures(m_Current).Data
             'i = dgv.Rows.Add()
@@ -291,7 +294,8 @@ Public Class MainForm
         Dim cap As Capture
 
         'dgv = m_DataGridViewList(m_Current)
-        lv = m_ListViewList(m_Current)
+        'lv = m_ListViewList(m_Current)
+        lv = CType(m_Captures(m_Current), Capture).ListView
         cap = m_Captures(m_Current)
 
         cap.clearData()
@@ -308,10 +312,12 @@ Public Class MainForm
         Dim r As DataRow
 
         'If m_DataGridViewList.Count > 0 Then
-        If m_ListViewList.Count > 0 Then
+        'If m_ListViewList.Count > 0 Then
+        If m_Captures.Count > 0 Then
 
             'dgv = m_DataGridViewList(m_Current)
-            lv = m_ListViewList(m_Current)
+            'lv = m_ListViewList(m_Current)
+            lv = CType(m_Captures(m_Current), Capture).ListView
             cap = m_Captures(m_Current)
 
             'If cap.Data.Rows.Count > dgv.Rows.Count Then
@@ -370,7 +376,8 @@ Public Class MainForm
             tmUpdateData.Stop()
 
             'dgv = m_DataGridViewList(m_Current)
-            lv = m_ListViewList(m_Current)
+            'lv = m_ListViewList(m_Current)
+            lv = CType(m_Captures(m_Current), Capture).ListView
             cap = m_Captures(m_Current)
 
             cap.StopCapture()
@@ -379,7 +386,8 @@ Public Class MainForm
             'RemoveHandler dgv.RowEnter, AddressOf DGV_RowEnter
             RemoveHandler lv.SelectedIndexChanged, AddressOf LV_SelectedIndexChanged
             'm_DataGridViewList.Remove(dgv)
-            m_ListViewList.Remove(lv)
+            'm_ListViewList.Remove(lv)
+            cap.ListView = Nothing
             'TCMain.TabPages.Item(m_Current).Controls.Remove(dgv)
             TCMain.TabPages.Item(m_Current).Controls.Remove(lv)
 
@@ -502,6 +510,8 @@ Public Class MainForm
         miSendPacket.PerformClick()
     End Sub
 
+#End Region
+
     Private Sub miAutoScrollToLast_Click(sender As Object, e As EventArgs) Handles miAutoScrollToLast.Click
         tsbAutoScrollToLast.Checked = miAutoScrollToLast.Checked
     End Sub
@@ -543,7 +553,8 @@ Public Class MainForm
             Exit Sub
         End If
 
-        lv = m_ListViewList(m_Current)
+        'lv = m_ListViewList(m_Current)
+        lv = CType(m_Captures(m_Current), Capture).ListView
         If lv.Items.Count = 0 Then
             Exit Sub
         End If
@@ -565,7 +576,8 @@ Public Class MainForm
             Exit Sub
         End If
 
-        lv = m_ListViewList(m_Current)
+        'lv = m_ListViewList(m_Current)
+        lv = CType(m_Captures(m_Current), Capture).ListView
         If lv.Items.Count = 0 Then
             Exit Sub
         End If
@@ -585,7 +597,8 @@ Public Class MainForm
             Exit Sub
         End If
 
-        lv = m_ListViewList(m_Current)
+        'lv = m_ListViewList(m_Current)
+        lv = CType(m_Captures(m_Current), Capture).ListView
         If lv.Items.Count = 0 Then
             Exit Sub
         End If
@@ -603,7 +616,8 @@ Public Class MainForm
             Exit Sub
         End If
 
-        lv = m_ListViewList(m_Current)
+        'lv = m_ListViewList(m_Current)
+        lv = CType(m_Captures(m_Current), Capture).ListView
         If lv.Items.Count = 0 Then
             Exit Sub
         End If
@@ -623,7 +637,8 @@ Public Class MainForm
             Exit Sub
         End If
 
-        lv = m_ListViewList(m_Current)
+        'lv = m_ListViewList(m_Current)
+        lv = CType(m_Captures(m_Current), Capture).ListView
         If lv.Items.Count = 0 Then
             Exit Sub
         End If
@@ -646,6 +661,24 @@ Public Class MainForm
 
     End Sub
 
-#End Region
+    Private Sub miSave_Click(sender As Object, e As EventArgs) Handles miSave.Click
+
+        If SFD.ShowDialog = DialogResult.OK Then
+
+        End If
+    End Sub
+
+    Private Sub miSaveAs_Click(sender As Object, e As EventArgs) Handles miSaveAs.Click
+
+    End Sub
+
+    Private Sub miSaveSelected_Click(sender As Object, e As EventArgs) Handles miSaveSelected.Click
+
+    End Sub
+
+    Private Sub miOpen_Click(sender As Object, e As EventArgs) Handles miOpen.Click
+
+    End Sub
+
 
 End Class
