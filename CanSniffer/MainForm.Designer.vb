@@ -145,6 +145,7 @@ Partial Class MainForm
         Me.miOpenRecent.Name = "miOpenRecent"
         Me.miOpenRecent.Size = New System.Drawing.Size(180, 22)
         Me.miOpenRecent.Text = "打开最近"
+        Me.miOpenRecent.Visible = False
         '
         'ToolStripMenuItem3
         '
@@ -197,6 +198,7 @@ Partial Class MainForm
         Me.miEdit.Name = "miEdit"
         Me.miEdit.Size = New System.Drawing.Size(44, 21)
         Me.miEdit.Text = "编辑"
+        Me.miEdit.Visible = False
         '
         'miCopy
         '
@@ -241,8 +243,9 @@ Partial Class MainForm
         'miSetup
         '
         Me.miSetup.Name = "miSetup"
-        Me.miSetup.Size = New System.Drawing.Size(160, 22)
+        Me.miSetup.Size = New System.Drawing.Size(180, 22)
         Me.miSetup.Text = "设置"
+        Me.miSetup.Visible = False
         '
         'miNav
         '
@@ -310,19 +313,22 @@ Partial Class MainForm
         'miSelectInterface
         '
         Me.miSelectInterface.Name = "miSelectInterface"
-        Me.miSelectInterface.Size = New System.Drawing.Size(124, 22)
+        Me.miSelectInterface.Size = New System.Drawing.Size(180, 22)
         Me.miSelectInterface.Text = "选择设备"
+        Me.miSelectInterface.Visible = False
         '
         'miOptions
         '
         Me.miOptions.Name = "miOptions"
-        Me.miOptions.Size = New System.Drawing.Size(124, 22)
+        Me.miOptions.Size = New System.Drawing.Size(180, 22)
         Me.miOptions.Text = "选项"
+        Me.miOptions.Visible = False
         '
         'ToolStripMenuItem11
         '
         Me.ToolStripMenuItem11.Name = "ToolStripMenuItem11"
-        Me.ToolStripMenuItem11.Size = New System.Drawing.Size(121, 6)
+        Me.ToolStripMenuItem11.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripMenuItem11.Visible = False
         '
         'miStart
         '
@@ -345,13 +351,15 @@ Partial Class MainForm
         'ToolStripMenuItem12
         '
         Me.ToolStripMenuItem12.Name = "ToolStripMenuItem12"
-        Me.ToolStripMenuItem12.Size = New System.Drawing.Size(121, 6)
+        Me.ToolStripMenuItem12.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripMenuItem12.Visible = False
         '
         'miFilter
         '
         Me.miFilter.Name = "miFilter"
-        Me.miFilter.Size = New System.Drawing.Size(124, 22)
+        Me.miFilter.Size = New System.Drawing.Size(180, 22)
         Me.miFilter.Text = "过滤器"
+        Me.miFilter.Visible = False
         '
         'miSend
         '

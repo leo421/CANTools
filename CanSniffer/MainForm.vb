@@ -83,20 +83,57 @@ Public Class MainForm
     End Sub
 
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dim i As Integer
+
         TCMain.TabPages.Clear()
 
         '加载插件
         loadProtocolPlugins()
 
         cbProtocol.SelectedIndex = 0
+
+        For i = 0 To cbProtocol.Items.Count - 1
+            If cbProtocol.Items.Item(i).ToString = "通用协议" Then
+                cbProtocol.SelectedIndex = i
+                Exit For
+            End If
+        Next
     End Sub
 
+    Private Function getProtocolFiles() As String()
+        Dim files() As String
+        Dim l As New List(Of String)
+        Dim i As Integer
+        Dim fi As System.IO.FileInfo
+        Dim di As New System.IO.DirectoryInfo("protocols/")
+
+        Try
+            For Each fi In di.GetFiles("protocol*.dll")
+                l.Add(fi.Name.Substring(0, fi.Name.Length - fi.Extension.Length))
+            Next
+
+            If l.Count = 0 Then Return Nothing
+            ReDim files(l.Count - 1)
+            For i = 0 To l.Count - 1
+                files(i) = l(i)
+            Next
+            Return files
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            Return Nothing
+        End Try
+    End Function
     Private Sub loadProtocolPlugins()
         Dim proto As Reflection.Assembly
         Dim m As Object
         Dim p As IProtocol
         Dim proto_name As String
-        Dim protos As String() = {"ProtocolGeneric", "ProtocolAmps", "ProtocolCANOpen"}
+        'Dim protos As String() = {"ProtocolGeneric", "ProtocolAmps", "ProtocolCANOpen"}
+        Dim protos As String() = getProtocolFiles()
+
+        If IsNothing(protos) Then
+            Exit Sub
+        End If
 
         For Each proto_name In protos
             Try

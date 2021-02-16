@@ -43,6 +43,12 @@
         Next
         If m_Protos.Count > 0 Then
             cbProtocol.SelectedIndex = 0
+            For i = 0 To cbProtocol.Items.Count - 1
+                If cbProtocol.Items.Item(i).ToString = "通用协议" Then
+                    cbProtocol.SelectedIndex = i
+                    Exit For
+                End If
+            Next
         End If
 
         Dim search As System.Management.ManagementObjectSearcher
