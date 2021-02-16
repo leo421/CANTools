@@ -133,65 +133,65 @@ Partial Class MainForm
         'miNew
         '
         Me.miNew.Name = "miNew"
-        Me.miNew.Size = New System.Drawing.Size(148, 22)
+        Me.miNew.Size = New System.Drawing.Size(180, 22)
         Me.miNew.Text = "新建"
         '
         'miOpen
         '
         Me.miOpen.Name = "miOpen"
-        Me.miOpen.Size = New System.Drawing.Size(148, 22)
+        Me.miOpen.Size = New System.Drawing.Size(180, 22)
         Me.miOpen.Text = "打开"
         '
         'miOpenRecent
         '
         Me.miOpenRecent.Name = "miOpenRecent"
-        Me.miOpenRecent.Size = New System.Drawing.Size(148, 22)
+        Me.miOpenRecent.Size = New System.Drawing.Size(180, 22)
         Me.miOpenRecent.Text = "打开最近"
         Me.miOpenRecent.Visible = False
         '
         'ToolStripMenuItem3
         '
         Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
-        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(145, 6)
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(177, 6)
         '
         'miSave
         '
         Me.miSave.Name = "miSave"
-        Me.miSave.Size = New System.Drawing.Size(148, 22)
+        Me.miSave.Size = New System.Drawing.Size(180, 22)
         Me.miSave.Text = "保存"
         '
         'miSaveAs
         '
         Me.miSaveAs.Name = "miSaveAs"
-        Me.miSaveAs.Size = New System.Drawing.Size(148, 22)
+        Me.miSaveAs.Size = New System.Drawing.Size(180, 22)
         Me.miSaveAs.Text = "另存为"
         '
         'miSaveSelected
         '
         Me.miSaveSelected.Name = "miSaveSelected"
-        Me.miSaveSelected.Size = New System.Drawing.Size(148, 22)
+        Me.miSaveSelected.Size = New System.Drawing.Size(180, 22)
         Me.miSaveSelected.Text = "保存选择数据"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(145, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(177, 6)
         '
         'miClose
         '
         Me.miClose.Name = "miClose"
-        Me.miClose.Size = New System.Drawing.Size(148, 22)
+        Me.miClose.Size = New System.Drawing.Size(180, 22)
         Me.miClose.Text = "关闭"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(145, 6)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(177, 6)
         '
         'miExit
         '
         Me.miExit.Name = "miExit"
-        Me.miExit.Size = New System.Drawing.Size(148, 22)
+        Me.miExit.Size = New System.Drawing.Size(180, 22)
         Me.miExit.Text = "退出"
         '
         'miEdit
@@ -200,52 +200,57 @@ Partial Class MainForm
         Me.miEdit.Name = "miEdit"
         Me.miEdit.Size = New System.Drawing.Size(44, 21)
         Me.miEdit.Text = "编辑"
-        Me.miEdit.Visible = False
         '
         'miCopy
         '
         Me.miCopy.Name = "miCopy"
-        Me.miCopy.Size = New System.Drawing.Size(160, 22)
+        Me.miCopy.Size = New System.Drawing.Size(180, 22)
         Me.miCopy.Text = "复制"
+        Me.miCopy.Visible = False
         '
         'miFind
         '
         Me.miFind.Name = "miFind"
-        Me.miFind.Size = New System.Drawing.Size(160, 22)
+        Me.miFind.Size = New System.Drawing.Size(180, 22)
         Me.miFind.Text = "查找"
+        Me.miFind.Visible = False
         '
         'miFindNext
         '
         Me.miFindNext.Name = "miFindNext"
-        Me.miFindNext.Size = New System.Drawing.Size(160, 22)
+        Me.miFindNext.Size = New System.Drawing.Size(180, 22)
         Me.miFindNext.Text = "查找下一个"
+        Me.miFindNext.Visible = False
         '
         'miFinePrevious
         '
         Me.miFinePrevious.Name = "miFinePrevious"
-        Me.miFinePrevious.Size = New System.Drawing.Size(160, 22)
+        Me.miFinePrevious.Size = New System.Drawing.Size(180, 22)
         Me.miFinePrevious.Text = "查找上一个"
+        Me.miFinePrevious.Visible = False
         '
         'ToolStripMenuItem19
         '
         Me.ToolStripMenuItem19.Name = "ToolStripMenuItem19"
-        Me.ToolStripMenuItem19.Size = New System.Drawing.Size(157, 6)
+        Me.ToolStripMenuItem19.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripMenuItem19.Visible = False
         '
         'miDeleteAll
         '
         Me.miDeleteAll.Name = "miDeleteAll"
-        Me.miDeleteAll.Size = New System.Drawing.Size(160, 22)
+        Me.miDeleteAll.Size = New System.Drawing.Size(180, 22)
         Me.miDeleteAll.Text = "删除所有数据包"
         '
         'ToolStripMenuItem8
         '
         Me.ToolStripMenuItem8.Name = "ToolStripMenuItem8"
-        Me.ToolStripMenuItem8.Size = New System.Drawing.Size(157, 6)
+        Me.ToolStripMenuItem8.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripMenuItem8.Visible = False
         '
         'miSetup
         '
         Me.miSetup.Name = "miSetup"
-        Me.miSetup.Size = New System.Drawing.Size(160, 22)
+        Me.miSetup.Size = New System.Drawing.Size(180, 22)
         Me.miSetup.Text = "设置"
         Me.miSetup.Visible = False
         '
