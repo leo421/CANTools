@@ -96,13 +96,13 @@ Partial Class MainForm
         Me.LV = New System.Windows.Forms.ListView()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.TCIMGLIST = New System.Windows.Forms.ImageList(Me.components)
-        Me.cbProtocol = New System.Windows.Forms.ComboBox()
+        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.tDetail = New System.Windows.Forms.RichTextBox()
+        Me.cbProtocol = New System.Windows.Forms.ComboBox()
         Me.SP = New System.IO.Ports.SerialPort(Me.components)
         Me.tmUpdateData = New System.Windows.Forms.Timer(Me.components)
         Me.SFD = New System.Windows.Forms.SaveFileDialog()
         Me.OFD = New System.Windows.Forms.OpenFileDialog()
-        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.MenuStripMain.SuspendLayout()
         Me.ToolStripMain.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -659,6 +659,28 @@ Partial Class MainForm
         Me.TCIMGLIST.Images.SetKeyName(0, "x-expert-chat.png")
         Me.TCIMGLIST.Images.SetKeyName(1, "x-expert-error.png")
         '
+        'Panel1
+        '
+        Me.Panel1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Panel1.BackColor = System.Drawing.Color.White
+        Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel1.Controls.Add(Me.tDetail)
+        Me.Panel1.Location = New System.Drawing.Point(0, 23)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(331, 524)
+        Me.Panel1.TabIndex = 2
+        '
+        'tDetail
+        '
+        Me.tDetail.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.tDetail.Location = New System.Drawing.Point(5, 5)
+        Me.tDetail.Name = "tDetail"
+        Me.tDetail.Size = New System.Drawing.Size(321, 514)
+        Me.tDetail.TabIndex = 0
+        Me.tDetail.Text = ""
+        '
         'cbProtocol
         '
         Me.cbProtocol.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
@@ -669,15 +691,6 @@ Partial Class MainForm
         Me.cbProtocol.Name = "cbProtocol"
         Me.cbProtocol.Size = New System.Drawing.Size(331, 20)
         Me.cbProtocol.TabIndex = 1
-        '
-        'tDetail
-        '
-        Me.tDetail.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.tDetail.Location = New System.Drawing.Point(5, 5)
-        Me.tDetail.Name = "tDetail"
-        Me.tDetail.Size = New System.Drawing.Size(321, 514)
-        Me.tDetail.TabIndex = 0
-        Me.tDetail.Text = ""
         '
         'tmUpdateData
         '
@@ -696,19 +709,6 @@ Partial Class MainForm
         Me.OFD.Filter = "CAN Packet文件|*.csp"
         Me.OFD.Title = "打开文件"
         '
-        'Panel1
-        '
-        Me.Panel1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Panel1.BackColor = System.Drawing.Color.White
-        Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel1.Controls.Add(Me.tDetail)
-        Me.Panel1.Location = New System.Drawing.Point(0, 23)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(331, 524)
-        Me.Panel1.TabIndex = 2
-        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -717,6 +717,7 @@ Partial Class MainForm
         Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.ToolStripMain)
         Me.Controls.Add(Me.MenuStripMain)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStripMain
         Me.Name = "MainForm"
         Me.Text = "CAN Sniffer"
