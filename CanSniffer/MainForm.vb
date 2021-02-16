@@ -157,18 +157,23 @@ Public Class MainForm
         Return dt
     End Function
 
-    Private Sub bindData(lv As DBListView, data As DataTable)
+    'Private Sub bindData(lv As DBListView, data As DataTable)
+    Private Sub bindData(lv As DBListView, data As List(Of String()))
         'dgv.DataSource = data
 
         Dim i As Integer
-        Dim dc As ColumnHeader
+        'Dim dc As ColumnHeader
 
-        For i = 0 To data.Columns.Count - 1
-            dc = lv.Columns.Add(data.Columns(i).ColumnName)
-            'dc = New DataGridViewColumn()
-            'dc.Name = data.Columns(i).ColumnName
-            'dc.CellTemplate = New DataGridViewTextBoxCell()
-            'dgv.Columns.Add(dc)
+        'For i = 0 To data.Columns.Count - 1
+        '    dc = lv.Columns.Add(data.Columns(i).ColumnName)
+        '    'dc = New DataGridViewColumn()
+        '    'dc.Name = data.Columns(i).ColumnName
+        '    'dc.CellTemplate = New DataGridViewTextBoxCell()
+        '    'dgv.Columns.Add(dc)
+        'Next
+
+        For i = 0 To CanSniffer.Capture.COLUMNS.Length - 1
+            lv.Columns.Add(CanSniffer.Capture.COLUMNS(i))
         Next
 
         'For Each c As DataGridViewColumn In dgv.Columns
@@ -309,7 +314,8 @@ Public Class MainForm
         Dim lv As DBListView
         Dim item As ListViewItem
         Dim cap As Capture
-        Dim r As DataRow
+        'Dim r As DataRow
+        Dim r As String()
 
         'If m_DataGridViewList.Count > 0 Then
         'If m_ListViewList.Count > 0 Then
@@ -322,31 +328,36 @@ Public Class MainForm
 
             'If cap.Data.Rows.Count > dgv.Rows.Count Then
 
-            If cap.Data.Rows.Count > lv.Items.Count Then
-                For i = lv.Items.Count To cap.Data.Rows.Count - 1
+            'If cap.Data.Rows.Count > lv.Items.Count Then
+            If cap.Data.Count > lv.Items.Count Then
+                For i = lv.Items.Count To cap.Data.Count - 1
                     'dgv.Rows.Add()
-                    r = cap.Data.Rows(i)
-                    item = lv.Items.Add(r.Item(0))
-                    For j = 1 To r.ItemArray.Length - 1
+                    'r = cap.Data.Rows(i)
+                    r = cap.Data.Item(i)
+                    'item = lv.Items.Add(r.Item(0))
+                    item = lv.Items.Add(r(0))
+                    'For j = 1 To r.ItemArray.Length - 1
+                    For j = 1 To r.Length - 1
                         'dgv.Rows(i).Cells(j).Value = r.Item(j)
-                        item.SubItems.Add(r.Item(j))
+                        'item.SubItems.Add(r.Item(j))
+                        item.SubItems.Add(r(j))
                     Next
 
                 Next
 
-                'If miAutoScrollToLast.Checked Then
-                '        dgv.FirstDisplayedScrollingRowIndex = dgv.Rows.Count - 1
-                '    End If
-                '    If miAutoSelectLast.Checked Then
-                '        For Each row As DataGridViewRow In dgv.SelectedRows
-                '            row.Selected = False
-                '        Next
-                '        'dgv.Rows(dgv.Rows.Count - 1).Selected = True
-                '        dgv.CurrentCell = dgv.Rows(dgv.Rows.Count - 1).Cells(0)
-                '    End If
+                    'If miAutoScrollToLast.Checked Then
+                    '        dgv.FirstDisplayedScrollingRowIndex = dgv.Rows.Count - 1
+                    '    End If
+                    '    If miAutoSelectLast.Checked Then
+                    '        For Each row As DataGridViewRow In dgv.SelectedRows
+                    '            row.Selected = False
+                    '        Next
+                    '        'dgv.Rows(dgv.Rows.Count - 1).Selected = True
+                    '        dgv.CurrentCell = dgv.Rows(dgv.Rows.Count - 1).Cells(0)
+                    '    End If
 
-                'End If
-                If miAutoScrollToLast.Checked Then
+                    'End If
+                    If miAutoScrollToLast.Checked Then
                     'dgv.FirstDisplayedScrollingRowIndex = dgv.Rows.Count - 1
                     lv.EnsureVisible(lv.Items.Count - 1)
                 End If
