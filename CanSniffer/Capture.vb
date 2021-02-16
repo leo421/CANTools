@@ -429,4 +429,56 @@
 
     End Function
 
+    Public Sub SaveSelectedPacket(sFileName As String)
+        Dim p As Integer
+        Dim no As Integer = 0
+        Dim doc As New Xml.XmlDocument
+        Dim eRoot, eSetting, ep As Xml.XmlElement
+        Dim i, j As Integer
+
+
+        doc.LoadXml("<csp/>")
+
+        eRoot = doc.DocumentElement
+        eSetting = doc.CreateElement("setting")
+        If m_Can0 Then
+            eSetting.SetAttribute("can0", "1")
+        Else
+            eSetting.SetAttribute("can0", "0")
+        End If
+        If m_Can1 Then
+            eSetting.SetAttribute("can1", "1")
+        Else
+            eSetting.SetAttribute("can1", "0")
+        End If
+        eSetting.SetAttribute("bitrate", CStr(m_Bitrate))
+        eSetting.SetAttribute("comport", m_SerialPort.PortName)
+        eRoot.AppendChild(eSetting)
+
+        'For i = 0 To m_Data.Count - 1
+        '    ep = doc.CreateElement("p")
+        '    For j = 0 To COLUMNS.Count - 1
+        '        ep.SetAttribute(COLUMNS(j), m_Data(i)(j))
+        '    Next
+        '    eRoot.AppendChild(ep)
+        'Next
+
+        For Each p In ListView.SelectedIndices
+            ep = doc.CreateElement("p")
+            ep.SetAttribute("No", no)
+            no += 1
+            For j = 1 To COLUMNS.Count - 1
+                ep.SetAttribute(COLUMNS(j), m_Data(p)(j))
+            Next
+            eRoot.AppendChild(ep)
+        Next
+
+        Try
+            doc.Save(sFileName)
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+
+    End Sub
+
 End Class

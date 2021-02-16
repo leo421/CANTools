@@ -699,7 +699,24 @@ Public Class MainForm
     End Sub
 
     Private Sub miSaveSelected_Click(sender As Object, e As EventArgs) Handles miSaveSelected.Click
+        Dim cap As Capture
 
+        If m_Current < 0 Then
+            MsgBox("没有需要保存的数据！")
+            Exit Sub
+        End If
+
+        cap = CType(m_Captures(m_Current), Capture)
+
+        If cap.ListView.SelectedIndices.Count < 1 Then
+            MsgBox("请选择需要保存的数据包！")
+            Exit Sub
+        End If
+        If SFD.ShowDialog <> DialogResult.OK Then
+            Exit Sub
+        End If
+
+        cap.SaveSelectedPacket(SFD.FileName)
     End Sub
 
     Private Sub miOpen_Click(sender As Object, e As EventArgs) Handles miOpen.Click
