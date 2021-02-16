@@ -135,6 +135,10 @@
         m_SerialPort.PortName = com
     End Sub
 
+    Public Function getCOM() As String
+        Return m_SerialPort.PortName
+    End Function
+
     Public Function StartCapture() As Boolean
         '开启串口
         Try
@@ -343,11 +347,86 @@
     End Sub
 
     Public Sub SaveFile()
-        'TODO
+        Dim doc As New Xml.XmlDocument
+        Dim eRoot, eSetting, ep As Xml.XmlElement
+        Dim i, j As Integer
+
+        doc.LoadXml("<csp/>")
+
+        eRoot = doc.DocumentElement
+        eSetting = doc.CreateElement("setting")
+        If m_Can0 Then
+            eSetting.SetAttribute("can0", "1")
+        Else
+            eSetting.SetAttribute("can0", "0")
+        End If
+        If m_Can1 Then
+            eSetting.SetAttribute("can1", "1")
+        Else
+            eSetting.SetAttribute("can1", "0")
+        End If
+        eSetting.SetAttribute("bitrate", CStr(m_Bitrate))
+        eSetting.SetAttribute("comport", m_SerialPort.PortName)
+        eRoot.AppendChild(eSetting)
+
+        For i = 0 To m_Data.Count - 1
+            ep = doc.CreateElement("p")
+            For j = 0 To COLUMNS.Count - 1
+                ep.SetAttribute(COLUMNS(j), m_Data(i)(j))
+            Next
+            eRoot.AppendChild(ep)
+        Next
+
+        Try
+            doc.Save(m_FileName)
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
     End Sub
 
-    Public Sub OpenFile()
-        'TODO
-    End Sub
+    Public Function OpenFile() As Boolean
+        Dim doc As New Xml.XmlDocument
+        Dim eRoot, eSetting, ep As Xml.XmlElement
+        Dim i, j As Integer
+
+        m_NewFile = False
+
+        Try
+            doc.Load(m_FileName)
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            Return False
+        End Try
+
+        eRoot = doc.DocumentElement
+
+        eSetting = eRoot.SelectSingleNode("setting")
+        If eSetting.GetAttribute("can0") = "1" Then
+            m_Can0 = True
+        Else
+            m_Can0 = False
+        End If
+        If eSetting.GetAttribute("can1") = "1" Then
+            m_Can1 = True
+        Else
+            m_Can1 = False
+        End If
+        m_Bitrate = CInt(eSetting.GetAttribute("bitrate"))
+        m_SerialPort.PortName = eSetting.GetAttribute("comport")
+
+        For Each ep In eRoot.ChildNodes
+            If ep.Name = "p" Then
+                Dim r() As String
+                ReDim r(9)
+                For i = 0 To 9
+                    r(i) = ep.Attributes().Item(i).Value
+                Next
+                m_Data.Add(r)
+            End If
+        Next
+
+        Return True
+
+    End Function
 
 End Class

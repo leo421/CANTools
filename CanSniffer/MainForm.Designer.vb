@@ -131,64 +131,64 @@ Partial Class MainForm
         'miNew
         '
         Me.miNew.Name = "miNew"
-        Me.miNew.Size = New System.Drawing.Size(148, 22)
+        Me.miNew.Size = New System.Drawing.Size(180, 22)
         Me.miNew.Text = "新建"
         '
         'miOpen
         '
         Me.miOpen.Name = "miOpen"
-        Me.miOpen.Size = New System.Drawing.Size(148, 22)
+        Me.miOpen.Size = New System.Drawing.Size(180, 22)
         Me.miOpen.Text = "打开"
         '
         'miOpenRecent
         '
         Me.miOpenRecent.Name = "miOpenRecent"
-        Me.miOpenRecent.Size = New System.Drawing.Size(148, 22)
+        Me.miOpenRecent.Size = New System.Drawing.Size(180, 22)
         Me.miOpenRecent.Text = "打开最近"
         '
         'ToolStripMenuItem3
         '
         Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
-        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(145, 6)
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(177, 6)
         '
         'miSave
         '
         Me.miSave.Name = "miSave"
-        Me.miSave.Size = New System.Drawing.Size(148, 22)
+        Me.miSave.Size = New System.Drawing.Size(180, 22)
         Me.miSave.Text = "保存"
         '
         'miSaveAs
         '
         Me.miSaveAs.Name = "miSaveAs"
-        Me.miSaveAs.Size = New System.Drawing.Size(148, 22)
+        Me.miSaveAs.Size = New System.Drawing.Size(180, 22)
         Me.miSaveAs.Text = "另存为"
         '
         'miSaveSelected
         '
         Me.miSaveSelected.Name = "miSaveSelected"
-        Me.miSaveSelected.Size = New System.Drawing.Size(148, 22)
+        Me.miSaveSelected.Size = New System.Drawing.Size(180, 22)
         Me.miSaveSelected.Text = "保存选择数据"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(145, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(177, 6)
         '
         'miClose
         '
         Me.miClose.Name = "miClose"
-        Me.miClose.Size = New System.Drawing.Size(148, 22)
+        Me.miClose.Size = New System.Drawing.Size(180, 22)
         Me.miClose.Text = "关闭"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(145, 6)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(177, 6)
         '
         'miExit
         '
         Me.miExit.Name = "miExit"
-        Me.miExit.Size = New System.Drawing.Size(148, 22)
+        Me.miExit.Size = New System.Drawing.Size(180, 22)
         Me.miExit.Text = "退出"
         '
         'miEdit
@@ -678,7 +678,6 @@ Partial Class MainForm
         '
         'SFD
         '
-        Me.SFD.CheckFileExists = True
         Me.SFD.DefaultExt = "csp"
         Me.SFD.Filter = "CAN Packet文件|*.csp"
         Me.SFD.Title = "保存文件"

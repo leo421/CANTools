@@ -17,9 +17,6 @@ Public Class MainForm
     Private m_Protos As New List(Of IProtocol)
 
     Private Sub miNew_Click(sender As Object, e As EventArgs) Handles miNew.Click
-        Dim r As DataRow
-        Dim dt As DataTable
-
         Dim tp As TabPage
 
         Dim fnc As frmNewCapture = New frmNewCapture()
@@ -41,21 +38,6 @@ Public Class MainForm
         tp.ImageIndex = 0
         TCMain.TabPages.Add(tp)
 
-        'Dim dgv As DataGridView
-        'dgv = New DataGridView()
-        'tp.Controls.Add(dgv)
-        'With dgv
-        '    .Dock = DockStyle.Fill
-        '    .BackgroundColor = System.Drawing.SystemColors.ControlLightLight
-        '    .AllowUserToAddRows = False
-        '    .AllowUserToResizeRows = False
-        '    .AllowUserToDeleteRows = False
-        '    .BorderStyle = BorderStyle.None
-        '    .ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        '    .ReadOnly = True
-        '    .SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        'End With
-        'm_DataGridViewList.Add(dgv)
         Dim lv As DBListView
         lv = New DBListView
         tp.Controls.Add(lv)
@@ -68,7 +50,6 @@ Public Class MainForm
             .View = View.Details
             .FullRowSelect = True
         End With
-        'm_ListViewList.Add(lv)
 
         TCMain.SelectedIndex = m_Captures.Count
 
@@ -88,7 +69,6 @@ Public Class MainForm
 
         bindData(lv, c.Data)
 
-        'AddHandler dgv.RowEnter, AddressOf DGV_RowEnter
         AddHandler lv.SelectedIndexChanged, AddressOf LV_SelectedIndexChanged
 
 
@@ -686,6 +666,7 @@ Public Class MainForm
                 Exit Sub
             End If
             cap.FileName = SFD.FileName
+            TCMain.TabPages.Item(m_Current).Text &= " - " & SFD.FileName
         End If
 
         If Not cap.NewFile Then
@@ -710,6 +691,9 @@ Public Class MainForm
         End If
         cap.FileName = SFD.FileName
 
+        TCMain.TabPages.Item(m_Current).Text = Split(TCMain.TabPages.Item(m_Current).Text, " - ")(0)
+        TCMain.TabPages.Item(m_Current).Text &= " - " & SFD.FileName
+
         cap.SaveFile()
 
     End Sub
@@ -720,20 +704,63 @@ Public Class MainForm
 
     Private Sub miOpen_Click(sender As Object, e As EventArgs) Handles miOpen.Click
         Dim cap As Capture
+        Dim tp As TabPage
+
+        Dim fnc As frmNewCapture = New frmNewCapture()
+        Dim tpcap As String = ""
 
         If OFD.ShowDialog <> DialogResult.OK Then
             Exit Sub
         End If
 
-        'TODO
         cap = New Capture()
-        cap.FileName = SFD.FileName
-
-        If Not cap.NewFile Then
+        cap.FileName = OFD.FileName
+        If Not cap.OpenFile() Then
             Exit Sub
         End If
 
-        cap.SaveFile()
+        tpcap = "Capturing (" + cap.getCOM() + ","
+        If cap.CAN0 And cap.CAN1 Then
+            tpcap += "CAN0/CAN1,"
+        ElseIf cap.Can0 Then
+            tpcap += "CAN0,"
+        ElseIf cap.Can1 Then
+            tpcap += "CAN1,"
+        End If
+        tpcap += CStr(cap.Bitrate) + "kbps) - " + OFD.FileName
+        tp = New TabPage(tpcap)
+        tp.ImageIndex = 0
+        TCMain.TabPages.Add(tp)
+
+        Dim lv As DBListView
+        lv = New DBListView
+        tp.Controls.Add(lv)
+        With lv
+            .Dock = DockStyle.Fill
+            .BackColor = System.Drawing.SystemColors.ControlLightLight
+            .HeaderStyle = ColumnHeaderStyle.Nonclickable
+            .HideSelection = False
+            .BorderStyle = BorderStyle.FixedSingle
+            .View = View.Details
+            .FullRowSelect = True
+        End With
+
+        TCMain.SelectedIndex = m_Captures.Count
+
+        'c.setCOM(fnc.ComPort)
+        'c.Bitrate = fnc.Bitrate
+        'c.CAN0 = fnc.Can0
+        'c.CAN1 = fnc.Can1
+        cap.MainForm = Me
+        cap.ListView = lv
+
+        m_Captures.Add(cap)
+        m_Current = m_Captures.Count - 1
+        tp.ImageIndex = 1
+
+        bindData(lv, cap.Data)
+
+        AddHandler lv.SelectedIndexChanged, AddressOf LV_SelectedIndexChanged
 
     End Sub
 
